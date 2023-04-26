@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http//thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Status</th>
+
+</tr>
+
+<div th:each="task : ${list}">
+    <td th:text="${task.id}"></td>
+    <td th:text="${task.name}"></td>
+    <td th:text="${task.status}" ></td>
+</div>
+
+</body>
+</html>
