@@ -63,5 +63,20 @@ public class Database implements DatabaseInterface {
         }
     }
 
+    public void updateTask(Task task){
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "update Projectmanagement.task set taskName=?, taskState=? where taskId=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setString(1,task.getName());
+            ps.setInt(2,task.getState());
+            ps.setInt(3,task.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
