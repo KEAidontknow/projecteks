@@ -38,5 +38,11 @@ public class WebController {
         return "redirect:/showTask";
     }
 
+    @PostMapping("/updateTask")
+    public String updateTask(@ModelAttribute("task") Task task) {
+
+        return "redirect:/taskList";
+    }
+
 
 }
