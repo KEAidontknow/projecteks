@@ -8,17 +8,17 @@ CREATE TABLE user
     userName VARCHAR(255) NOT NULL PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
     FOREIGN KEY (project_id) REFERENCES project (id)
-)
+);
 
 CREATE TABLE project
 (
-    id   INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     FOREIGN KEY (task_id) REFERENCES task (id)
-)
+);
 
 CREATE TABLE task
 (
-    id   INT          NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
+    id   INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 )
