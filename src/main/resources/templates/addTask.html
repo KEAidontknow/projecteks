@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http//thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" th:action="@{taskAdded}" method="POST" th:object="${task}">
+  <label for="name">Task name:</label>
+  <input type="text" id="name" name="name" th:value="*{name}" required>
+    <label for="state">Status:</label>
+    <input type="number" id="state" name="state" th:value="*{state}" required>
+
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

@@ -8,5 +8,5 @@ public interface DatabaseInterface {
     ArrayList<Task> getTasks();
 
 
-
+    void addTask(Task task);
 }

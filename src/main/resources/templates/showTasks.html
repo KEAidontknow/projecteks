@@ -13,10 +13,16 @@
 </tr>
 
 <div th:each="task : ${list}">
-    <td th:text="${task.id}"></td>
-    <td th:text="${task.name}"></td>
-    <td th:text="${task.status}" ></td>
+    <tr>
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.name}"></td>
+        <td th:text="${task.state}" ></td>
+    </tr>
 </div>
+
+<a th:href="@{addTask}">
+    <button>add new Task</button>
+</a>
 
 </body>
 </html>

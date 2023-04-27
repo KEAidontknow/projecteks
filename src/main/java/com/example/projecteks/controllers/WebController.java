@@ -1,10 +1,11 @@
 package com.example.projecteks.controllers;
 
+import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class WebController {
@@ -15,5 +16,16 @@ public class WebController {
 
         return "showTasks";
     }
+    @GetMapping("addTask")
+    private String addTask(Model model){
+        model.addAttribute("task", new Task());
+        return "addTask";
+    }
+    @PostMapping("taskAdded")
+    private String taskAdded(@ModelAttribute Task task){
+        database.addTask(task);
+        return "redirect:/showTask";
+    }
+
 
 }
