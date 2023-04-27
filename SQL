@@ -1,0 +1,19 @@
+drop database if exists Projectmanagement;
+create database Projectmanagement;
+
+use Projectmanagement;
+
+create table project(
+projectId int auto_increment,
+projectName varchar(20) not null,
+primary key(projectId)
+);
+
+create table task(
+taskId int auto_increment,
+taskName varchar(20) not null,
+taskState tinyint,
+primary key(taskId)
+
+
+);
