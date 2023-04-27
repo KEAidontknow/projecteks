@@ -2,9 +2,11 @@
 <html xmlns:th="http//thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/TableStyle.css}" rel="stylesheet" >
     <title>Title</title>
 </head>
 <body>
+<table>
 <tr>
     <th>Id</th>
     <th>Name</th>
@@ -16,13 +18,15 @@
     <tr>
         <td th:text="${task.id}"></td>
         <td th:text="${task.name}"></td>
-        <td th:text="${task.state}" ></td>
+        <td th:if="${task.state}==1 "><a style="color: crimson;">TODO</a></td>
+        <td th:if="${task.state}==2 " ><a style="color: gold;">In Progress</a></td>
+        <td th:if="${task.state}==3 " ><a style="color: green;">Done</a></td>
         <td><a th:href="@{removeTask/{taskId}(taskId=${task.id})}">
             <button>Delete Task</button>
         </a></td>
     </tr>
 </div>
-
+</table>
 <a th:href="@{addTask}">
     <button>add new Task</button>
 </a>
