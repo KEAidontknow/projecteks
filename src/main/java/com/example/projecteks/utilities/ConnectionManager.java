@@ -10,8 +10,8 @@ public class ConnectionManager {
     public static Connection getConnection(){
 
         String url = "jdbc:mysql://localhost:3306/Projectmanagement";
-        String username;
-        String password;
+        String username = "testuser";
+        String password = "Sivertsen13";
 
         if(con == null) {
             try {
