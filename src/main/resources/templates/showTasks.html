@@ -17,6 +17,9 @@
         <td th:text="${task.id}"></td>
         <td th:text="${task.name}"></td>
         <td th:text="${task.state}" ></td>
+        <td><a th:href="@{removeTask/{taskId}(taskId=${task.id})}">
+            <button>Delete Task</button>
+        </a></td>
     </tr>
 </div>
 

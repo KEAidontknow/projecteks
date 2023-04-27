@@ -18,10 +18,10 @@ public class Database implements DatabaseInterface {
         ArrayList<Task> list = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
-        String SQLCommand = "select * from Projectmanagement.task";
+        String SQLScript = "select * from Projectmanagement.task";
 
         try {
-            ResultSet rs = con.createStatement().executeQuery(SQLCommand);
+            ResultSet rs = con.createStatement().executeQuery(SQLScript);
             while (rs.next()){
                 Task task = new Task();
                 task.setId(rs.getInt("taskId"));
@@ -37,10 +37,10 @@ public class Database implements DatabaseInterface {
 
     public void addTask(Task task){
         Connection con = ConnectionManager.getConnection();
-        String SQLCommand = "insert into Projectmanagement.task (taskName,taskState) values(?,?)";
+        String SQLScript = "insert into Projectmanagement.task (taskName,taskState) values(?,?)";
 
         try {
-            PreparedStatement ps = con.prepareStatement(SQLCommand);
+            PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
             ps.executeUpdate();
@@ -48,6 +48,19 @@ public class Database implements DatabaseInterface {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void removeTask(int taskId){
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "delete from Projectmanagement.task where taskId = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1,taskId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

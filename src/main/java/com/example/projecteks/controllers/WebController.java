@@ -26,6 +26,17 @@ public class WebController {
         database.addTask(task);
         return "redirect:/showTask";
     }
+    @GetMapping("removeTask/{taskId}")
+    private String removeTask(@PathVariable int taskId){
+        database.removeTask(taskId);
+        return "redirect:/showTask";
+    }
+    private String taskRemoved(@ModelAttribute int taskId){
+
+        database.removeTask(taskId);
+
+        return "redirect:/showTask";
+    }
 
 
 }

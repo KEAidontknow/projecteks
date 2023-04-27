@@ -9,4 +9,6 @@ public interface DatabaseInterface {
 
 
     void addTask(Task task);
+
+    void removeTask(int taskId);
 }
