@@ -23,6 +23,10 @@ create table task
     taskName   varchar(20) not null,
     taskState  tinyint,
     project_id int         not null,
+    creationDate DATE,
+    deadline    DATE,
     primary key (taskId),
     foreign key (project_id) references project (projectid)
+
+
 );
