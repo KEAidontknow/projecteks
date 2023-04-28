@@ -45,8 +45,9 @@ public class Database implements DatabaseInterface {
             //Oprettelsesdatoer & deadlines
             ps.setTimestamp(3, new Timestamp(task.getCreationDate().getTime())); // set creation date
 
-            LocalDate deadline = LocalDate.parse(task.getDeadline());
-            ps.setDate(4, java.sql.Date.valueOf(deadline)); ps.executeUpdate();
+            LocalDate deadline = task.getDeadline();
+            ps.setDate(4, java.sql.Date.valueOf(deadline));
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

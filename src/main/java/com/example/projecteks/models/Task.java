@@ -1,12 +1,13 @@
 package com.example.projecteks.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Task {
     private String name;
     private int id;
     private int state; // 1=to do, 2= in progress, 3 = done
-    private String Deadline;
+    private LocalDate deadline;
     private Date creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
 
 
@@ -42,12 +43,12 @@ public class Task {
         this.id = id;
     }
 
-    public String getDeadline () {
-        return Deadline;
+    public LocalDate getDeadline () {
+        return deadline;
     }
 
-    public void setDealine ( String Deadline){
-        this.Deadline = Deadline;
+    public void setDealine ( LocalDate Deadline){
+        this.deadline = Deadline;
     }
 
     public Date getCreationDate() {
