@@ -40,8 +40,9 @@ public class WebController {
 
     @PostMapping("/updateTask")
     public String updateTask(@ModelAttribute("task") Task task) {
+        database.updateTask(task);
 
-        return "redirect:/taskList";
+        return "redirect:/tasks";
     }
 
 

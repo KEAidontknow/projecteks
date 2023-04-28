@@ -2,18 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Update Task</title>
+  <title>updateTask</title>
 </head>
 <body>
-<form action="#" th:action="@{/updateTask}" method="POST" th:object="${task}">
-  <input type="hidden" th:field="*{Task.id}">
-  <label for="name">Name:</label>
-  <input type="text" id="name" name="name" th:field="*{Task.name}" /><br>
+<form action="@{/updateTask}" method="POST" th:object="${task}">
+  <input type="hidden" th:field="*{id}">
+  <label for="name">name:</label>
+  <input type="text" id="name" name="name" th:field="*{name}" /><br>
   <label for="state">State:</label>
-  <select id="state" name="state" th:field="*{Task.state}">
-    <option value="TODO" th:selected="${Task.state == 'TODO'}">TODO</option>
-    <option value="In Progress" th:selected="${Task.state == 'In Progress'}">In Progress</option>
-    <option value="Done" th:selected="${Task.state == 'Done'}">Done</option>
+  <select id="state" name="state" th:field="*{state}">
+    <option value="TODO" th:selected="${task.state == 'TODO'}">TODO</option>
+    <option value="In Progress" th:selected="${task.state == 'In Progress'}">In Progress</option>
+    <option value="Done" th:selected="${task.state == 'Done'}">Done</option>
   </select><br>
   <input type="submit" value="Update Task">
 </form>
