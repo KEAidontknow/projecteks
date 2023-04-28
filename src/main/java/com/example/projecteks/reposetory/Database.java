@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Repository
@@ -37,13 +38,17 @@ public class Database implements DatabaseInterface {
 
     public void addTask(Task task){
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.task (taskName,taskState) values(?,?)";
+        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,deadline) values(?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
-            ps.executeUpdate();
+            //Oprettelsesdatoer & deadlines
+            ps.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
+
+            LocalDate deadline = LocalDate.parse(task.getDeadline());
+            ps.setDate(4, java.sql.Date.valueOf(deadline));            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
