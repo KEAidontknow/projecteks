@@ -9,7 +9,7 @@
   <input type="hidden" th:field="*{id}">
   <label for="name">name:</label>
   <input type="text" id="name" name="name" th:field="*{name}" /><br>
-  <label for="state">State:</label>
+  <label for="state">state:</label>
   <select id="state" name="state" th:field="*{state}">
     <option value="TODO" th:selected="${task.state == 'TODO'}">TODO</option>
     <option value="In Progress" th:selected="${task.state == 'In Progress'}">In Progress</option>
@@ -18,4 +18,4 @@
   <input type="submit" value="Update Task">
 </form>
 </body>
-</html>
+</html> //SKAL OPDATERE NAVN ISTEDET

@@ -38,7 +38,8 @@ public class WebController {
     }
 
 
-    @PostMapping("/updateTask")
+
+    @GetMapping("/updateTask")
     public String updateTask(@ModelAttribute("task") Task task) {
         database.updateTask(task);
 

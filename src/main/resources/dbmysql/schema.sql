@@ -1,27 +1,28 @@
-DROP DATABASE IF EXISTS project_db;
+drop database if exists Projectmanagement;
+create database Projectmanagement;
 
-CREATE DATABASE project_DB;
-USE project_DB;
-
+use Projectmanagement;
 CREATE TABLE user
 (
     userName VARCHAR(255) NOT NULL PRIMARY KEY,
-    password VARCHAR(255) NOT NULL,
-    FOREIGN KEY (project_id) REFERENCES project (id)
+    password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE project
+create table project
 (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    FOREIGN KEY (task_id) REFERENCES task (id)
+    projectId   int auto_increment,
+    projectName varchar(20) not null,
+    userName varchar(255) NOT NULL,
+    primary key (projectId),
+    foreign key (userName) references user (userName)
 );
 
-CREATE TABLE task
+create table task
 (
-    id   INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-        creationDate DATE,
-    deadline    DATE
+    taskId     int auto_increment,
+    taskName   varchar(20) not null,
+    taskState  tinyint,
+    project_id int         not null,
+    primary key (taskId),
+    foreign key (project_id) references project (projectid)
 );
-
