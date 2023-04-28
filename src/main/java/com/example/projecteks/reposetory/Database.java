@@ -4,10 +4,7 @@ import com.example.projecteks.models.Task;
 import com.example.projecteks.utilities.ConnectionManager;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -45,10 +42,10 @@ public class Database implements DatabaseInterface {
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
             //Oprettelsesdatoer & deadlines
-            ps.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
+            ps.setTimestamp(3, new Timestamp(task.getCreationDate().getTime())); // set creation date
 
             LocalDate deadline = LocalDate.parse(task.getDeadline());
-            ps.setDate(4, java.sql.Date.valueOf(deadline));            ps.executeUpdate();
+            ps.setDate(4, java.sql.Date.valueOf(deadline)); ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
