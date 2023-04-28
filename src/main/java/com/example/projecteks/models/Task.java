@@ -4,6 +4,7 @@ public class Task {
     private String name;
     private int id;
     private int state; // 1=to do, 2= in progress, 3 = done
+    private String Deadline;
 
     private enum status {TODO, IN_PROGRESS, DONE}
 
@@ -34,5 +35,13 @@ public class Task {
 
     public void setId ( int id){
         this.id = id;
+    }
+
+    public String getDeadline () {
+        return Deadline;
+    }
+
+    public void setDealine ( String Deadline){
+        this.Deadline = Deadline;
     }
 }
