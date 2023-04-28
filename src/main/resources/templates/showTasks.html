@@ -11,6 +11,8 @@
     <th>Id</th>
     <th>Name</th>
     <th>Status</th>
+    <th>Change status to</th>
+    <th>Edit</th>
 
 </tr>
 
@@ -21,7 +23,7 @@
         <td th:if="${task.state}==1 "><a style="color: crimson;">TODO</a></td>
         <td th:if="${task.state}==2 " ><a style="color: gold;">In Progress</a></td>
         <td th:if="${task.state}==3 " ><a style="color: green;">Done</a></td>
-        <td><a th:href="@{updateTask/{taskId}(taskId=${task.id})}">
+        <td><a th:href="@{updateState/{taskId}/{state}(taskId=${task.id} , state=${task.state})}">
             <button th:if="${task.state==1}">In Progress</button>
             <button th:if="${task.state==2}">Done</button>
             <button th:if="${task.state==3}">Reset</button>

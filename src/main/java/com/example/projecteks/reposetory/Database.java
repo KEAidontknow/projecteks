@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 @Repository
 public class Database implements DatabaseInterface {
@@ -61,6 +62,25 @@ public class Database implements DatabaseInterface {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void updateState(int taskId, int state){
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "update Projectmanagement.task set taskState=? where taskId=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(2,taskId);
+            switch (state) {
+                case(1)->ps.setInt(1, 2);
+                case(2)->ps.setInt(1, 3);
+                case(3)->ps.setInt(1, 1);
+            }
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void updateTask(Task task){

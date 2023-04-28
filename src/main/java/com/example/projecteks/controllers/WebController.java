@@ -31,12 +31,12 @@ public class WebController {
         database.removeTask(taskId);
         return "redirect:/showTask";
     }
-    private String taskRemoved(@ModelAttribute int taskId){
-
-        database.removeTask(taskId);
-
+    @GetMapping("updateState/{taskId}/{state}")
+    private String updateTask(@PathVariable int taskId, @PathVariable int state){
+        database.updateState(taskId,state);
         return "redirect:/showTask";
     }
+
 
     @PostMapping("/updateTask")
     public String updateTask(@ModelAttribute("task") Task task) {
