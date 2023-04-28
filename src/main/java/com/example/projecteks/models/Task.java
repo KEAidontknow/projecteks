@@ -10,6 +10,8 @@ public class Task {
     private Date creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
 
 
+
+
     private enum status {TODO, IN_PROGRESS, DONE}
 
     public int getState() {
@@ -41,14 +43,15 @@ public class Task {
     public void setId ( int id){
         this.id = id;
     }
+    public void setDeadline(String deadline) {
+        this.Deadline = Deadline;
+
+    }
 
     public String getDeadline () {
         return Deadline;
     }
 
-    public void setDealine ( String Deadline){
-        this.Deadline = Deadline;
-    }
 
     public Date getCreationDate() {
         return creationDate;
