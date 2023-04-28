@@ -7,8 +7,6 @@ public class Task {
 
     private enum status {TODO, IN_PROGRESS, DONE}
 
-    ;
-
     public int getState() {
         return state;
     }
