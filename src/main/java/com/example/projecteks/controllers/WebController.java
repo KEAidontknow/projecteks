@@ -1,5 +1,6 @@
 package com.example.projecteks.controllers;
 
+import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping
 public class WebController {
     DatabaseInterface database = new Database();
     @GetMapping("showTask")
@@ -46,5 +48,21 @@ public class WebController {
         return "redirect:/tasks";
     }
 
+    @GetMapping("addProject")
+    public String addProject(Model model){
+        model.addAttribute("project", new Project());
+        return "showProject";
+    }
+    @PostMapping("projectAdded")
+    public String projectAdded(@ModelAttribute Project project){
+        database.addProject(project);
+        return "redirect:/showProject";
+    }
+
+    @DeleteMapping ("deleteProject{projectId}")
+    public String deleteProject (@PathVariable int id){
+        database.deleteProject(id);
+        return "redirect:/showProject";
+    }
 
 }
