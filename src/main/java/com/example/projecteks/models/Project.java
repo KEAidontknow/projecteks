@@ -1,25 +1,24 @@
 package com.example.projecteks.models;
 
 public class Project {
-    String name;
-    int id;
+    private String projectName;
+    private int projectId;
 
-    public Project() {
+    public Project() {}
+
+    public String getProjectName() {
+        return projectName;
     }
 
-    public String getName() {
-        return name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getProjectId() {
+        return projectId;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 }
