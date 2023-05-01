@@ -18,9 +18,8 @@
     <input type="text" id="timeEstimate" name="timeEstimate" th:value="*{timeEstimate}" required>
 
     </select><br>
-    <input type="hidden" id="creationDate" name="creationDate" th:field="*{creationDate}" value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}" />
 
-    <label for="deadline">Start Date:</label>
+    <label for="startDate">Start Date:</label>
     <input type="date" id="startDate" name="startDate" th:field="*{startDate}" />
 
     <label for="deadline">Deadline:</label>

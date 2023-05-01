@@ -66,6 +66,7 @@ public class Database implements DatabaseInterface {
         }
 
     }
+    // Et stykke HTML kode som du skal ignorrere   <input type="hidden" id="creationDate" name="creationDate" th:field="*{creationDate}" value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}" />
 
     public void removeTask(int taskId){
         Connection con = ConnectionManager.getConnection();
