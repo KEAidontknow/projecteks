@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -28,7 +29,7 @@ public class Database implements DatabaseInterface {
                 task.setId(rs.getInt("taskId"));
                 task.setName(rs.getString("taskName"));
                 task.setState(rs.getInt("taskState"));
-                task.setCreationDate(rs.getTimestamp("creationDate"));
+                task.setCreationDate(rs.getString("creationDate"));
                 task.setDeadline(rs.getDate("deadline").toString());
                 list.add(task);
                 list.add(task);
@@ -44,14 +45,21 @@ public class Database implements DatabaseInterface {
         String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,deadline) values(?,?,?,?)";
 
         try {
+
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String currentDateStr = currentDate.format(formatter);
+            task.setCreationDate(currentDateStr);
+
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
             //Oprettelsesdatoer & deadlines
-            ps.setTimestamp(3, new Timestamp(task.getCreationDate().getTime())); // set creation date
+            // Get the current date as a string
+            ps.setString(3, task.getCreationDate());
+            ps.setString(4, task.getDeadline());
 
-            LocalDate deadline = LocalDate.parse(task.getDeadline());
-            ps.setDate(4, java.sql.Date.valueOf(deadline)); ps.executeUpdate();
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

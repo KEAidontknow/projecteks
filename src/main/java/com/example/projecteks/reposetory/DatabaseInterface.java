@@ -12,11 +12,15 @@ public interface DatabaseInterface {
     void addTask(Task task);
 
     void removeTask(int taskId);
-    void updateState(int taskId, int state);
 
+    void updateState(int taskId, int state);
+}
+/*
     void updateTask(Task task);
 
     void addProject(Project project);
 
     void deleteById(int projectID);
 }
+
+ */

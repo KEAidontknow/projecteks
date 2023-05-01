@@ -16,9 +16,11 @@
     </select>
 
     </select><br>
-    <input type="hidden" id="creationDate" name="creationDate" th:field="*{creationDate}" value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}" />
+    <input type="hidden" id="creationDate" name="creationDate" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
     <label for="deadline">Deadline:</label>
     <input type="date" id="deadline" name="deadline" th:field="*{deadline}" /><br>
+
+
     <input type="submit" value="Add Task" />
 
 

@@ -7,7 +7,7 @@ public class Task {
     private int id;
     private int state; // 1=to do, 2= in progress, 3 = done
     private String Deadline;
-    private Date creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
+    private String creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
 
 
     private enum status {TODO, IN_PROGRESS, DONE}
@@ -21,7 +21,6 @@ public class Task {
     }
 
     public Task() {
-        this.creationDate = new Date();
 
     }
 
@@ -51,11 +50,11 @@ public class Task {
     }
 
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 }
