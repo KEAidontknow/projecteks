@@ -59,9 +59,9 @@ public class WebController {
         return "redirect:/showProject";
     }
 
-    @DeleteMapping ("deleteProject{projectId}")
-    public String deleteProject (@PathVariable int id){
-        database.deleteProject(id);
+    @DeleteMapping ("deleteProject{projectID}")
+    public String deleteProject (@PathVariable int projectID){
+        database.deleteById(projectID);
         return "redirect:/showProject";
     }
 

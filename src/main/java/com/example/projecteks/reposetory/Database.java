@@ -1,8 +1,10 @@
 package com.example.projecteks.reposetory;
 
+import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.utilities.ConnectionManager;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -13,7 +15,7 @@ import java.util.concurrent.Callable;
 public class Database implements DatabaseInterface {
 
 
-    public ArrayList<Task> getTasks()throws RuntimeException{
+    public ArrayList<Task> getTasks() throws RuntimeException {
         ArrayList<Task> list = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
@@ -21,7 +23,7 @@ public class Database implements DatabaseInterface {
 
         try {
             ResultSet rs = con.createStatement().executeQuery(SQLScript);
-            while (rs.next()){
+            while (rs.next()) {
                 Task task = new Task();
                 task.setId(rs.getInt("taskId"));
                 task.setName(rs.getString("taskName"));
@@ -37,31 +39,32 @@ public class Database implements DatabaseInterface {
         return list;
     }
 
-    public void addTask(Task task){
+    public void addTask(Task task) {
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,deadline) values(?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setString(1,task.getName());
-            ps.setInt(2,task.getState());
+            ps.setString(1, task.getName());
+            ps.setInt(2, task.getState());
             //Oprettelsesdatoer & deadlines
             ps.setTimestamp(3, new Timestamp(task.getCreationDate().getTime())); // set creation date
 
             LocalDate deadline = LocalDate.parse(task.getDeadline());
-            ps.setDate(4, java.sql.Date.valueOf(deadline)); ps.executeUpdate();
+            ps.setDate(4, java.sql.Date.valueOf(deadline));
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    public void removeTask(int taskId){
+    public void removeTask(int taskId) {
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "delete from Projectmanagement.task where taskId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(1,taskId);
+            ps.setInt(1, taskId);
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -69,17 +72,17 @@ public class Database implements DatabaseInterface {
         }
     }
 
-    public void updateState(int taskId, int state){
+    public void updateState(int taskId, int state) {
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "update Projectmanagement.task set taskState=? where taskId=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(2,taskId);
+            ps.setInt(2, taskId);
             switch (state) {
-                case(1)->ps.setInt(1, 2);
-                case(2)->ps.setInt(1, 3);
-                case(3)->ps.setInt(1, 1);
+                case (1) -> ps.setInt(1, 2);
+                case (2) -> ps.setInt(1, 3);
+                case (3) -> ps.setInt(1, 1);
             }
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -88,20 +91,50 @@ public class Database implements DatabaseInterface {
 
     }
 
-    public void updateTask(Task task){
+    public void updateTask(Task task) {
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "update Projectmanagement.task set taskName=?, taskState=? where taskId=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setString(1,task.getName());
-            ps.setInt(2,task.getState());
-            ps.setInt(3,task.getId());
+            ps.setString(1, task.getName());
+            ps.setInt(2, task.getState());
+            ps.setInt(3, task.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public void addProject(Project project) {
+        Connection conn = ConnectionManager.getConnection();
+        // String SQLScript="insert into project_DB.project(name, id) valued=(?,?) ";
+        String SQL = "INSERT INTO Projectmanagement (projectName,projectId) " + "VALUES (?, ?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setInt(1, project.getProjectId());
+            ps.setString(2, project.getProjectName());
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
+
+        public void deleteById ( int projectId){
+            Connection con = ConnectionManager.getConnection();
+            String SQLScript = "delete from Projectmanagement.project where id=?";
+            try {
+                PreparedStatement ps = con.prepareStatement(SQLScript);
+                ps.setInt(1, projectId);
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+
+            }
+
+        }
+
 
 
 }
