@@ -29,4 +29,6 @@ create table task
     project_id int         not null,
     primary key (taskId),
     foreign key (project_id) references project (projectid)
+
+
 );
