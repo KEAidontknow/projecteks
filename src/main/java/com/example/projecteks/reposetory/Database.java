@@ -1,8 +1,10 @@
 package com.example.projecteks.reposetory;
 
+import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.utilities.ConnectionManager;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -13,7 +15,7 @@ import java.util.concurrent.Callable;
 public class Database implements DatabaseInterface {
 
 
-    public ArrayList<Task> getTasks()throws RuntimeException{
+    public ArrayList<Task> getTasks() throws RuntimeException {
         ArrayList<Task> list = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
@@ -21,12 +23,15 @@ public class Database implements DatabaseInterface {
 
         try {
             ResultSet rs = con.createStatement().executeQuery(SQLScript);
-            while (rs.next()){
+            while (rs.next()) {
                 Task task = new Task();
                 task.setId(rs.getInt("taskId"));
                 task.setName(rs.getString("taskName"));
                 task.setState(rs.getInt("taskState"));
                 task.setTimeEstimate(rs.getInt("timeEstimate"));
+                task.setCreationDate(rs.getTimestamp("creationDate"));
+                task.setDeadline(rs.getDate("deadline").toString());
+                list.add(task);
                 list.add(task);
             }
         } catch (SQLException e) {
