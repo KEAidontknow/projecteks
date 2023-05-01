@@ -8,5 +8,10 @@ public interface DatabaseInterface {
     ArrayList<Task> getTasks();
 
 
+    void addTask(Task task);
 
+    void removeTask(int taskId);
+    void updateState(int taskId, int state);
+
+    void updateTask(Task task);
 }

@@ -5,8 +5,11 @@ import com.example.projecteks.utilities.ConnectionManager;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 @Repository
 public class Database implements DatabaseInterface {
@@ -14,16 +17,85 @@ public class Database implements DatabaseInterface {
 
     public ArrayList<Task> getTasks()throws RuntimeException{
         ArrayList<Task> list = new ArrayList<>();
-        try{
-            Connection con = ConnectionManager.getConnection();
 
-        }catch (SQLException e){
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.task";
+
+        try {
+            ResultSet rs = con.createStatement().executeQuery(SQLScript);
+            while (rs.next()){
+                Task task = new Task();
+                task.setId(rs.getInt("taskId"));
+                task.setName(rs.getString("taskName"));
+                task.setState(rs.getInt("taskState"));
+                list.add(task);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    public void addTask(Task task){
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "insert into Projectmanagement.task (taskName,taskState) values(?,?)";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setString(1,task.getName());
+            ps.setInt(2,task.getState());
+            ps.executeUpdate();
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+    }
 
+    public void removeTask(int taskId){
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "delete from Projectmanagement.task where taskId = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1,taskId);
+            ps.executeUpdate();
 
-        return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateState(int taskId, int state){
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "update Projectmanagement.task set taskState=? where taskId=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(2,taskId);
+            switch (state) {
+                case(1)->ps.setInt(1, 2);
+                case(2)->ps.setInt(1, 3);
+                case(3)->ps.setInt(1, 1);
+            }
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void updateTask(Task task){
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "update Projectmanagement.task set taskName=?, taskState=? where taskId=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setString(1,task.getName());
+            ps.setInt(2,task.getState());
+            ps.setInt(3,task.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

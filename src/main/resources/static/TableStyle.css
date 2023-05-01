@@ -1,0 +1,9 @@
+th, td {
+    border:1px solid black;
+    color: black;
+}
+table{
+    border:1px solid black;
+    min-width: 500px;
+    color: green;
+}

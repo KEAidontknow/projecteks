@@ -20,5 +20,8 @@ CREATE TABLE project
 CREATE TABLE task
 (
     id   INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
-)
+    name VARCHAR(255) NOT NULL,
+        creationDate DATE,
+    deadline    DATE
+);
+
