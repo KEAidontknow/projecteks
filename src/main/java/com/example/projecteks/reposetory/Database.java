@@ -29,8 +29,8 @@ public class Database implements DatabaseInterface {
                 task.setName(rs.getString("taskName"));
                 task.setState(rs.getInt("taskState"));
                 task.setTimeEstimate(rs.getInt("timeEstimate"));
-                task.setCreationDate(rs.getTimestamp("creationDate"));
-                task.setDeadline(rs.getDate("deadline").toString());
+                task.setCreationDate(rs.getString("creationDate"));
+                task.setDeadline(rs.getString("deadline"));
                 list.add(task);
                 list.add(task);
             }
@@ -42,16 +42,16 @@ public class Database implements DatabaseInterface {
 
     public void addTask(Task task){
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,deadline) values(?,?,?,?)";
+        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,deadline,timeEstimate) values(?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
             //Oprettelsesdatoer & deadlines
-            ps.setTimestamp(3, new Timestamp(task.getCreationDate().getTime())); // set creation date
+            ps.setString(3, task.getCreationDate()); // set creation date
 
-            LocalDate deadline = task.getDeadline();
+            String deadline = task.getDeadline();
             ps.setDate(4, java.sql.Date.valueOf(deadline));
             ps.executeUpdate();
         } catch (SQLException e) {

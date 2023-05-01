@@ -55,13 +55,13 @@ public class WebController {
     }
     @PostMapping("projectAdded")
     public String projectAdded(@ModelAttribute Project project){
-        database.addProject(project);
+        //database.addProject(project);
         return "redirect:/showProject";
     }
 
     @DeleteMapping ("deleteProject{projectID}")
     public String deleteProject (@PathVariable int projectID){
-        database.deleteById(projectID);
+        //database.deleteById(projectID);
         return "redirect:/showProject";
     }
 

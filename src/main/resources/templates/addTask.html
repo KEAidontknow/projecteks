@@ -14,11 +14,17 @@
         <option type="text" value="2">In Progress</option>
         <option type="text" value="3">DONE</option>
     </select>
+    <label for="timeEstimate">Estimated completion time[hours]:</label>
+    <input type="text" id="timeEstimate" name="timeEstimate" th:value="*{timeEstimate}" required>
 
     </select><br>
     <input type="hidden" id="creationDate" name="creationDate" th:field="*{creationDate}" value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}" />
     <label for="deadline">Deadline:</label>
+
+    <input type="date" id="startDate" name="startDate" th:field="*{startDate}" />
+
     <input type="date" id="deadline" name="deadline" th:field="*{deadline}" /><br>
+
     <input type="submit" value="Add Task" />
 
 
