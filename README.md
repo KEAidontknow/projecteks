@@ -6,7 +6,7 @@ git clone https://github.com/KEAidontknow/projecteks
 cd wishlist
 ./mvnw package
 java -jar target/*.jar
-```
+``` 
 
 You can then access wishlist from http://localhost:8080/
 
