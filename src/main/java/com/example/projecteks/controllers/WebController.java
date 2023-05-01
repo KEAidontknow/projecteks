@@ -32,14 +32,18 @@ public class WebController {
         return "redirect:/showTask";
     }
     @GetMapping("updateState/{taskId}/{state}")
-    private String updateTask(@PathVariable int taskId, @PathVariable int state){
+    private String updateState(@PathVariable int taskId, @PathVariable int state){
         database.updateState(taskId,state);
         return "redirect:/showTask";
     }
-
+    @GetMapping("updateTask")
+    private String updateTask(Model model,@RequestAttribute("task") Task task){
+        model.addAttribute("task",task);
+        return "updateTask";
+    }
 
     @PostMapping("/updateTask")
-    public String updateTask(@ModelAttribute("task") Task task) {
+    public String updateState(@ModelAttribute("task") Task task) {
         database.updateTask(task);
 
         return "redirect:/tasks";
