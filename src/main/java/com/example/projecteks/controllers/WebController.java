@@ -1,5 +1,6 @@
 package com.example.projecteks.controllers;
 
+import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping
 public class WebController {
     DatabaseInterface database = new Database();
     @GetMapping("showTask")
@@ -32,22 +34,35 @@ public class WebController {
         return "redirect:/showTask";
     }
     @GetMapping("updateState/{taskId}/{state}")
-    private String updateState(@PathVariable int taskId, @PathVariable int state){
+    private String updateTask(@PathVariable int taskId, @PathVariable int state){
         database.updateState(taskId,state);
         return "redirect:/showTask";
     }
-    @GetMapping("updateTask")
-    private String updateTask(Model model,@RequestAttribute("task") Task task){
-        model.addAttribute("task",task);
-        return "updateTask";
-    }
 
-    @PostMapping("/updateTask")
-    public String updateState(@ModelAttribute("task") Task task) {
+
+
+    @GetMapping("/updateTask")
+    public String updateTask(@ModelAttribute("task") Task task) {
         database.updateTask(task);
 
         return "redirect:/tasks";
     }
 
+    @GetMapping("addProject")
+    public String addProject(Model model){
+        model.addAttribute("project", new Project());
+        return "showProject";
+    }
+    @PostMapping("projectAdded")
+    public String projectAdded(@ModelAttribute Project project){
+        database.addProject(project);
+        return "redirect:/showProject";
+    }
+
+    @DeleteMapping ("deleteProject{projectID}")
+    public String deleteProject (@PathVariable int projectID){
+        database.deleteById(projectID);
+        return "redirect:/showProject";
+    }
 
 }

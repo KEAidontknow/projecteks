@@ -1,13 +1,13 @@
 package com.example.projecteks.reposetory;
 
+import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.utilities.ConnectionManager;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -15,7 +15,7 @@ import java.util.concurrent.Callable;
 public class Database implements DatabaseInterface {
 
 
-    public ArrayList<Task> getTasks()throws RuntimeException{
+    public ArrayList<Task> getTasks() throws RuntimeException {
         ArrayList<Task> list = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
@@ -23,11 +23,14 @@ public class Database implements DatabaseInterface {
 
         try {
             ResultSet rs = con.createStatement().executeQuery(SQLScript);
-            while (rs.next()){
+            while (rs.next()) {
                 Task task = new Task();
                 task.setId(rs.getInt("taskId"));
                 task.setName(rs.getString("taskName"));
                 task.setState(rs.getInt("taskState"));
+                task.setCreationDate(rs.getTimestamp("creationDate"));
+                task.setDeadline(rs.getDate("deadline").toString());
+                list.add(task);
                 list.add(task);
             }
         } catch (SQLException e) {
@@ -38,13 +41,17 @@ public class Database implements DatabaseInterface {
 
     public void addTask(Task task){
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.task (taskName,taskState) values(?,?)";
+        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,deadline) values(?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
-            ps.executeUpdate();
+            //Oprettelsesdatoer & deadlines
+            ps.setTimestamp(3, new Timestamp(task.getCreationDate().getTime())); // set creation date
+
+            LocalDate deadline = LocalDate.parse(task.getDeadline());
+            ps.setDate(4, java.sql.Date.valueOf(deadline)); ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

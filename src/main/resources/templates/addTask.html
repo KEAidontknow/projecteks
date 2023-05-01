@@ -6,16 +6,23 @@
 </head>
 <body>
 <form action="#" th:action="@{taskAdded}" method="POST" th:object="${task}">
-  <label for="name">Task name:</label>
-  <input type="text" id="name" name="name" th:value="*{name}" required>
+    <label for="name">Task name:</label>
+    <input type="text" id="name" name="name" th:value="*{name}" required>
     <label for="state">Status:</label>
     <select name="state" id="state">
         <option type="text" value="1">TODO</option>
         <option type="text" value="2">In Progress</option>
         <option type="text" value="3">DONE</option>
     </select>
+
+    </select><br>
+    <input type="hidden" id="creationDate" name="creationDate" th:field="*{creationDate}" value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}" />
+    <label for="deadline">Deadline:</label>
+    <input type="date" id="deadline" name="deadline" th:field="*{deadline}" /><br>
+    <input type="submit" value="Add Task" />
+
+
+    </select>
   <input type="submit" value="Submit">
 </form>
 
-</body>
-</html>
