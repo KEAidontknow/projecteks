@@ -64,4 +64,12 @@ public class Task {
     public void setTimeEstimate(int timeEstimate) {
         this.timeEstimate = timeEstimate;
     }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
 }
