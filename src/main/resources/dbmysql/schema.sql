@@ -21,7 +21,11 @@ create table task
 (
     taskId     int auto_increment,
     taskName   varchar(20) not null,
-    taskState  tinyint,
+    taskState  tinyint not null ,
+    creationDate varchar(10) not null ,
+    startDate   varchar(10) not null ,
+    deadline    varchar(10) not null ,
+    timeEstimate    int not null ,
     project_id int         not null,
     primary key (taskId),
     foreign key (project_id) references project (projectid)
