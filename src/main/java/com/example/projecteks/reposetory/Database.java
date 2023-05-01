@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -29,8 +28,9 @@ public class Database implements DatabaseInterface {
                 task.setId(rs.getInt("taskId"));
                 task.setName(rs.getString("taskName"));
                 task.setState(rs.getInt("taskState"));
+                task.setTimeEstimate(rs.getInt("timeEstimate"));
                 task.setCreationDate(rs.getString("creationDate"));
-                task.setDeadline(rs.getDate("deadline").toString());
+                task.setDeadline(rs.getString("deadline"));
                 list.add(task);
                 list.add(task);
             }
@@ -42,23 +42,17 @@ public class Database implements DatabaseInterface {
 
     public void addTask(Task task){
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,deadline) values(?,?,?,?)";
+        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate) values(?,?,?,?,?,?)";
 
         try {
-
-            LocalDate currentDate = LocalDate.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String currentDateStr = currentDate.format(formatter);
-            task.setCreationDate(currentDateStr);
-
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
             //Oprettelsesdatoer & deadlines
-            // Get the current date as a string
-            ps.setString(3, task.getCreationDate());
-            ps.setString(4, task.getDeadline());
-
+            ps.setString(3, task.getCreationDate()); // set creation date
+            ps.setString(4, task.getStartDate());
+            ps.setString(5,task.getDeadline() );
+            ps.setInt(6,task.getTimeEstimate());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

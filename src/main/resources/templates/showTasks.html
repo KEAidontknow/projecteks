@@ -14,6 +14,7 @@
     <th>Creation Date</th>
     <th>Deadline</th>
     <th>Change status to</th>
+    <th>Time Estimate[Hours]</th>
     <th>Edit</th>
     <th>Delete</th>
 
@@ -33,6 +34,7 @@
             <button th:if="${task.state==2}">Done</button>
             <button th:if="${task.state==3}">Reset</button>
         </a></td>
+        <td th:text="${task.timeEstimate}"> </td>
         <td><form method="get" th:action="@{updateTask}" th:object="${task}">
             <button type="submit">Edit</button>
             <input type="hidden" name="task" th:value="${task}"/>
