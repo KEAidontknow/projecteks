@@ -42,7 +42,7 @@ public class Database implements DatabaseInterface {
 
     public void addTask(Task task){
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,deadline,timeEstimate) values(?,?,?,?,?)";
+        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate) values(?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -50,9 +50,9 @@ public class Database implements DatabaseInterface {
             ps.setInt(2,task.getState());
             //Oprettelsesdatoer & deadlines
             ps.setString(3, task.getCreationDate()); // set creation date
-
-            String deadline = task.getDeadline();
-            ps.setDate(4, java.sql.Date.valueOf(deadline));
+            ps.setString(4, task.getStartDate());
+            ps.setString(5,task.getDeadline() );
+            ps.setInt(6,task.getTimeEstimate());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
