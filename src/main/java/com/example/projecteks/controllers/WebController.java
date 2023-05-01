@@ -40,13 +40,15 @@ public class WebController {
     }
 
 
-
+/*
     @GetMapping("/updateTask")
     public String updateTask(@ModelAttribute("task") Task task) {
         database.updateTask(task);
 
         return "redirect:/tasks";
     }
+
+ */
 
     @GetMapping("addProject")
     public String addProject(Model model){

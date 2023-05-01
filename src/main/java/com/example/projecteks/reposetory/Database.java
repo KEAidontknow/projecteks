@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -45,11 +46,17 @@ public class Database implements DatabaseInterface {
         String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate) values(?,?,?,?,?,?)";
 
         try {
+
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String currentDateStr = currentDate.format(formatter);
+            task.setCreationDate(currentDateStr);
+
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
             //Oprettelsesdatoer & deadlines
-            ps.setString(3, task.getCreationDate()); // set creation date
+            ps.setString(3, task.getCreationDate());
             ps.setString(4, task.getStartDate());
             ps.setString(5,task.getDeadline() );
             ps.setInt(6,task.getTimeEstimate());
