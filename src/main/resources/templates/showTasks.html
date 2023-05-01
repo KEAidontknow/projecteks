@@ -12,7 +12,10 @@
     <th>Name</th>
     <th>Status</th>
     <th>Change status to</th>
+    <th>Time Estimate[Hours]</th>
     <th>Edit</th>
+    <th>Delete</th>
+
 
 </tr>
 
@@ -28,6 +31,7 @@
             <button th:if="${task.state==2}">Done</button>
             <button th:if="${task.state==3}">Reset</button>
         </a></td>
+        <td th:text="${task.timeEstimate}"> </td>
         <td><a th:href="@{removeTask/{taskId}(taskId=${task.id})}">
             <button>Delete Task</button>
         </a></td>

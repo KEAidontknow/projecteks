@@ -26,6 +26,7 @@ public class Database implements DatabaseInterface {
                 task.setId(rs.getInt("taskId"));
                 task.setName(rs.getString("taskName"));
                 task.setState(rs.getInt("taskState"));
+                task.setTimeEstimate(rs.getInt("timeEstimate"));
                 list.add(task);
             }
         } catch (SQLException e) {
