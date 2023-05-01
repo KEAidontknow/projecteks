@@ -16,7 +16,6 @@ public class Task {
 
 
     private enum status {TODO, IN_PROGRESS, DONE}
-
     public Task() {
     }
     public int getState() {
@@ -62,11 +61,11 @@ public class Task {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
-    public void setDeadline(String deadline) {
+    public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
 
