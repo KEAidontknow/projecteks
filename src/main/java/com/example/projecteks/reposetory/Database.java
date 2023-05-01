@@ -1,6 +1,7 @@
 package com.example.projecteks.reposetory;
 
 import com.example.projecteks.models.Task;
+import com.example.projecteks.models.User;
 import com.example.projecteks.utilities.ConnectionManager;
 import org.springframework.stereotype.Repository;
 
@@ -103,5 +104,17 @@ public class Database implements DatabaseInterface {
         }
     }
 
+    public void addUser(User user){
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,deadline) values(?,?,?,?)";
 
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setString(1,user.getName());
+            ps.setInt(2,user.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

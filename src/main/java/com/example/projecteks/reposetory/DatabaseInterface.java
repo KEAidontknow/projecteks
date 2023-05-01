@@ -2,6 +2,7 @@ package com.example.projecteks.reposetory;
 
 import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
+import com.example.projecteks.models.User;
 
 import java.util.ArrayList;
 
@@ -19,4 +20,6 @@ public interface DatabaseInterface {
     void addProject(Project project);
 
     void deleteProject(int id);
+
+    void addUser(User user);
 }
