@@ -15,6 +15,7 @@ public class Task {
     private double hoursOfPeriod;
 
 
+    private enum status {TODO, IN_PROGRESS, DONE}
 
     public Task() {
     }
@@ -26,6 +27,10 @@ public class Task {
         this.state = state;
     }
 
+    public Task() {
+        this.creationDate = new Date();
+
+    }
 
 
     public String getName () {
@@ -43,14 +48,17 @@ public class Task {
     public void setId ( int id){
         this.id = id;
     }
+    public void setDeadline(String deadline) {
+        this.Deadline = Deadline;
 
+    }
 
     public String getDeadline () {
-        return deadline;
+        return Deadline;
     }
 
 
-    public String getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 

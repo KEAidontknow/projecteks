@@ -52,8 +52,6 @@ public class Database implements DatabaseInterface {
         String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate) values(?,?,?,?,?,?)";
 
         try {
-
-
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
