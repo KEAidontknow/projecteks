@@ -29,10 +29,12 @@ public class Database implements DatabaseInterface {
                 task.setId(rs.getInt("taskId"));
                 task.setName(rs.getString("taskName"));
                 task.setState(rs.getInt("taskState"));
+                task.setTimeEstimate(rs.getInt("timeEstimate"));
                 task.setCreationDate(rs.getString("creationDate"));
-                task.setDeadline(rs.getDate("deadline").toString());
+                task.setDeadline(rs.getString("deadline"));
+                task.setStartDate(rs.getString("startDate"));
                 list.add(task);
-                list.add(task);
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -42,7 +44,7 @@ public class Database implements DatabaseInterface {
 
     public void addTask(Task task){
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,deadline) values(?,?,?,?)";
+        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate) values(?,?,?,?,?,?)";
 
         try {
 
@@ -55,16 +57,17 @@ public class Database implements DatabaseInterface {
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
             //Oprettelsesdatoer & deadlines
-            // Get the current date as a string
             ps.setString(3, task.getCreationDate());
-            ps.setString(4, task.getDeadline());
-
+            ps.setString(4, task.getStartDate());
+            ps.setString(5,task.getDeadline() );
+            ps.setInt(6,task.getTimeEstimate());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
     }
+    // Et stykke HTML kode som du skal ignorrere   <input type="hidden" id="creationDate" name="creationDate" th:field="*{creationDate}" value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}" />
 
     public void removeTask(int taskId){
         Connection con = ConnectionManager.getConnection();

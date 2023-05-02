@@ -40,13 +40,15 @@ public class WebController {
     }
 
 
-
+/*
     @GetMapping("/updateTask")
     public String updateTask(@ModelAttribute("task") Task task) {
         database.updateTask(task);
 
         return "redirect:/tasks";
     }
+
+ */
 
     @GetMapping("addProject")
     public String addProject(Model model){
@@ -55,13 +57,13 @@ public class WebController {
     }
     @PostMapping("projectAdded")
     public String projectAdded(@ModelAttribute Project project){
-        database.addProject(project);
+        //database.addProject(project);
         return "redirect:/showProject";
     }
 
     @DeleteMapping ("deleteProject{projectID}")
     public String deleteProject (@PathVariable int projectID){
-        database.deleteById(projectID);
+        //database.deleteById(projectID);
         return "redirect:/showProject";
     }
 
