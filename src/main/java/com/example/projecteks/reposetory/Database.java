@@ -101,6 +101,23 @@ public class Database implements DatabaseInterface {
 
     }
 
+    public void editTask(int taskId, Task updatedTask) {
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "update Projectmanagement.task set taskName=?, taskState=?, timeEstimate=?, startDate=?, deadline=? where taskId=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setString(1, updatedTask.getName());
+            ps.setInt(2, updatedTask.getTimeEstimate());
+            ps.setString(3, updatedTask.getStartDate());
+            ps.setString(4, updatedTask.getDeadline());
+            ps.setInt(5, taskId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void updateTask(Task task){
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "update Projectmanagement.task set taskName=?, taskState=? where taskId=?";
