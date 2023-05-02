@@ -7,7 +7,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -48,16 +51,15 @@ public class Database implements DatabaseInterface {
 
         try {
 
-            LocalDate currentDate = LocalDate.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String currentDateStr = currentDate.format(formatter);
-            task.setCreationDate(currentDateStr);
 
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
             //Oprettelsesdatoer & deadlines
-            ps.setString(3, task.getCreationDate());
+            LocalDateTime now = LocalDateTime.now(); // Skaffer "current date" og "time"
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // Definere selve formatet for dato/tid
+            String formattedDate = now.format(formatter); //Laver den til String
+            ps.setString(3, formattedDate);
             ps.setString(4, task.getStartDate());
             ps.setString(5,task.getDeadline() );
             ps.setInt(6,task.getTimeEstimate());
@@ -100,10 +102,10 @@ public class Database implements DatabaseInterface {
         }
 
     }
-
+//Jeg har valgt at pille Status fra da den er til at ændre altid som vi snakkede om
     public void editTask(int taskId, Task updatedTask) {
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "update Projectmanagement.task set taskName=?, taskState=?, timeEstimate=?, startDate=?, deadline=? where taskId=?";
+        String SQLScript = "update Projectmanagement.task set taskName=?, timeEstimate=?, startDate=?, deadline=? where taskId=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
