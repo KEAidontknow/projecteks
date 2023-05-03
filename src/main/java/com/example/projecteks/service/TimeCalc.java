@@ -19,7 +19,7 @@ public class TimeCalc {
         weeklyWorkHours.put(DayOfWeek.FRIDAY,7.0);
     }
 
-    public double getAvalableWorkHours(LocalDate start, LocalDate end){
+    public double getAvalableWorkHours(LocalDate start, LocalDate end){ //UNITEST
         setWeeklyWorkHours();
         double hours = 0;
 

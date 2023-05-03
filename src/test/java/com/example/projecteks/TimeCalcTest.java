@@ -44,7 +44,6 @@ public class TimeCalcTest {
         holidays.add(LocalDate.of(2024,5,20));// 2.PINSE
         holidays.add(LocalDate.of(2024,12,25));// JULE DAG
         holidays.add(LocalDate.of(2024,12,26));// 2.JULE DAG
-
         holidays.add(LocalDate.of(2024,6,5));// GNUNDLOVS DAG
         holidays.add(LocalDate.of(2024,12,24));// JULEAFTEN
         holidays.add(LocalDate.of(2024,12,31));// NYTÅSAFTEN
