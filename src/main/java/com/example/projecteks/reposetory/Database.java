@@ -8,7 +8,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -50,15 +53,15 @@ public class Database implements DatabaseInterface {
 
         try {
 
-            LocalDate currentDate = LocalDate.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String currentDateStr = currentDate.format(formatter);
-            task.setCreationDate(currentDateStr);
 
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
             //Oprettelsesdatoer & deadlines
+            LocalDateTime now = LocalDateTime.now(); // skaffer current date og time
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // formattet
+            String formattedDate = now.format(formatter); // Stringen
+            task.setCreationDate(formattedDate); // sætter den som CreationDate
             ps.setString(3, task.getCreationDate());
             ps.setString(4, task.getStartDate());
             ps.setString(5,task.getDeadline() );
@@ -101,6 +104,23 @@ public class Database implements DatabaseInterface {
             throw new RuntimeException(e);
         }
 
+    }
+//Jeg har valgt at pille Status fra da den er til at ændre altid som vi snakkede om
+    public void editTask(int taskId, Task updatedTask) {
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "update Projectmanagement.task set taskName=?, timeEstimate=?, startDate=?, deadline=? where taskId=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setString(1, updatedTask.getName());
+            ps.setInt(2, updatedTask.getTimeEstimate());
+            ps.setString(3, updatedTask.getStartDate());
+            ps.setString(4, updatedTask.getDeadline());
+            ps.setInt(5, taskId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void updateTask(Task task){

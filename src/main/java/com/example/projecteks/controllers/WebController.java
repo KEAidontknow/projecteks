@@ -40,6 +40,15 @@ public class WebController {
     }
 
 
+    @PostMapping("editTask/{taskId}")
+    private String editTask(@PathVariable int taskId, @ModelAttribute Task updatedTask){
+        database.editTask(taskId, updatedTask);
+        return "redirect:/showTask";
+
+
+    }
+
+
 /*
     @GetMapping("/updateTask")
     public String updateTask(@ModelAttribute("task") Task task) {

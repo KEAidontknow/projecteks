@@ -22,7 +22,7 @@ create table task
     taskId     int auto_increment,
     taskName   varchar(20) not null,
     taskState  tinyint not null ,
-    creationDate varchar(10) not null ,
+    creationDate varchar(30) not null ,
     startDate   varchar(10) not null ,
     deadline    varchar(10) not null ,
     timeEstimate    int not null ,
