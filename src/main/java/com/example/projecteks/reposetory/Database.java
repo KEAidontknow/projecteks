@@ -56,10 +56,11 @@ public class Database implements DatabaseInterface {
             ps.setString(1,task.getName());
             ps.setInt(2,task.getState());
             //Oprettelsesdatoer & deadlines
-            LocalDateTime now = LocalDateTime.now(); // Skaffer "current date" og "time"
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // Definere selve formatet for dato/tid
-            String formattedDate = now.format(formatter); //Laver den til String
-            ps.setString(3, formattedDate);
+            LocalDateTime now = LocalDateTime.now(); // skaffer current date og time
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // formattet
+            String formattedDate = now.format(formatter); // Stringen
+            task.setCreationDate(formattedDate); // sætter den som CreationDate
+            ps.setString(3, task.getCreationDate());
             ps.setString(4, task.getStartDate());
             ps.setString(5,task.getDeadline() );
             ps.setInt(6,task.getTimeEstimate());
