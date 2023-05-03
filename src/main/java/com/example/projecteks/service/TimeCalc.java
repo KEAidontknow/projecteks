@@ -36,7 +36,7 @@ public class TimeCalc {
         return !(day.getDayOfWeek()==DayOfWeek.SATURDAY)&&!(day.getDayOfWeek()==DayOfWeek.SUNDAY)&&!isHoliday(day);
     }
 
-    public boolean isHoliday(LocalDate day){ //This is Danish holidays
+    public boolean isHoliday(LocalDate day){ //This is Danish holidays   //UNITEST
         int year = day.getYear();
         LocalDate easter = easterDay(year);
         ArrayList<LocalDate> holidays = new ArrayList<>();
@@ -50,12 +50,12 @@ public class TimeCalc {
         holidays.add(easter.minusDays(2)); // Langfredag
         holidays.add(easter); // 1.Easter
         holidays.add(easter.plusDays(1)); // 2.Easter
-        holidays.add(easter.plusDays(40)); // Chr. Himmelfartsdag
+        holidays.add(easter.plusWeeks(5).plusDays(4)); // Chr. Himmelfartsdag
         holidays.add(easter.plusWeeks(7)); // 1.Pinse dag
         holidays.add(easter.plusWeeks(7).plusDays(1)); // 2. Pinse dag
 
         for(LocalDate h : holidays){
-            if(day==h){
+            if(day.equals(h)){
                 return true;
             }
         }
@@ -63,7 +63,7 @@ public class TimeCalc {
     }
 
 
-    public LocalDate easterDay(int year){
+    public LocalDate easterDay(int year){       //UNITEST
         int a,b,c,d,e,f,g,h,i,k,l,m,month,day;
         a = year % 19;     //rest
         b = year / 100;
@@ -80,7 +80,7 @@ public class TimeCalc {
         month = ((h + l) - (7 * m) +114) / 31;
         day = ((h + l) - (7 * m) +114) % 31; //rest
 
-        LocalDate date = LocalDate.of(year,month,day);
+        LocalDate date = LocalDate.of(year,month,day).plusDays(1);
 
         return date;
     }
