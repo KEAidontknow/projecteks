@@ -2,6 +2,7 @@ package com.example.projecteks.reposetory;
 
 import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
+import com.example.projecteks.service.TimeCalc;
 import com.example.projecteks.utilities.ConnectionManager;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ public class Database implements DatabaseInterface {
                 task.setCreationDate(rs.getString("creationDate"));
                 task.setDeadline(rs.getString("deadline"));
                 task.setStartDate(rs.getString("startDate"));
+                task.setHoursOfPeriod();
                 list.add(task);
 
             }

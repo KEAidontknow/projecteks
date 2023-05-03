@@ -14,6 +14,7 @@
     <th>Start Date</th>
     <th>Deadline</th>
     <th>Time Estimate[Hours]</th>
+    <th>Normal Work Hours of Period </th>
     <th>Status</th>
     <th>Change Status</th>
     <th>Edit</th>
@@ -29,6 +30,7 @@
         <td th:text="${task.startDate}"></td>
         <td th:text="${task.deadline}"></td>
         <td th:text="${task.timeEstimate}"> </td>
+        <td th:text="${task.hoursOfPeriod}"> </td>
         <td th:if="${task.state}==1 "><a style="color: crimson;">TODO</a></td>
         <td th:if="${task.state}==2 " ><a style="color: gold;">In Progress</a></td>
         <td th:if="${task.state}==3 " ><a style="color: green;">Done</a></td>

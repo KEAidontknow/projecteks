@@ -1,5 +1,9 @@
 package com.example.projecteks.models;
 
+import com.example.projecteks.service.TimeCalc;
+
+import java.time.LocalDate;
+
 public class Task {
     private String name;
     private int id;
@@ -8,9 +12,10 @@ public class Task {
     private String deadline;
     private String creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
     private int timeEstimate;
+    private double hoursOfPeriod;
 
 
-    private enum status {TODO, IN_PROGRESS, DONE}
+
     public Task() {
     }
     public int getState() {
@@ -72,4 +77,19 @@ public class Task {
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
+
+    public double getHoursOfPeriod() {
+        return hoursOfPeriod;
+    }
+
+    public void setHoursOfPeriod() {
+        TimeCalc timeCalc = new TimeCalc();
+        Double h = timeCalc.getAvalableWorkHours(LocalDate.parse(startDate),LocalDate.parse(deadline));
+        if(h != null) {
+            this.hoursOfPeriod = h;
+        }else {
+            this.hoursOfPeriod = 0;
+        }
+    }
+
 }
