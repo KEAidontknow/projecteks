@@ -18,7 +18,7 @@ public interface DatabaseInterface {
 
     void editTask(int taskId, Task updatedTask);
     void addUser(User user);
-
+    ArrayList<User> getUser();
     public User logIn(String userName, String password);
 }
 /*

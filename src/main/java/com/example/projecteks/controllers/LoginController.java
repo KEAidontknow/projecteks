@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LoginController {
     DatabaseInterface database = new Database();
+    @GetMapping("showUser")
+    private String showTasks(Model model){
+        model.addAttribute("list", database.getUser());
+
+        return "showUser";
+    }
     @GetMapping("/createUser")
     private String createUser(Model model){
         model.addAttribute("user", new User());
