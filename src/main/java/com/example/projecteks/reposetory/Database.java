@@ -174,7 +174,7 @@ public class Database implements DatabaseInterface {
         }
     }
     public ArrayList<User> getUser()throws RuntimeException{
-        ArrayList<User> userlist = new ArrayList<>();
+        ArrayList<User> userList = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "select * from Projectmanagement.user";
@@ -186,11 +186,11 @@ public class Database implements DatabaseInterface {
                 user.setId(rs.getInt("userid"));
                 user.setName(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
-                userlist.add(user);
+                userList.add(user);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return userlist;
+        return userList;
     }
 }
