@@ -13,13 +13,21 @@ public interface DatabaseInterface {
     void addTask(Task task);
 
     void removeTask(int taskId);
+
     void updateState(int taskId, int state);
 
+    void editTask(int taskId, Task updatedTask);
+
+}
+/*
     void updateTask(Task task);
 
-    void addProject(Project project);
+    //void addProject(Project project);
 
     void deleteProject(int id);
 
     void addUser(User user);
+    //void deleteById(int projectID);
 }
+
+ */

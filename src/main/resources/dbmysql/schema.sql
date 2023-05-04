@@ -11,8 +11,7 @@ CREATE TABLE user
 create table project
 (
     projectId   int auto_increment,
-    projectName varchar(50) not null,
-    subProjectName varchar(50),
+    projectName varchar(20) not null,
     userName varchar(255) NOT NULL,
     primary key (projectId),
     foreign key (userName) references user (userName)
@@ -22,10 +21,12 @@ create table task
 (
     taskId     int auto_increment,
     taskName   varchar(20) not null,
-    taskState  tinyint,
-    project_id int not null,
-    creationDate DATE,
-    deadline    DATE,
+    taskState  tinyint not null ,
+    creationDate varchar(30) not null ,
+    startDate   varchar(10) not null ,
+    deadline    varchar(10) not null ,
+    timeEstimate    int not null ,
+    project_id int         not null,
     primary key (taskId),
     foreign key (project_id) references project (projectid)
 
