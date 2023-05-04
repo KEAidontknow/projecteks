@@ -147,6 +147,7 @@ public class Database implements DatabaseInterface {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1,user.getName());
             ps.setString(2,user.getPassword());
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
