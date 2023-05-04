@@ -17,7 +17,7 @@ public class LoginController {
     DatabaseInterface database = new Database();
     @GetMapping("showUser")
     private String showTasks(Model model){
-        model.addAttribute("list", database.getUser());
+        model.addAttribute("userList", database.getUser());
 
         return "showUser";
     }
@@ -29,7 +29,7 @@ public class LoginController {
     @PostMapping("/createUser")
     private String userCreated(@ModelAttribute User user){
         database.addUser(user);
-        return "redirect:/";
+        return "redirect:/showUser";
     }
     @GetMapping("/login")
     public String isConnected(HttpSession session, Model model) {

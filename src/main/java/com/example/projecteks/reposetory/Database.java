@@ -145,7 +145,7 @@ public class Database implements DatabaseInterface {
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setString(1,user.getName());
+            ps.setString(1,user.getUserName());
             ps.setString(2,user.getPassword());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -183,8 +183,7 @@ public class Database implements DatabaseInterface {
             ResultSet rs = con.createStatement().executeQuery(SQLScript);
             while (rs.next()){
                 User user = new User();
-                user.setId(rs.getInt("userid"));
-                user.setName(rs.getString("username"));
+                user.setUserName(rs.getString("userName"));
                 user.setPassword(rs.getString("password"));
                 userList.add(user);
             }

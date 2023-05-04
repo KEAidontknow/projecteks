@@ -9,16 +9,14 @@
 <body>
 <table>
   <tr>
-    <th>Id</th>
     <th>Name</th>
     <th>Password</th>
   </tr>
 
   <div th:each="user : ${userList}">
     <tr>
-      <td th:text="${userlist.id}"></td>
-      <td th:text="${userlist.name}"></td>
-      <td th:text="${userlist.password}"></td>
+      <td th:text="${user.userName}"></td>
+      <td th:text="${user.password}"></td>
     </tr>
   </div>
 </table>
