@@ -66,7 +66,22 @@ public class DatabaseTest {
     @Test
     public void testUpdateState(){
         //ARRANGE
-
+        int expected = 0;
+        int index = database.getTasks().size()-1;
+        int id = database.getTasks().get(index).getId();
+        for(int i = 0; i < 3; i++) {
+            int pre = database.getTasks().get(index).getState();
+            switch (pre) {
+                case 1 -> expected = 2;
+                case 2 -> expected = 3;
+                case 3 -> expected = 1;
+            }
+            //ACT
+            database.updateState(id, pre);
+            int actual = database.getTasks().get(index).getState();
+            //ASSERT
+            assertEquals(actual, expected);
+        }
     }
 
 
