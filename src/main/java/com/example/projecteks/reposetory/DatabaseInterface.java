@@ -18,6 +18,7 @@ public interface DatabaseInterface {
 
     void editTask(int taskId, Task updatedTask);
 
+    void addUser(User user);
 }
 /*
     void updateTask(Task task);
@@ -26,7 +27,6 @@ public interface DatabaseInterface {
 
     void deleteProject(int id);
 
-    void addUser(User user);
     //void deleteById(int projectID);
 }
 
