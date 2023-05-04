@@ -20,7 +20,7 @@ import java.util.concurrent.Callable;
 public class Database implements DatabaseInterface {
 
 
-    public ArrayList<Task> getTasks() throws RuntimeException {
+    public ArrayList<Task> getTasks() throws RuntimeException {  //UNITEST
         ArrayList<Task> list = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
@@ -47,7 +47,7 @@ public class Database implements DatabaseInterface {
         return list;
     }
 
-    public void addTask(Task task){
+    public void addTask(Task task){  //UNITEST
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate) values(?,?,?,?,?,?)";
 
@@ -74,7 +74,7 @@ public class Database implements DatabaseInterface {
     }
     // Et stykke HTML kode som du skal ignorrere   <input type="hidden" id="creationDate" name="creationDate" th:field="*{creationDate}" value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}" />
 
-    public void removeTask(int taskId){
+    public void removeTask(int taskId){   //UNITEST
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "delete from Projectmanagement.task where taskId = ?";
         try {
@@ -87,7 +87,7 @@ public class Database implements DatabaseInterface {
         }
     }
 
-    public void updateState(int taskId, int state){
+    public void updateState(int taskId, int state){  //
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "update Projectmanagement.task set taskState=? where taskId=?";
 
