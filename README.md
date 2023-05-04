@@ -8,6 +8,6 @@ cd wishlist
 java -jar target/*.jar
 ```
 
-You can then access wishlist from http://localhost:8080/
+You can then access the project programme from http://localhost:8080/
 
 or you can try it [HERE](https://projecteks.azurewebsites.net)
