@@ -141,7 +141,7 @@ public class Database implements DatabaseInterface {
 
     public void addUser(User user){
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,deadline) values(?,?,?,?)";
+        String SQLScript = "insert into Projectmanagement.user (userName, password) values(?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -151,5 +151,25 @@ public class Database implements DatabaseInterface {
             throw new RuntimeException(e);
         }
 
+    }
+    public User logIn(String userName, String password) {
+        User user = null;
+
+        try {
+            Connection con = ConnectionManager.getConnection();
+            String SQL = "SELECT * FROM Projectmanagement.user WHERE userName = ? AND password = ?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, userName);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int userId = rs.getInt("id");
+                user = new User(userId, userName, password);
+            }
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

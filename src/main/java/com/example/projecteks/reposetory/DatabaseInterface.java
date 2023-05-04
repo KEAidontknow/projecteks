@@ -18,6 +18,8 @@ public interface DatabaseInterface {
 
     void editTask(int taskId, Task updatedTask);
     void addUser(User user);
+
+    public User logIn(String userName, String password);
 }
 /*
     void updateTask(Task task);
