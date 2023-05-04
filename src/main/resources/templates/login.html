@@ -10,8 +10,6 @@
 
 <div class="login">
     <form method="post" th:action="@{/login}" th:object="${user}">
-    <pre>
-
         <label for="userName">User name:</label>
         <input id="userName" type="text"
                th:field="*{userName}"
@@ -25,9 +23,14 @@
                required="required"/>
 
         <input type="submit" value="Log in">
+        <a th:href="@{/createUser}">
+            <button>Create user</button>
+        </a>
+
 
     </pre>
     </form>
+
 
 </div>
 

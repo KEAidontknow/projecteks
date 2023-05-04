@@ -12,16 +12,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping(path = "/user")
 @Controller
 public class LoginController {
     DatabaseInterface database = new Database();
-    @GetMapping("addUser")
-    private String addTask(Model model){
-        model.addAttribute("task", new Task());
-        return "addUser";
+    @GetMapping("/createUser")
+    private String createUser(Model model){
+        model.addAttribute("user", new User());
+        return "/createUser";
     }
-    @GetMapping(path = "/login")
+    @PostMapping("/createUser")
+    private String userCreated(@ModelAttribute User user){
+        database.addUser(user);
+        return "redirect:/";
+    }
+    @GetMapping("/login")
     public String isConnected(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
@@ -31,7 +35,7 @@ public class LoginController {
             return "redirect:" + user.getUserName();
         }
     }
-    @PostMapping(path = "/login")
+    @PostMapping("/login")
     public String signIn(HttpSession session, @ModelAttribute("user") User user) {
         try {
             User login = database.logIn(user.getUserName(), user.getPassword());
