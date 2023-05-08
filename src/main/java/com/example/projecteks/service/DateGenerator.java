@@ -9,7 +9,7 @@ public class DateGenerator {
         LocalDate d = LocalDate.now();
         for(int i = 0; i<30; i++){
             dateList.add(d);
-            d.plusDays(i);
+            d=d.plusDays(1);
         }
         return dateList;
     }
