@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http//thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <div th:each="d : ${dateList}">
+            <th  th:text="d"></th>
+        </div>
+    </tr>
+
+    <tr th:each="o : ${objectList}">
+        <div th:each="d : ${dateList}" >
+
+            <td th:if="${d.isAfter(o.startDate) and d.isBefore(o.deadline) }" >X</td>
+        </div>
+    </tr>
+
+
+</table>
+
+</body>
+</html>

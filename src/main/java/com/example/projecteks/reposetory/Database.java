@@ -35,8 +35,8 @@ public class Database implements DatabaseInterface {
                 task.setState(rs.getInt("taskState"));
                 task.setTimeEstimate(rs.getInt("timeEstimate"));
                 task.setCreationDate(rs.getString("creationDate"));
-                task.setDeadline(rs.getString("deadline"));
-                task.setStartDate(rs.getString("startDate"));
+                task.setDeadline(LocalDate.parse(rs.getString("deadline")));
+                task.setStartDate(LocalDate.parse(rs.getString("startDate")));
                 task.setHoursOfPeriod();
                 list.add(task);
 
@@ -63,8 +63,8 @@ public class Database implements DatabaseInterface {
             String formattedDate = now.format(formatter); // Stringen
             task.setCreationDate(formattedDate); // sætter den som CreationDate
             ps.setString(3, task.getCreationDate());
-            ps.setString(4, task.getStartDate());
-            ps.setString(5,task.getDeadline() );
+            ps.setString(4, task.getStartDate().toString());
+            ps.setString(5,task.getDeadline().toString() );
             ps.setInt(6,task.getTimeEstimate());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -114,8 +114,8 @@ public class Database implements DatabaseInterface {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1, updatedTask.getName());
             ps.setInt(2, updatedTask.getTimeEstimate());
-            ps.setString(3, updatedTask.getStartDate());
-            ps.setString(4, updatedTask.getDeadline());
+            ps.setString(3, updatedTask.getStartDate().toString());
+            ps.setString(4, updatedTask.getDeadline().toString());
             ps.setInt(5, taskId);
             ps.executeUpdate();
         } catch (SQLException e) {
