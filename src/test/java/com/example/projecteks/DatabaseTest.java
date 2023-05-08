@@ -37,9 +37,9 @@ public class DatabaseTest {
         int state = 1;
         Task accepted = new Task();
         accepted.setName(name);
-        accepted.setStartDate(startDate);
+        accepted.setStartDate(LocalDate.parse(startDate));
         accepted.setTimeEstimate(estimatedTime);
-        accepted.setDeadline(deadline);
+        accepted.setDeadline(LocalDate.parse(deadline));
         accepted.setCreationDate(creationDate);
         accepted.setState(state);
 
