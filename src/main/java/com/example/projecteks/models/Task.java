@@ -11,12 +11,12 @@ public class Task {
     private int state; // 1=to do, 2= in progress, 3 = done
     private LocalDate startDate;
     private LocalDate deadline;
-    private Date creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
+    private String creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
     private int timeEstimate;
     private double hoursOfPeriod;
 
 
-    private enum status {TODO, IN_PROGRESS, DONE}
+
     public Task() {
     }
     public int getState() {
@@ -44,23 +44,23 @@ public class Task {
         this.id = id;
     }
 
-
-
-    public Date getCreationDate() {
-        return creationDate;
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
     }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public LocalDate getDeadline () {
         return deadline;
     }
 
-    public void setDeadline(LocalDate deadline) {
-        this.deadline = deadline;
+
+    public String getCreationDate() {
+        return creationDate;
     }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+
 
     public int getTimeEstimate() {
         return timeEstimate;

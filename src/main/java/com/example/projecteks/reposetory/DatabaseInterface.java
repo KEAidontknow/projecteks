@@ -24,13 +24,16 @@ public interface DatabaseInterface {
 
     void addProject(int userId, String projectName);
 
-    int getProjectId(String projectname);
+    int getProjectId(String projectName);
 
-    void updateProjectName(int projectid, String projectname);
+    void updateProjectName(int projectId, String projectName);
     void addUser(User user);
     ArrayList<User> getUser();
-    public User logIn(String userName, String password);
-    void updateTask(Task task);
+    User logIn(String userName, String password);
+
+
+
+    //void updateTask(Task task);
 
     ArrayList<Project> showProjects();
 
