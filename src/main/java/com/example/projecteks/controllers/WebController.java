@@ -12,41 +12,47 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping
 public class WebController {
     DatabaseInterface database = new Database();
+
     @GetMapping("showTask")
-    private String showTasks(Model model){
+    private String showTasks(Model model) {
         model.addAttribute("list", database.getTasks());
 
         return "showTasks";
     }
+
     @GetMapping("addTask")
-    private String addTask(Model model){
+    private String addTask(Model model) {
         model.addAttribute("task", new Task());
         return "addTask";
     }
+
     @PostMapping("taskAdded")
-    private String taskAdded(@ModelAttribute Task task){
+    private String taskAdded(@ModelAttribute Task task) {
         database.addTask(task);
         return "redirect:/showTask";
     }
+
     @GetMapping("removeTask/{taskId}")
-    private String removeTask(@PathVariable int taskId){
+    private String removeTask(@PathVariable int taskId) {
         database.removeTask(taskId);
         return "redirect:/showTask";
     }
+
     @GetMapping("updateState/{taskId}/{state}")
-    private String updateTask(@PathVariable int taskId, @PathVariable int state){
-        database.updateState(taskId,state);
+    private String updateTask(@PathVariable int taskId, @PathVariable int state) {
+        database.updateState(taskId, state);
         return "redirect:/showTask";
     }
 
 
     @PostMapping("editTask/{taskId}")
-    private String editTask(@PathVariable int taskId, @ModelAttribute Task updatedTask){
+    private String editTask(@PathVariable int taskId, @ModelAttribute Task updatedTask) {
         database.editTask(taskId, updatedTask);
         return "redirect:/showTask";
 
 
     }
+}
 
 
 /*
@@ -58,10 +64,10 @@ public class WebController {
     }
 
  */
-
+/*
     @GetMapping("addProject")
     public String addProject(Model model){
-        model.addAttribute("project", new Project());
+        model.addAttribute("project", new Project(projectId, projectName));
         return "showProject";
     }
     @PostMapping("projectAdded")
@@ -77,3 +83,5 @@ public class WebController {
     }
 
 }
+
+ */

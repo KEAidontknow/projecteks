@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http//thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>Task......................</th>
+        <div th:each="d : ${dateList}">
+            <th  th:text="${d}"></th>
+        </div>
+    </tr>
+
+    <tr th:each="o : ${objectList}">
+        <td th:text="${o.name}"></td>
+        <div th:each="d : ${dateList}" >
+            <td th:if="${d < o.startDate}" > </td>
+            <td th:if="${d >= o.startDate and d <= o.deadline }" style="background-color: red;" >I</td>
+        </div>
+    </tr>
+
+
+</table>
+<a th:href="@{showTask}">
+    <button>Show as List</button>
+</a>
+
+</body>
+</html>

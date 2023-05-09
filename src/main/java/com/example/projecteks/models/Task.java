@@ -8,8 +8,8 @@ public class Task {
     private String name;
     private int id;
     private int state; // 1=to do, 2= in progress, 3 = done
-    private String startDate;
-    private String deadline;
+    private LocalDate startDate;
+    private LocalDate deadline;
     private String creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
     private int timeEstimate;
     private double hoursOfPeriod;
@@ -52,16 +52,16 @@ public class Task {
 
     }
 
-    public String getDeadline () {
-        return Deadline;
+    public LocalDate getDeadline () {
+        return deadline;
     }
 
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -77,11 +77,11 @@ public class Task {
         this.timeEstimate = timeEstimate;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
@@ -91,7 +91,7 @@ public class Task {
 
     public void setHoursOfPeriod() {
         TimeCalc timeCalc = new TimeCalc();
-        Double h = timeCalc.getAvalableWorkHours(LocalDate.parse(startDate),LocalDate.parse(deadline));
+        Double h = timeCalc.getAvalableWorkHours((startDate),(deadline));
         if(h != null) {
             this.hoursOfPeriod = h;
         }else {

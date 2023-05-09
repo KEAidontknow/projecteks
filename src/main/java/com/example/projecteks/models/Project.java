@@ -6,7 +6,7 @@ public class Project {
     private String deadline;
     private  String subProjectName;
 
-    public Project() {}
+    public Project(int projectId, String projectName) {}
 
     public String getDeadline() {
         return deadline;
