@@ -3,6 +3,7 @@ package com.example.projecteks.models;
 import com.example.projecteks.service.TimeCalc;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Task {
     private String name;
@@ -10,7 +11,7 @@ public class Task {
     private int state; // 1=to do, 2= in progress, 3 = done
     private LocalDate startDate;
     private LocalDate deadline;
-    private String creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
+    private Date creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
     private int timeEstimate;
     private double hoursOfPeriod;
 
@@ -24,11 +25,6 @@ public class Task {
 
     public void setState(int state) {
         this.state = state;
-    }
-
-    public Task() {
-        this.creationDate = new Date();
-
     }
 
 
@@ -47,22 +43,19 @@ public class Task {
     public void setId ( int id){
         this.id = id;
     }
-    public void setDeadline(String deadline) {
-        this.Deadline = Deadline;
 
+
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public LocalDate getDeadline () {
         return deadline;
-    }
-
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
     }
 
     public void setDeadline(LocalDate deadline) {

@@ -33,7 +33,7 @@ public class Database implements DatabaseInterface {
                 task.setName(rs.getString("taskName"));
                 task.setState(rs.getInt("taskState"));
                 task.setTimeEstimate(rs.getInt("timeEstimate"));
-                task.setCreationDate(rs.getString("creationDate"));
+                task.setCreationDate(rs.getDate("creationDate"));
                 task.setDeadline(LocalDate.parse(rs.getString("deadline")));
                 task.setStartDate(LocalDate.parse(rs.getString("startDate")));
                 task.setHoursOfPeriod();
@@ -165,7 +165,7 @@ public class Database implements DatabaseInterface {
             while (rs.next()) {
                 String projectName = rs.getString("projectName");
                 projectId = rs.getInt("projectId");
-                project = new Project(projectId, projectName);
+                project = new Project();
             }
             return project;
         } catch (SQLException e) {
@@ -173,6 +173,7 @@ public class Database implements DatabaseInterface {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public void addProject(int userId, String projectName) {
@@ -218,7 +219,7 @@ public class Database implements DatabaseInterface {
             throw new RuntimeException(e);
         }
     }
-}
+
 
     public void addUser(User user){
         Connection con = ConnectionManager.getConnection();
@@ -273,5 +274,61 @@ public class Database implements DatabaseInterface {
         }
         return userList;
     }
-}
+    public ArrayList<Project> showProjects() throws RuntimeException {
+        ArrayList<Project> pList = new ArrayList<>();
 
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.project";
+
+        try {
+            ResultSet rs = con.createStatement().executeQuery(SQLScript);
+            while (rs.next()) {
+                Project project = new Project();
+                project.setProjectId(rs.getInt("projectId"));
+                project.setProjectName(rs.getString("projectName"));
+                project.setStartDate(rs.getString("startDate"));
+                project.setDeadline(rs.getString("deadline"));
+                pList.add(project);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return pList;
+    }
+
+    public void addProject(Project project) {
+        Connection conn = ConnectionManager.getConnection();
+        // String SQLScript="insert into project_DB.project(name, id) valued=(?,?) ";
+        String SQL = "INSERT INTO Projectmanagement (projectName,projectId,startDate,deadline) VALUES (?,?,?,?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setInt(1, project.getProjectId());
+            ps.setString(2, project.getProjectName());
+            ps.setString(3,project.getStartDate());
+            ps.setString(4, project.getDeadline());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
+
+    public void deleteById ( int projectId){
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "delete from Projectmanagement.project where id=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1, projectId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+
+    }
+
+        }
+
+}

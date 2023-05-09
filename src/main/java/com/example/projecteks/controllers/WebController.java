@@ -52,7 +52,6 @@ public class WebController {
 
 
     }
-}
 
 
 /*
@@ -64,24 +63,32 @@ public class WebController {
     }
 
  */
-/*
+    @GetMapping("showProjects")
+    private String showProjects(Model model){
+    model.addAttribute("pList", database.showProjects());
+
+    return "showProjects";
+}
+
     @GetMapping("addProject")
     public String addProject(Model model){
-        model.addAttribute("project", new Project(projectId, projectName));
+        model.addAttribute("project", new Project());
         return "showProject";
     }
     @PostMapping("projectAdded")
     public String projectAdded(@ModelAttribute Project project){
-        //database.addProject(project);
+      database.addProject(project);
         return "redirect:/showProject";
     }
 
     @DeleteMapping ("deleteProject{projectID}")
     public String deleteProject (@PathVariable int projectID){
-        //database.deleteById(projectID);
+        database.deleteById(projectID);
         return "redirect:/showProject";
     }
 
 }
 
- */
+
+
+

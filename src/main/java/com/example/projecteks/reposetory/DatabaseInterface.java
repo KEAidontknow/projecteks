@@ -30,13 +30,13 @@ public interface DatabaseInterface {
     void addUser(User user);
     ArrayList<User> getUser();
     public User logIn(String userName, String password);
-}
-/*
     void updateTask(Task task);
 
-    //void addProject(Project project);
+    ArrayList<Project> showProjects();
 
-    void deleteProject(int id);
+   void addProject(Project project);
 
-    //void deleteById(int projectID);
+
+   void deleteById(int projectID);
 }
+
