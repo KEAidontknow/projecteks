@@ -17,6 +17,13 @@ public interface DatabaseInterface {
 
     void editTask(int taskId, Task updatedTask);
 
+    void addUserToProject(int userId, int projectId);
+
+    Project getCertainProject(int projectId);
+
+    void addProject(int userId, String projectName);
+
+    int getProjectId(String projectname);
 }
 /*
     void updateTask(Task task);

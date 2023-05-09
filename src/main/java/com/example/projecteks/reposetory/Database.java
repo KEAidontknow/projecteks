@@ -2,19 +2,16 @@ package com.example.projecteks.reposetory;
 
 import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
-import com.example.projecteks.service.TimeCalc;
 import com.example.projecteks.utilities.ConnectionManager;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
+
+import static com.example.projecteks.utilities.ConnectionManager.con;
 
 @Repository
 public class Database implements DatabaseInterface {
@@ -138,5 +135,74 @@ public class Database implements DatabaseInterface {
         }
     }
 
+    //----------------------------------<[[[ PROJECT METHODS ]]]>-------------------------------------
 
+    @Override
+    public void addUserToProject(int userId, int projectId) {
+        Connection con = ConnectionManager.getConnection();
+
+        try {
+            String SQLScript = "INSERT INTO userproject (userId, projectId) VALUES (?,?)";
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1, userId);
+            ps.setInt(2, projectId);
+            ps.executeQuery();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Project getCertainProject(int projectId) {
+        try {
+            String SQL = "SELECT projectName, projectId FROM project WHERE projectId = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, projectId);
+            ResultSet rs = ps.executeQuery();
+            Project project = null;
+            while (rs.next()) {
+                String projectName = rs.getString("projectName");
+                projectId = rs.getInt("projectId");
+                project = new Project(projectId, projectName);
+            }
+            return project;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void addProject(int userId, String projectName) {
+        try {
+            String SQL = "INSERT INTO project (projectName) VALUES (?)";
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, projectName);
+            ps.executeQuery();
+            int projectId = getProjectId(projectName);
+            addUserToProject(userId, projectId);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int getProjectId(String projectname) {
+        try {
+            int projectId = 0;
+            String SQL = "SELECT projectId FROM project WHERE projectName = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, projectId);
+            ResultSet rs = ps.executeQuery();
+            projectId = rs.getInt("projectId");
+            return projectId;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
 }
+
+

@@ -4,7 +4,7 @@ public class Project {
     private String projectName;
     private int projectId;
 
-    public Project() {}
+    public Project(int projectId, String projectName) {}
 
     public String getProjectName() {
         return projectName;
