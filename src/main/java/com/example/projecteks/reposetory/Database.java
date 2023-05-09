@@ -218,7 +218,7 @@ public class Database implements DatabaseInterface {
             throw new RuntimeException(e);
         }
     }
-}
+
 
     public void addUser(User user){
         Connection con = ConnectionManager.getConnection();
