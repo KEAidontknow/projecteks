@@ -35,12 +35,11 @@ public interface DatabaseInterface {
 
     //void updateTask(Task task);
 
-    //void addProject(Project project);
+    ArrayList<Project> showProjects();
 
-    //void deleteProject(int id);
-
-    //void deleteById(int projectID);
+   void addProject(Project project);
 
 
+   void deleteById(int projectID);
 }
 
