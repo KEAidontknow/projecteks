@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http//thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/TableStyle.css}" rel="stylesheet" >
+  <title>showuser</title>
+</head>
+<h2>Remove in Final</h2>
+<body>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Password</th>
+  </tr>
+
+  <div th:each="user : ${userList}">
+    <tr>
+      <td th:text="${user.userName}"></td>
+      <td th:text="${user.password}"></td>
+    </tr>
+  </div>
+</table>
+</body>
+</html>

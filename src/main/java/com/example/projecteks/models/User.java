@@ -1,14 +1,18 @@
 package com.example.projecteks.models;
 
 public class User {
-    String userName;
-    int password;
+    private String userName;
+    private String password;
     String name;
     int id;
 
+    public User(int id, String userName, String password){
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+    }
     public User() {
     }
-
     public String getUserName() {
         return userName;
     }
@@ -17,11 +21,11 @@ public class User {
         this.userName = userName;
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

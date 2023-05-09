@@ -4,8 +4,10 @@ create database Projectmanagement;
 use Projectmanagement;
 CREATE TABLE user
 (
-    userName VARCHAR(255) NOT NULL PRIMARY KEY,
-    password VARCHAR(255) NOT NULL
+    userId int auto_increment,
+    userName VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    primary key (userName)
 );
 
 create table project
