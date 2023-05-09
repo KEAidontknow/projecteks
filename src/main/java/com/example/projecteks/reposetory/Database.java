@@ -176,7 +176,7 @@ public class Database implements DatabaseInterface {
     }
 
 
-    @Override
+   /* @Override
     public void addProject(int userId, String projectName) {
         try {
             String SQL = "INSERT INTO project (projectName) VALUES (?)";
@@ -189,7 +189,7 @@ public class Database implements DatabaseInterface {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     @Override
     public int getProjectId(String projectname) {
@@ -246,11 +246,11 @@ public class Database implements DatabaseInterface {
     }
 
     public void addProject(Project project) {
-        Connection conn = ConnectionManager.getConnection();
+        Connection con = ConnectionManager.getConnection();
         // String SQLScript="insert into project_DB.project(name, id) valued=(?,?) ";
         String SQL = "INSERT INTO Projectmanagement (projectName,projectId,startDate,deadline) VALUES (?,?,?,?)";
         try {
-            PreparedStatement ps = conn.prepareStatement(SQL);
+            PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, project.getProjectId());
             ps.setString(2, project.getProjectName());
             ps.setString(3, project.getStartDate());

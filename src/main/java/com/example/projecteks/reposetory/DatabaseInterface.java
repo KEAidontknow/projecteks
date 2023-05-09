@@ -22,7 +22,7 @@ public interface DatabaseInterface {
 
     Project getCertainProject(int projectId);
 
-    void addProject(int userId, String projectName);
+   /* void addProject(int userId, String projectName);*/
 
     int getProjectId(String projectName);
 
@@ -31,14 +31,11 @@ public interface DatabaseInterface {
     ArrayList<User> getUser();
     User logIn(String userName, String password);
 
+   void updateTask(Task task);
 
-
-    //void updateTask(Task task);
-
-    ArrayList<Project> showProjects();
+   ArrayList<Project> showProjects();
 
    void addProject(Project project);
-
 
    void deleteById(int projectID);
 }

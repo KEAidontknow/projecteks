@@ -23,13 +23,10 @@
     align-items: center;
     height: 30px;
     border: 3px solid green;
-
   }
-
 </style>
 
 <h1>Add a new project</h1>
-
 <form action="#" th:action="@{projectAdded}" method="POST" th:object="${project}">
   <table class="center">
     <tbody>
@@ -47,7 +44,7 @@
     </tr>
     </tbody>
   </table>
-  <button type="submit" value="submit" class="center">Add Project</button>
+  <button type="submit" value="Add project" class="center">Add project</button>
 </form>
 </body>
 </html>

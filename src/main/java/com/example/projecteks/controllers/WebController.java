@@ -50,33 +50,28 @@ public class WebController {
         database.editTask(taskId, updatedTask);
         return "redirect:/showTask";
 
-
     }
 
 
-/*
     @GetMapping("/updateTask")
     public String updateTask(@ModelAttribute("task") Task task) {
         database.updateTask(task);
-
         return "redirect:/tasks";
     }
 
- */
-    @GetMapping("showProjects")
+    @GetMapping("showProject")
     private String showProjects(Model model){
     model.addAttribute("pList", database.showProjects());
-
     return "showProjects";
 }
 
     @GetMapping("addProject")
     public String addProject(Model model){
         model.addAttribute("project", new Project());
-        return "showProject";
+        return "addProject";
     }
     @PostMapping("projectAdded")
-    public String projectAdded(@ModelAttribute Project project){
+    public String projectAdded(@ModelAttribute("project") Project project){
       database.addProject(project);
         return "redirect:/showProject";
     }
