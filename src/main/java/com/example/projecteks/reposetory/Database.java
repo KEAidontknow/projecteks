@@ -33,7 +33,7 @@ public class Database implements DatabaseInterface {
                 task.setName(rs.getString("taskName"));
                 task.setState(rs.getInt("taskState"));
                 task.setTimeEstimate(rs.getInt("timeEstimate"));
-                task.setCreationDate(rs.getDate("creationDate"));
+                task.setCreationDate(rs.getString("creationDate"));
                 task.setDeadline(LocalDate.parse(rs.getString("deadline")));
                 task.setStartDate(LocalDate.parse(rs.getString("startDate")));
                 task.setHoursOfPeriod();
@@ -47,14 +47,14 @@ public class Database implements DatabaseInterface {
         return list;
     }
 
-    public void addTask(Task task){  //UNITEST
+    public void addTask(Task task) {  //UNITEST
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate) values(?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setString(1,task.getName());
-            ps.setInt(2,task.getState());
+            ps.setString(1, task.getName());
+            ps.setInt(2, task.getState());
             //Oprettelsesdatoer & deadlines
             LocalDateTime now = LocalDateTime.now(); // skaffer current date og time
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // formattet
@@ -62,8 +62,8 @@ public class Database implements DatabaseInterface {
             task.setCreationDate(formattedDate); // sætter den som CreationDate
             ps.setString(3, task.getCreationDate());
             ps.setString(4, task.getStartDate().toString());
-            ps.setString(5,task.getDeadline().toString() );
-            ps.setInt(6,task.getTimeEstimate());
+            ps.setString(5, task.getDeadline().toString());
+            ps.setInt(6, task.getTimeEstimate());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -72,12 +72,12 @@ public class Database implements DatabaseInterface {
     }
     // Et stykke HTML kode som du skal ignorrere   <input type="hidden" id="creationDate" name="creationDate" th:field="*{creationDate}" value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}" />
 
-    public void removeTask(int taskId){   //UNITEST
+    public void removeTask(int taskId) {   //UNITEST
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "delete from Projectmanagement.task where taskId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(1,taskId);
+            ps.setInt(1, taskId);
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -85,17 +85,17 @@ public class Database implements DatabaseInterface {
         }
     }
 
-    public void updateState(int taskId, int state){  //
+    public void updateState(int taskId, int state) {  //
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "update Projectmanagement.task set taskState=? where taskId=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(2,taskId);
+            ps.setInt(2, taskId);
             switch (state) {
-                case(1)->ps.setInt(1, 2);
-                case(2)->ps.setInt(1, 3);
-                case(3)->ps.setInt(1, 1);
+                case (1) -> ps.setInt(1, 2);
+                case (2) -> ps.setInt(1, 3);
+                case (3) -> ps.setInt(1, 1);
             }
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -103,7 +103,8 @@ public class Database implements DatabaseInterface {
         }
 
     }
-//Jeg har valgt at pille Status fra da den er til at ændre altid som vi snakkede om
+
+    //Jeg har valgt at pille Status fra da den er til at ændre altid som vi snakkede om
     public void editTask(int taskId, Task updatedTask) {
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "update Projectmanagement.task set taskName=?, timeEstimate=?, startDate=?, deadline=? where taskId=?";
@@ -121,15 +122,15 @@ public class Database implements DatabaseInterface {
         }
     }
 
-    public void updateTask(Task task){
+    public void updateTask(Task task) {
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "update Projectmanagement.task set taskName=?, taskState=? where taskId=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setString(1,task.getName());
-            ps.setInt(2,task.getState());
-            ps.setInt(3,task.getId());
+            ps.setString(1, task.getName());
+            ps.setInt(2, task.getState());
+            ps.setInt(3, task.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -221,20 +222,21 @@ public class Database implements DatabaseInterface {
     }
 
 
-    public void addUser(User user){
+    public void addUser(User user) {
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "insert into Projectmanagement.user (userName, password) values(?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setString(1,user.getUserName());
-            ps.setString(2,user.getPassword());
+            ps.setString(1, user.getUserName());
+            ps.setString(2, user.getPassword());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
     }
+
     public User logIn(String userName, String password) {
         User user = null;
 
@@ -255,7 +257,8 @@ public class Database implements DatabaseInterface {
             throw new RuntimeException(e);
         }
     }
-    public ArrayList<User> getUser()throws RuntimeException{
+
+    public ArrayList<User> getUser() throws RuntimeException {
         ArrayList<User> userList = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
@@ -263,7 +266,7 @@ public class Database implements DatabaseInterface {
 
         try {
             ResultSet rs = con.createStatement().executeQuery(SQLScript);
-            while (rs.next()){
+            while (rs.next()) {
                 User user = new User();
                 user.setUserName(rs.getString("userName"));
                 user.setPassword(rs.getString("password"));
@@ -274,6 +277,7 @@ public class Database implements DatabaseInterface {
         }
         return userList;
     }
+
     public ArrayList<Project> showProjects() throws RuntimeException {
         ArrayList<Project> pList = new ArrayList<>();
 
@@ -305,7 +309,7 @@ public class Database implements DatabaseInterface {
             PreparedStatement ps = conn.prepareStatement(SQL);
             ps.setInt(1, project.getProjectId());
             ps.setString(2, project.getProjectName());
-            ps.setString(3,project.getStartDate());
+            ps.setString(3, project.getStartDate());
             ps.setString(4, project.getDeadline());
             ps.executeUpdate();
 
@@ -315,7 +319,7 @@ public class Database implements DatabaseInterface {
         }
     }
 
-    public void deleteById ( int projectId){
+    public void deleteById(int projectId) {
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "delete from Projectmanagement.project where id=?";
         try {
@@ -328,7 +332,4 @@ public class Database implements DatabaseInterface {
         }
 
     }
-
-        }
-
 }
