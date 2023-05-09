@@ -222,62 +222,6 @@ public class Database implements DatabaseInterface {
     }
 
 
-    public void addUser(User user) {
-        Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.user (userName, password) values(?,?)";
-
-        try {
-            PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setString(1, user.getUserName());
-            ps.setString(2, user.getPassword());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    public User logIn(String userName, String password) {
-        User user = null;
-
-        try {
-            Connection con = ConnectionManager.getConnection();
-            String SQL = "SELECT * FROM Projectmanagement.user WHERE userName = ? AND password = ?;";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setString(1, userName);
-            ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                int userId = rs.getInt("id");
-                user = new User(userId, userName, password);
-            }
-            return user;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public ArrayList<User> getUser() throws RuntimeException {
-        ArrayList<User> userList = new ArrayList<>();
-
-        Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.user";
-
-        try {
-            ResultSet rs = con.createStatement().executeQuery(SQLScript);
-            while (rs.next()) {
-                User user = new User();
-                user.setUserName(rs.getString("userName"));
-                user.setPassword(rs.getString("password"));
-                userList.add(user);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return userList;
-    }
-
     public ArrayList<Project> showProjects() throws RuntimeException {
         ArrayList<Project> pList = new ArrayList<>();
 
@@ -331,5 +275,62 @@ public class Database implements DatabaseInterface {
 
         }
 
+    }
+
+//---------------------------------------<[[[ USER METHODS ]]]>-------------------------------------
+
+    public ArrayList<User> getUser() throws RuntimeException {
+        ArrayList<User> userList = new ArrayList<>();
+
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.user";
+
+        try {
+            ResultSet rs = con.createStatement().executeQuery(SQLScript);
+            while (rs.next()) {
+                User user = new User();
+                user.setUserName(rs.getString("userName"));
+                user.setPassword(rs.getString("password"));
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return userList;
+    }
+
+    public void addUser(User user) {
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "insert into Projectmanagement.user (userName, password) values(?,?)";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setString(1, user.getUserName());
+            ps.setString(2, user.getPassword());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public User logIn(String userName, String password) {
+        User user = null;
+
+        try {
+            Connection con = ConnectionManager.getConnection();
+            String SQL = "SELECT * FROM Projectmanagement.user WHERE userName = ? AND password = ?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, userName);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int userId = rs.getInt("id");
+                user = new User(userId, userName, password);
+            }
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
