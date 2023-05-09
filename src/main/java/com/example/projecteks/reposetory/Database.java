@@ -203,6 +203,20 @@ public class Database implements DatabaseInterface {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void updateProjectName(int projectId, String projectName) {
+        try {
+            String SQL = "update project set projectName = ? where projectId = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, projectName);
+            ps.setInt(2, projectId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 
