@@ -38,16 +38,16 @@ public class WebController {
         return "redirect:/showTask/"+projectId;
     }
 
-    @GetMapping("removeTask/{taskId}")
-    private String removeTask(@PathVariable int taskId) {
+    @GetMapping("removeTask/{projectId}/{taskId}")
+    private String removeTask(@PathVariable int projectId,@PathVariable int taskId) {
         database.removeTask(taskId);
-        return "redirect:/showTask";
+        return "redirect:/showTask/"+projectId;
     }
 
-    @GetMapping("updateState/{taskId}/{state}")
-    private String updateTask(@PathVariable int taskId, @PathVariable int state) {
+    @GetMapping("updateState/{projectId}/{taskId}/{state}")
+    private String updateTask(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int state) {
         database.updateState(taskId, state);
-        return "redirect:/showTask";
+        return "redirect:/showTask/"+projectId;
     }
 
 

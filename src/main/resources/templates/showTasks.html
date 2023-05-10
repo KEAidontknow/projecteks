@@ -34,7 +34,7 @@
         <td th:if="${task.state}==1 "><a style="color: crimson;">TODO</a></td>
         <td th:if="${task.state}==2 " ><a style="color: gold;">In Progress</a></td>
         <td th:if="${task.state}==3 " ><a style="color: green;">Done</a></td>
-        <td><a th:href="@{/updateState/{taskId}/{state}(taskId=${task.id} , state=${task.state})}">
+        <td><a th:href="@{/updateState/{projectId}/{taskId}/{state}(projectId=${projectId} , taskId=${task.id} , state=${task.state})}">
             <button th:if="${task.state==1}">In Progress</button>
             <button th:if="${task.state==2}">Done</button>
             <button th:if="${task.state==3}">Reset</button>
@@ -43,7 +43,7 @@
             <button type="submit">Edit</button>
             <input type="hidden" name="task" th:value="${task}"/>
         </form></td>
-        <td><a th:href="@{/removeTask/{taskId}(taskId=${task.id})}">
+        <td><a th:href="@{/removeTask/{projectId}/{taskId}(projectId=${projectId},taskId=${task.id})}">
             <button>Delete</button>
         </a></td>
     </tr>
