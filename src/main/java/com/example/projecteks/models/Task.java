@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class Task {
+    private int projectId; // FK
     private String name;
     private int id;
     private int state; // 1=to do, 2= in progress, 3 = done
@@ -92,4 +93,11 @@ public class Task {
         }
     }
 
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
 }

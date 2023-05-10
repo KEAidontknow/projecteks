@@ -13,23 +13,29 @@ import org.springframework.web.bind.annotation.*;
 public class WebController {
     DatabaseInterface database = new Database();
 
-    @GetMapping("showTask")
-    private String showTasks(Model model) {
-        model.addAttribute("list", database.getTasks());
+    @GetMapping("showTask/{projectId}")
+    private String showTasks(Model model,@PathVariable int projectId) {
+        model.addAttribute("list", database.getTasks(projectId));
+        model.addAttribute("projectId",projectId);
 
         return "showTasks";
     }
 
-    @GetMapping("addTask")
-    private String addTask(Model model) {
+    @GetMapping("addTask/{projectId}")
+    private String addTask(Model model, @PathVariable Integer projectId) {
         model.addAttribute("task", new Task());
+        model.addAttribute("projectId", projectId);
+
+        //System.out.println("Test pre projectId: " + projectId);
         return "addTask";
     }
 
     @PostMapping("taskAdded")
-    private String taskAdded(@ModelAttribute Task task) {
+    private String taskAdded(@ModelAttribute("task") Task task, @ModelAttribute("projectId") int projectId) {
+        task.setProjectId(projectId);
+        System.out.println("Test post projectId: " + task.getProjectId());
         database.addTask(task);
-        return "redirect:/showTask";
+        return "redirect:/showTask/"+projectId;
     }
 
     @GetMapping("removeTask/{taskId}")

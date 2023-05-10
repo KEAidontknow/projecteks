@@ -7,7 +7,7 @@ import com.example.projecteks.models.User;
 import java.util.ArrayList;
 
 public interface DatabaseInterface {
-    ArrayList<Task> getTasks();
+    ArrayList<Task> getTasks(int projectId);
 
 
     void addTask(Task task);

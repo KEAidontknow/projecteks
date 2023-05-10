@@ -19,14 +19,16 @@ import static com.example.projecteks.utilities.ConnectionManager.con;
 public class Database implements DatabaseInterface {
 
 
-    public ArrayList<Task> getTasks() throws RuntimeException {  //UNITEST
+    public ArrayList<Task> getTasks(int projectId) throws RuntimeException {  //UNITEST
         ArrayList<Task> list = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.task";
+        String SQLScript = "select * from Projectmanagement.task where projectId = ?";
 
         try {
-            ResultSet rs = con.createStatement().executeQuery(SQLScript);
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1,projectId);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Task task = new Task();
                 task.setId(rs.getInt("taskId"));
@@ -49,7 +51,7 @@ public class Database implements DatabaseInterface {
 
     public void addTask(Task task) {  //UNITEST
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate) values(?,?,?,?,?,?)";
+        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate,projectId) values(?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -64,6 +66,7 @@ public class Database implements DatabaseInterface {
             ps.setString(4, task.getStartDate().toString());
             ps.setString(5, task.getDeadline().toString());
             ps.setInt(6, task.getTimeEstimate());
+            ps.setInt(7, task.getProjectId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

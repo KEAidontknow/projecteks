@@ -53,7 +53,7 @@
 <a th:href="@{showGant}">
     <button>Show as Gant</button>
 </a><br>
-<a th:href="@{addTask}">
+<a th:href="@{/addTask/{projectId}(projectId=${projectId})}">
     <button>add new Task</button>
 </a>
 
