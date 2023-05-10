@@ -248,13 +248,13 @@ public class Database implements DatabaseInterface {
     public void addProject(Project project) {
         Connection con = ConnectionManager.getConnection();
         // String SQLScript="insert into project_DB.project(name, id) valued=(?,?) ";
-        String SQL = "INSERT INTO Projectmanagement (projectName,projectId,startDate,deadline) VALUES (?,?,?,?)";
+        String SQL = "INSERT INTO Projectmanagement.project (projectName,startDate,deadline) VALUES (?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, project.getProjectId());
-            ps.setString(2, project.getProjectName());
-            ps.setString(3, project.getStartDate());
-            ps.setString(4, project.getDeadline());
+
+            ps.setString(1, project.getProjectName());
+            ps.setString(2, project.getStartDate());
+            ps.setString(3, project.getDeadline());
             ps.executeUpdate();
 
         } catch (SQLException e) {
