@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping
-public class WebController {
+public class TaskController {
     DatabaseInterface database = new Database();
 
     @GetMapping("showTask/{projectId}")
@@ -82,8 +82,9 @@ public class WebController {
         return "redirect:/showProject";
     }
 
-    @DeleteMapping ("deleteProject{projectID}")
+    @GetMapping("deleteProject/{projectID}")
     public String deleteProject (@PathVariable int projectID){
+        database.deleteAllTasksInProject(projectID);
         database.deleteById(projectID);
         return "redirect:/showProject";
     }

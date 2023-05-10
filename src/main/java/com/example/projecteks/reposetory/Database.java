@@ -87,6 +87,18 @@ public class Database implements DatabaseInterface {
             throw new RuntimeException(e);
         }
     }
+    public void deleteAllTasksInProject(int projectId) {
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "delete from Projectmanagement.task where projectId = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1, projectId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void updateState(int taskId, int state) {  //
         Connection con = ConnectionManager.getConnection();
@@ -268,7 +280,7 @@ public class Database implements DatabaseInterface {
 
     public void deleteById(int projectId) {
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "delete from Projectmanagement.project where id=?";
+        String SQLScript = "delete from Projectmanagement.project where projectId=?";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setInt(1, projectId);
@@ -279,6 +291,9 @@ public class Database implements DatabaseInterface {
         }
 
     }
+
+
+
 
 //---------------------------------------<[[[ USER METHODS ]]]>-------------------------------------
 
