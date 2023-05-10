@@ -15,10 +15,11 @@ import org.thymeleaf.context.WebContext;
 public class GantControllers {
     DatabaseInterface database = new Database();
 
-    @GetMapping("showGant/projectId")
+    @GetMapping("showGant/{projectId}")
     public String showGant(Model model, @PathVariable int projectId){
         model.addAttribute("objectList", database.getTasks(projectId));
         model.addAttribute("dateList", DateGenerator.getDateList());
+        model.addAttribute("projectId",projectId);
         return "showGant";
     }
 
