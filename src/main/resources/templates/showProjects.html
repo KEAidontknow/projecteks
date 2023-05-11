@@ -45,17 +45,17 @@
       <td th:text="${project.projectName}"></td>
       <td th:text="${project.startDate}"></td>
       <td th:text="${project.deadline}"></td>
-      <td><a th:href="@{deleteProject/{projectId}(projectId=${project.projectId})}" class="btn btn-danger">
+      <td><a th:href="@{/deleteProject/{user}(user=${user})/{projectId}(projectId=${project.projectId})}" class="btn btn-danger">
         Delete </a>
       </td>
-      <td><a th:href="@{showTask/{projectId}(projectId=${project.projectId})}" class="btn btn primary">
+      <td><a th:href="@{/showTask/{projectId}(projectId=${project.projectId})}" class="btn btn primary">
         Shwo tasks </a>
       </td>
     </tr>
     </tbody>
   </table>
   <p>
-    <a th:href="@{addProject}">
+    <a th:href="@{/addProject/{user}(user=${user})}">
       <button class="center">Add new Project </button>
     </a>
   </p>

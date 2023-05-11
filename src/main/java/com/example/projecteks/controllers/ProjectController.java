@@ -20,22 +20,24 @@ public class ProjectController {
         return "showProjects";
     }
 
-    @GetMapping("addProject")
-    public String addProject(Model model){
+    @GetMapping("addProject/{user}")
+    public String addProject(Model model, @PathVariable String user){
         model.addAttribute("project", new Project());
+        model.addAttribute("user", user);
         return "addProject";
     }
-    @PostMapping("projectAdded")
-    public String projectAdded(@ModelAttribute("project") Project project){
+    @PostMapping("projectAdded/{user}")
+    public String projectAdded(@ModelAttribute("project") Project project, @PathVariable String user){
         database.addProject(project);
-        return "redirect:/showProject";
+        return "redirect:/showProject/" + user;
     }
 
-    @GetMapping("deleteProject/{projectID}")
-    public String deleteProject (@PathVariable int projectID){
+    @GetMapping("deleteProject/{user}/{projectID}")
+    public String deleteProject (Model model, @PathVariable int projectID, @PathVariable String user){
         database.deleteAllTasksInProject(projectID);
         database.deleteById(projectID);
-        return "redirect:/showProject";
+        model.addAttribute("user", user);
+        return "redirect:/showProject/" + user;
     }
 
 

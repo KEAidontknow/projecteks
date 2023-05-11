@@ -45,7 +45,7 @@ public class LoginController {
             User login = database.logIn(user.getUserName(), user.getPassword());
             if (login != null) {
                 session.setAttribute("user", login);
-                session.setMaxInactiveInterval(5);
+                session.setMaxInactiveInterval(69);
 
                 return "redirect:showProject/" + login;
             } else {
