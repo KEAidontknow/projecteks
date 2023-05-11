@@ -65,30 +65,6 @@ public class TaskController {
         return "redirect:/tasks";
     }
 
-    @GetMapping("showProject")
-    private String showProjects(Model model){
-    model.addAttribute("pList", database.showProjects());
-    return "showProjects";
-}
-
-    @GetMapping("addProject")
-    public String addProject(Model model){
-        model.addAttribute("project", new Project());
-        return "addProject";
-    }
-    @PostMapping("projectAdded")
-    public String projectAdded(@ModelAttribute("project") Project project){
-      database.addProject(project);
-        return "redirect:/showProject";
-    }
-
-    @GetMapping("deleteProject/{projectID}")
-    public String deleteProject (@PathVariable int projectID){
-        database.deleteAllTasksInProject(projectID);
-        database.deleteById(projectID);
-        return "redirect:/showProject";
-    }
-
 }
 
 

@@ -1,4 +1,4 @@
-package com.example.projecteks.utilities;
+package com.example.projecteks.reposetory.utilities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

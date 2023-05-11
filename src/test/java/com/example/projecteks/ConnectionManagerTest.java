@@ -1,6 +1,6 @@
 package com.example.projecteks;
 
-import com.example.projecteks.utilities.ConnectionManager;
+import com.example.projecteks.reposetory.utilities.ConnectionManager;
 import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import static org.junit.jupiter.api.Assertions.assertTrue;
