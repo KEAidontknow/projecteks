@@ -12,7 +12,9 @@ create table project
 (
     projectId   int auto_increment,
     projectName varchar(20) not null,
-    userName varchar(255) NOT NULL,
+    startDate varchar(10),
+    deadline varchar(10),
+    userName varchar(255) ,
     primary key (projectId),
     foreign key (userName) references user (userName)
 );
@@ -26,9 +28,9 @@ create table task
     startDate   varchar(10) not null ,
     deadline    varchar(10) not null ,
     timeEstimate    int not null ,
-    project_id int         not null,
+    projectId int         ,
     primary key (taskId),
-    foreign key (project_id) references project (projectid)
+    foreign key (projectId) references project (projectid)
 
 
 );
