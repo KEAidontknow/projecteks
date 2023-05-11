@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Update Project</title>
+</head>
+
+<body>
+<h1>Update Project Name</h1>
+<form action="#" th:action="@{/updateProjectName/update/{projectId}(projectId=${project.projectId})}" method="post" th:object="${project}">
+  <label>Give the project a new name:</label>
+  <input type="text" th:field="*{projectName}"/>
+  <button type="submit">Update</button>
+</form>
+</body>
+
+</html>

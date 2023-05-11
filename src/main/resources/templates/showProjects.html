@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project List</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+</head>
+<body>
+<style>
+
+  h1 {
+    color: darkblue;
+    font-family: verdana;
+    font-size: 200%;
+    text-align: center;
+  }
+  button{
+    height: 30px;
+    border: 3px solid green;
+  }
+
+</style>
+
+<div align="center" class="container my-2">
+  <h1>Project List</h1>
+  <table border="1" class=""table table-striped table-responsive-md>
+    <thead>
+    <tr>
+      <th>Project Id</th>
+      <th>Project Name</th>
+      <th>Start Date</th>
+      <th>Deadline</th>
+      <th>Delete</th>
+      <th>Show tasks</th>
+      <th>update project</th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="project : ${pList}">
+
+      <td th:text="${project.projectId}"></td>
+      <td th:text="${project.projectName}"></td>
+      <td th:text="${project.startDate}"></td>
+      <td th:text="${project.deadline}"></td>
+      <td><a th:href="@{deleteProject/{projectId}(projectId=${project.projectId})}" class="btn btn-danger">
+        Delete </a>
+      </td>
+      <td><a th:href="@{showTasks/{projectId}(projectId=${project.projectId})}" class="btn btn primary">
+        Shwo tasks </a>
+      </td>
+      <td>
+        <a th:href="@{/updateProjectName/update/{projectId}(projectId=${project.projectId})}" class="btn btn-primary">
+          Update project
+        </a>
+      </td>
+
+
+    </tr>
+    </tbody>
+  </table>
+  <p>
+    <a th:href="@{addProject}">
+      <button class="center">Add new Project </button>
+    </a>
+  </p>
+</div>
+</body>
+</html>
