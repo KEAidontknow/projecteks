@@ -153,8 +153,8 @@ public class Database implements DatabaseInterface {
 
     //----------------------------------<[[[ PROJECT METHODS ]]]>-------------------------------------
 
-    @Override
-    public void addUserToProject(int userId, int projectId) {
+
+    public void addUserToProject(int userId, int projectId) { // todo: Denne metode skal ikke bruges, med mindre man gerne vil overdrage de administrative rettigheder til en anden bruger
         Connection con = ConnectionManager.getConnection();
 
         try {
@@ -169,19 +169,22 @@ public class Database implements DatabaseInterface {
         }
     }
 
-    @Override
-    public Project getCertainProject(int projectId) {
+
+    public Project getCertainProject(int projectId) { //UNITEST
         try {
-            String SQL = "SELECT projectName, projectId FROM project WHERE projectId = ?";
+            Connection con = ConnectionManager.getConnection();
+            String SQL = "SELECT * FROM Projectmanagement.project WHERE projectId = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, projectId);
             ResultSet rs = ps.executeQuery();
-            Project project = null;
+            Project project = new Project();
             while (rs.next()) {
-                String projectName = rs.getString("projectName");
-                projectId = rs.getInt("projectId");
-                project = new Project();
+                project.setProjectId(rs.getInt("projectId"));
+                project.setProjectName(rs.getString("projectName"));
+                project.setDeadline(rs.getString("deadline"));
+                project.setStartDate(rs.getString("startDate"));
             }
+
             return project;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -205,26 +208,29 @@ public class Database implements DatabaseInterface {
         }
     }*/
 
-    @Override
-    public int getProjectId(String projectname) {
+
+    public int getProjectId(String projectName) { // UNITEST
+        Connection con = ConnectionManager.getConnection();
         try {
-            int projectId = 0;
-            String SQL = "SELECT projectId FROM project WHERE projectName = ?";
+            Project project = new Project();
+            String SQL = "SELECT projectId FROM Projectmanagement.project WHERE projectName = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, projectId);
+            ps.setString(1, projectName);
             ResultSet rs = ps.executeQuery();
-            projectId = rs.getInt("projectId");
-            return projectId;
+            while (rs.next()) {
+                project.setProjectId(rs.getInt("projectId"));
+            }
+            return project.getProjectId();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
-    @Override
+
     public void updateProjectName(int projectId, String projectName) {
         try {
-            String SQL = "update project set projectName = ? where projectId = ?";
+            String SQL = "update Projectmanagement.project set projectName = ? where projectId = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, projectName);
             ps.setInt(2, projectId);
@@ -259,7 +265,7 @@ public class Database implements DatabaseInterface {
         return pList;
     }
 
-    public void addProject(Project project) {
+    public void addProject(Project project) { //UNITEST
         Connection con = ConnectionManager.getConnection();
         // String SQLScript="insert into project_DB.project(name, id) valued=(?,?) ";
         String SQL = "INSERT INTO Projectmanagement.project (projectName,startDate,deadline) VALUES (?,?,?)";

@@ -40,5 +40,7 @@ public interface DatabaseInterface {
    void deleteById(int projectID);
 
     void deleteAllTasksInProject(int projectID);
+
+
 }
 
