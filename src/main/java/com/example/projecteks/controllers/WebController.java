@@ -14,9 +14,9 @@ public class WebController {
     DatabaseInterface database = new Database();
 
     @GetMapping("showTask/{projectId}")
-    private String showTasks(Model model,@PathVariable int projectId) {
+    private String showTasks(Model model, @PathVariable int projectId) {
         model.addAttribute("list", database.getTasks(projectId));
-        model.addAttribute("projectId",projectId);
+        model.addAttribute("projectId", projectId);
 
         return "showTasks";
     }
@@ -35,19 +35,19 @@ public class WebController {
         task.setProjectId(projectId);
         System.out.println("Test post projectId: " + task.getProjectId());
         database.addTask(task);
-        return "redirect:/showTask/"+projectId;
+        return "redirect:/showTask/" + projectId;
     }
 
     @GetMapping("removeTask/{projectId}/{taskId}")
-    private String removeTask(@PathVariable int projectId,@PathVariable int taskId) {
+    private String removeTask(@PathVariable int projectId, @PathVariable int taskId) {
         database.removeTask(taskId);
-        return "redirect:/showTask/"+projectId;
+        return "redirect:/showTask/" + projectId;
     }
 
     @GetMapping("updateState/{projectId}/{taskId}/{state}")
-    private String updateTask(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int state) {
+    private String updateTask(@PathVariable int projectId, @PathVariable int taskId, @PathVariable int state) {
         database.updateState(taskId, state);
-        return "redirect:/showTask/"+projectId;
+        return "redirect:/showTask/" + projectId;
     }
 
 
@@ -66,29 +66,46 @@ public class WebController {
     }
 
     @GetMapping("showProject")
-    private String showProjects(Model model){
-    model.addAttribute("pList", database.showProjects());
-    return "showProjects";
-}
+    private String showProjects(Model model) {
+        model.addAttribute("pList", database.showProjects());
+        return "showProjects";
+    }
 
     @GetMapping("addProject")
-    public String addProject(Model model){
+    public String addProject(Model model) {
         model.addAttribute("project", new Project());
         return "addProject";
     }
+
     @PostMapping("projectAdded")
-    public String projectAdded(@ModelAttribute("project") Project project){
-      database.addProject(project);
+    public String projectAdded(@ModelAttribute("project") Project project) {
+        database.addProject(project);
         return "redirect:/showProject";
     }
 
-    @DeleteMapping ("deleteProject{projectID}")
-    public String deleteProject (@PathVariable int projectID){
+    @DeleteMapping("deleteProject{projectID}")
+    public String deleteProject(@PathVariable int projectID) {
         database.deleteById(projectID);
-        return "redirect:/showProject";
+        return "redirect:/showProjects";
     }
 
+
+    //Opdatere project navn
+
+    @GetMapping("/showProject/update/{projectId}")
+    public String updateProjectName(@PathVariable("projectId") int projectId, Model model) {
+        Project project = database.getCertainProject(projectId);
+        model.addAttribute("project", project);
+        return "updateProjectForm";
+    }
+
+    @PostMapping("/updatedProjectName/update/{projectId}")
+    public String updatedProjectName(@ModelAttribute("project") Project project, @PathVariable("projectId") int projectId, Model model) {
+        database.updateProjectName(projectId, project.getProjectName());
+        return "redirect:/showProjects";
+    }
 }
+
 
 
 

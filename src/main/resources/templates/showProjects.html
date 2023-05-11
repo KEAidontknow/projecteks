@@ -35,6 +35,8 @@
       <th>Deadline</th>
       <th>Delete</th>
       <th>Show tasks</th>
+      <th>update project</th>
+
     </tr>
     </thead>
 
@@ -48,9 +50,15 @@
       <td><a th:href="@{deleteProject/{projectId}(projectId=${project.projectId})}" class="btn btn-danger">
         Delete </a>
       </td>
-      <td><a th:href="@{showTask/{projectId}(projectId=${project.projectId})}" class="btn btn primary">
+      <td><a th:href="@{showTasks/{projectId}(projectId=${project.projectId})}" class="btn btn primary">
         Shwo tasks </a>
       </td>
+      <td> <a th:href="@{/updateProjectName/update/{projectId}(projectId=${project.projectId})}" class="btn btn-primary">
+        Update project
+      </a>
+      </td>
+
+
     </tr>
     </tbody>
   </table>

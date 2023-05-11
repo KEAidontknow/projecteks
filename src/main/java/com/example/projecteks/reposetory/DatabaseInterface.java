@@ -20,13 +20,10 @@ public interface DatabaseInterface {
 
     void addUserToProject(int userId, int projectId);
 
-    Project getCertainProject(int projectId);
-
    /* void addProject(int userId, String projectName);*/
 
     int getProjectId(String projectName);
 
-    void updateProjectName(int projectId, String projectName);
     void addUser(User user);
     ArrayList<User> getUser();
     User logIn(String userName, String password);
@@ -38,5 +35,9 @@ public interface DatabaseInterface {
    void addProject(Project project);
 
    void deleteById(int projectID);
+
+    Project getCertainProject(int projectId);
+
+    void updateProjectName(int projectId, String projectName);
 }
 

@@ -158,7 +158,19 @@ public class Database implements DatabaseInterface {
         }
     }
 
-    @Override
+    public void updateProjectName(int projectId, String projectName) {
+        try {
+            String SQL = "update project set projectName = ? where projectId = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, projectName);
+            ps.setInt(2, projectId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
     public Project getCertainProject(int projectId) {
         try {
             String SQL = "SELECT projectName, projectId FROM project WHERE projectId = ?";
@@ -194,7 +206,6 @@ public class Database implements DatabaseInterface {
         }
     }*/
 
-    @Override
     public int getProjectId(String projectname) {
         try {
             int projectId = 0;
@@ -210,19 +221,7 @@ public class Database implements DatabaseInterface {
         }
     }
 
-    @Override
-    public void updateProjectName(int projectId, String projectName) {
-        try {
-            String SQL = "update project set projectName = ? where projectId = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setString(1, projectName);
-            ps.setInt(2, projectId);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
+
 
 
     public ArrayList<Project> showProjects() throws RuntimeException {
