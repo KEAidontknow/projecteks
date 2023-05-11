@@ -1,9 +1,8 @@
 package com.example.projecteks;
 
-import com.example.projecteks.service.TimeCalc;
+import com.example.projecteks.utilities.TimeCalc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

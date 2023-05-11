@@ -4,12 +4,11 @@ package com.example.projecteks.controllers;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
 
-import com.example.projecteks.service.DateGenerator;
+import com.example.projecteks.utilities.DateGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.thymeleaf.context.WebContext;
 
 @Controller
 public class GantControllers {

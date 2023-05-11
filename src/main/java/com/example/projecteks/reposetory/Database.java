@@ -2,9 +2,8 @@ package com.example.projecteks.reposetory;
 
 import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
-import com.example.projecteks.service.TimeCalc;
 import com.example.projecteks.models.User;
-import com.example.projecteks.utilities.ConnectionManager;
+import com.example.projecteks.reposetory.utilities.ConnectionManager;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import static com.example.projecteks.utilities.ConnectionManager.con;
+import static com.example.projecteks.reposetory.utilities.ConnectionManager.con;
 
 @Repository
 public class Database implements DatabaseInterface {

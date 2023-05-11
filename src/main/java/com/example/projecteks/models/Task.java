@@ -1,9 +1,8 @@
 package com.example.projecteks.models;
 
-import com.example.projecteks.service.TimeCalc;
+import com.example.projecteks.utilities.TimeCalc;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Task {
     private int projectId; // FK
