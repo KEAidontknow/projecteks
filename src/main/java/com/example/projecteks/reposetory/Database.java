@@ -348,8 +348,8 @@ public class Database implements DatabaseInterface {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                int userId = rs.getInt("id");
-                user = new User(userId, userName, password);
+                String name = rs.getString("userName");
+                user = new User(name, password);
             }
             return user;
         } catch (SQLException e) {

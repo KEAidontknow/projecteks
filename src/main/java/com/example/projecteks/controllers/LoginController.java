@@ -1,6 +1,5 @@
 package com.example.projecteks.controllers;
 
-import com.example.projecteks.models.Task;
 import com.example.projecteks.models.User;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class LoginController {
@@ -19,12 +17,12 @@ public class LoginController {
     private String showTasks(Model model){
         model.addAttribute("userList", database.getUser());
 
-        return "showUser";
+        return "/users/showUser";
     }
     @GetMapping("/createUser")
     private String createUser(Model model){
         model.addAttribute("user", new User());
-        return "/createUser";
+        return "/users/createUser";
     }
     @PostMapping("/createUser")
     private String userCreated(@ModelAttribute User user){
@@ -36,9 +34,9 @@ public class LoginController {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             model.addAttribute("user", new User());
-            return "login";
+            return "users/login";
         } else {
-            return "redirect:" + user.getUserName();
+            return "redirect:showProject/" + user;
         }
     }
     @PostMapping("/login")
@@ -47,11 +45,11 @@ public class LoginController {
             User login = database.logIn(user.getUserName(), user.getPassword());
             if (login != null) {
                 session.setAttribute("user", login);
-                session.setMaxInactiveInterval(69);
+                session.setMaxInactiveInterval(5);
 
-                return "redirect:" + login.getUserName();
+                return "redirect:showProject/" + login;
             } else {
-                return "login";
+                return "users/login";
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
