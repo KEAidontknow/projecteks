@@ -92,11 +92,11 @@ public class WebController {
 
     //Opdatere project navn
 
-    @GetMapping("/showProject/update/{projectId}")
-    public String updateProjectName(@PathVariable("projectId") int projectId, Model model) {
+    @GetMapping("/updateProjectName/update/{projectId}")
+    public String updateProjectNameForm(@PathVariable("projectId") int projectId, Model model) {
         Project project = database.getCertainProject(projectId);
         model.addAttribute("project", project);
-        return "updateProjectForm";
+        return "updateProjectName";
     }
 
     @PostMapping("/updatedProjectName/update/{projectId}")
