@@ -1,15 +1,16 @@
 package com.example.projecteks.models;
 
-import com.example.projecteks.service.TimeCalc;
+import com.example.projecteks.utilities.TimeCalc;
 
 import java.time.LocalDate;
 
 public class Task {
+    private int projectId; // FK
     private String name;
     private int id;
     private int state; // 1=to do, 2= in progress, 3 = done
-    private String startDate;
-    private String deadline;
+    private LocalDate startDate;
+    private LocalDate deadline;
     private String creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
     private int timeEstimate;
     private double hoursOfPeriod;
@@ -25,7 +26,6 @@ public class Task {
     public void setState(int state) {
         this.state = state;
     }
-
 
 
     public String getName () {
@@ -44,8 +44,10 @@ public class Task {
         this.id = id;
     }
 
-
-    public String getDeadline () {
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
+    }
+    public LocalDate getDeadline () {
         return deadline;
     }
 
@@ -58,9 +60,7 @@ public class Task {
         this.creationDate = creationDate;
     }
 
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
-    }
+
 
     public int getTimeEstimate() {
         return timeEstimate;
@@ -70,11 +70,11 @@ public class Task {
         this.timeEstimate = timeEstimate;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
@@ -84,7 +84,7 @@ public class Task {
 
     public void setHoursOfPeriod() {
         TimeCalc timeCalc = new TimeCalc();
-        Double h = timeCalc.getAvalableWorkHours(LocalDate.parse(startDate),LocalDate.parse(deadline));
+        Double h = timeCalc.getAvalableWorkHours((startDate),(deadline));
         if(h != null) {
             this.hoursOfPeriod = h;
         }else {
@@ -92,4 +92,11 @@ public class Task {
         }
     }
 
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.projecteks.service;
+package com.example.projecteks.utilities;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package com.example.projecteks.utilities;
+package com.example.projecteks.reposetory.utilities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,10 +13,10 @@ public class ConnectionManager {
         String username = "user";
         String password = "!test1234";
 
-        /*String url = "jdbc:mysql://localhost:3306/Projectmanagement";
-        String username = "testuser";
-        String password = "Sivertsen13";
-*/
+       // String url = "jdbc:mysql://localhost:3306/Projectmanagement";
+       // String username = "testuser";
+        //String password = "Sivertsen13";
+
         if(con == null) {
             try {
                 con = DriverManager.getConnection(url, username, password);

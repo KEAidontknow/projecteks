@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> <br>Add a new project <br> </title>
+</head>
+<body>
+<style>
+  h1 {
+    color: darkblue;
+    font-family: verdana;
+    font-size: 200%;
+    text-align: center;
+  }
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    border: 3px solid green;
+  }
+</style>
+
+<h1>Add a new project</h1>
+<form action="#" th:action="@{projectAdded}" method="POST" th:object="${project}">
+  <table class="center">
+    <tbody>
+    <tr>
+      <td>Project Name:</td>
+      <td><input type="text" th:field="*{projectName}" required/></td>
+    </tr>
+    <tr>
+      <td>Start Date:</td>
+      <td><input type="date" th:field="*{startDate}" required/></td>
+    </tr>
+    <tr>
+      <td>Deadline:</td>
+      <td><input type="date" th:field="*{deadline}" required/></td>
+    </tr>
+    </tbody>
+  </table>
+  <button type="submit" value="Add project" class="center">Add project</button>
+</form>
+</body>
+</html>

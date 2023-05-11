@@ -7,7 +7,7 @@ import com.example.projecteks.models.User;
 import java.util.ArrayList;
 
 public interface DatabaseInterface {
-    ArrayList<Task> getTasks();
+    ArrayList<Task> getTasks(int projectId);
 
 
     void addTask(Task task);
@@ -17,18 +17,30 @@ public interface DatabaseInterface {
     void updateState(int taskId, int state);
 
     void editTask(int taskId, Task updatedTask);
+
+    void addUserToProject(int userId, int projectId);
+
+    Project getCertainProject(int projectId);
+
+   /* void addProject(int userId, String projectName);*/
+
+    int getProjectId(String projectName);
+
+    void updateProjectName(int projectId, String projectName);
     void addUser(User user);
     ArrayList<User> getUser();
-    public User logIn(String userName, String password);
+    User logIn(String userName, String password);
+
+   void updateTask(Task task);
+
+   ArrayList<Project> showProjects();
+
+   void addProject(Project project);
+
+   void deleteById(int projectID);
+
+    void deleteAllTasksInProject(int projectID);
+
+
 }
-/*
-    void updateTask(Task task);
 
-    //void addProject(Project project);
-
-    void deleteProject(int id);
-
-    //void deleteById(int projectID);
-}
-
- */
