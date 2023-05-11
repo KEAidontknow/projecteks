@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .even-col {
+            background-color: #f2f2f2;
+        }
+        .odd-col {
+            background-color: #ffffff;
+        }
+    </style>
+
 </head>
 <body>
 
 <table>
+
     <tr>
         <th>Task......................</th>
         <div th:each="d : ${dateList}">
@@ -16,8 +26,8 @@
 
     <tr th:each="o : ${objectList}">
         <td th:text="${o.name}"></td>
-        <div th:each="d : ${dateList}" >
-            <td th:if="${d < o.startDate}" > </td>
+        <div th:each="d,i : ${dateList}" th:class="${i.odd}? 'odd-col' : 'even-col'" >
+            <td th:if="${d < o.startDate}"  > </td>
             <td th:if="${d >= o.startDate and d <= o.deadline }" style="background-color: red;" >I</td>
         </div>
     </tr>
