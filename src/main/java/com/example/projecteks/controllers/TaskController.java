@@ -13,46 +13,46 @@ import org.springframework.web.bind.annotation.*;
 public class TaskController {
     DatabaseInterface database = new Database();
 
-    @GetMapping("showTask/{projectId}")
-    private String showTasks(Model model,@PathVariable int projectId) {
+    @GetMapping("showTask/{user}/{projectId}")
+    private String showTasks(Model model,@PathVariable int projectId, @PathVariable String user) {
         model.addAttribute("list", database.getTasks(projectId));
         model.addAttribute("projectId",projectId);
-
+        model.addAttribute("user", user);
         return "showTasks";
     }
 
-    @GetMapping("addTask/{projectId}")
-    private String addTask(Model model, @PathVariable Integer projectId) {
+    @GetMapping("addTask/{user}/{projectId}")
+    private String addTask(Model model, @PathVariable Integer projectId, @PathVariable String user) {
         model.addAttribute("task", new Task());
         model.addAttribute("projectId", projectId);
-
+        model.addAttribute("user", user);
         //System.out.println("Test pre projectId: " + projectId);
         return "addTask";
     }
 
-    @PostMapping("taskAdded")
-    private String taskAdded(@ModelAttribute("task") Task task, @ModelAttribute("projectId") int projectId) {
+    @PostMapping("taskAdded/{user}")
+    private String taskAdded(@ModelAttribute("task") Task task, @ModelAttribute("projectId") int projectId, @PathVariable String user) {
         task.setProjectId(projectId);
         System.out.println("Test post projectId: " + task.getProjectId());
         database.addTask(task);
-        return "redirect:/showTask/"+projectId;
+        return "redirect:/showTask/"+ user + "/" + projectId;
     }
 
-    @GetMapping("removeTask/{projectId}/{taskId}")
-    private String removeTask(@PathVariable int projectId,@PathVariable int taskId) {
+    @GetMapping("removeTask/{user}/{projectId}/{taskId}")
+    private String removeTask(@PathVariable int projectId,@PathVariable int taskId, @PathVariable String user) {
         database.removeTask(taskId);
-        return "redirect:/showTask/"+projectId;
+        return "redirect:/showTask/"+ user + "/" + projectId;
     }
 
-    @GetMapping("updateState/{projectId}/{taskId}/{state}")
-    private String updateTask(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int state) {
+    @GetMapping("updateState/{user}/{projectId}/{taskId}/{state}")
+    private String updateTask(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int state, @PathVariable String user) {
         database.updateState(taskId, state);
-        return "redirect:/showTask/"+projectId;
+        return "redirect:/showTask/"+ user + "/" + projectId;
     }
 
 
-    @PostMapping("editTask/{taskId}")
-    private String editTask(@PathVariable int taskId, @ModelAttribute Task updatedTask) {
+    @PostMapping("editTask/{user}/{taskId}")
+    private String editTask(@PathVariable int taskId, @ModelAttribute Task updatedTask, @PathVariable String user) {
         database.editTask(taskId, updatedTask);
         return "redirect:/showTask";
 

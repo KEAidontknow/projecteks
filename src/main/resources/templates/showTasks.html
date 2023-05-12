@@ -68,7 +68,7 @@
                 </form>
             </td>
             <td>
-                <a th:href="@{/removeTask/{projectId}/{taskId}(projectId=${projectId},taskId=${task.id})}">
+                <a th:href="@{/removeTask/{user}(user=${user})/{projectId}/{taskId}(projectId=${projectId},taskId=${task.id})}">
                     <button class="delete-button"><i class="fas fa-trash-alt"></i></button>
                 </a>
             </td>
@@ -76,13 +76,13 @@
     </div>
 </table>
 
-<a th:href="@{/showGant/{projectId}(projectId=${projectId})}">
+<a th:href="@{/showGant/{user}(user=${user})/{projectId}(projectId=${projectId})}">
     <button>Show as Gant</button>
 </a><br>
-<a th:href="@{/addTask/{projectId}(projectId=${projectId})}">
+<a th:href="@{/addTask/{user}(user=${user})/{projectId}(projectId=${projectId})}">
     <button>add new Task</button>
 </a><br>
-<a th:href="@{/showProject}">
+<a th:href="@{/showProject/{user}(user=${user})}">
     <button>Back</button>
 </a>
 </body>

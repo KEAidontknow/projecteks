@@ -48,8 +48,8 @@
       <td><a th:href="@{/deleteProject/{user}(user=${user})/{projectId}(projectId=${project.projectId})}" class="btn btn-danger">
         Delete </a>
       </td>
-      <td><a th:href="@{/showTask/{projectId}(projectId=${project.projectId})}" class="btn btn primary">
-        Shwo tasks </a>
+      <td><a th:href="@{/showTask/{user}(user=${user})/{projectId}(projectId=${project.projectId})}" class="btn btn primary">
+        Show tasks </a>
       </td>
     </tr>
     </tbody>

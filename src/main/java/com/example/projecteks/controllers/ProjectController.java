@@ -33,10 +33,9 @@ public class ProjectController {
     }
 
     @GetMapping("deleteProject/{user}/{projectID}")
-    public String deleteProject (Model model, @PathVariable int projectID, @PathVariable String user){
+    public String deleteProject (@PathVariable int projectID, @PathVariable String user){
         database.deleteAllTasksInProject(projectID);
         database.deleteById(projectID);
-        model.addAttribute("user", user);
         return "redirect:/showProject/" + user;
     }
 
