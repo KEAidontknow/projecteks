@@ -4,23 +4,29 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DateGenerator {
-    public static DateDTOList getDateList(){
+    public static DateDTOList getDateDTOList(){
         ArrayList<DateDTO> list = new ArrayList<>();
-        DateDTO dateDTO = new DateDTO();
-        LocalDate d = LocalDate.now();
-        int columnsOfFirstMonth = 1;
-        int columnsOfFirstYear = 1;
+        DateDTO dateDTO;
+        LocalDate d =LocalDate.now();
+
+        int columnsOfFirstMonth = 0;
+        int columnsOfFirstYear = 0;
+        boolean sameMonth = true;
+        boolean sameYear = true;
         for(int i = 0; i<30; i++){
+            dateDTO = new DateDTO();
             dateDTO.setDate(d);
             dateDTO.setDayName(d.getDayOfWeek().toString());
             dateDTO.setDayOfMonth(d.getDayOfMonth());
             dateDTO.setMonthName(d.getMonth().toString());
             dateDTO.setYear(d.getYear());
             list.add(dateDTO);
-            if(d.getMonthValue()==d.plusDays(1).getMonthValue()){
+            if(sameMonth){
+                sameMonth = (d.getMonthValue()==d.plusDays(1).getMonthValue());
                 columnsOfFirstMonth +=1;
             }
-            if(d.getYear()==d.plusDays(1).getYear()){
+            if(sameYear){
+                sameYear = (d.getYear()==d.plusDays(1).getYear());
                 columnsOfFirstYear +=1;
             }
 
@@ -33,6 +39,11 @@ public class DateGenerator {
         dateDTOList.setColumnsOfFirstYear(columnsOfFirstYear);
         dateDTOList.setColumnsOfSecondYear(30-columnsOfFirstYear);
 
+
+        //TEST
+        for(DateDTO dto : dateDTOList.getDateDTOS()) {
+            System.out.println(""+ d + " " + dto.getDate()+", day: "+ dto.getDayName()+" day: "+dto.getDayOfMonth()+" month :"+dto.getMonthName() + "  "+ dateDTOList.getColumnsOfFirstMonth());
+        }
         return dateDTOList;
     }
 
