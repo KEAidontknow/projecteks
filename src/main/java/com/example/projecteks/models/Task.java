@@ -1,27 +1,30 @@
 package com.example.projecteks.models;
 
-import java.util.Date;
+import com.example.projecteks.utilities.TimeCalc;
+
+import java.time.LocalDate;
 
 public class Task {
+    private int projectId; // FK
     private String name;
     private int id;
     private int state; // 1=to do, 2= in progress, 3 = done
-    private String Deadline;
+    private LocalDate startDate;
+    private LocalDate deadline;
     private String creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
+    private int timeEstimate;
+    private double hoursOfPeriod;
 
 
-    private enum status {TODO, IN_PROGRESS, DONE}
 
+    public Task() {
+    }
     public int getState() {
         return state;
     }
 
     public void setState(int state) {
         this.state = state;
-    }
-
-    public Task() {
-
     }
 
 
@@ -40,13 +43,12 @@ public class Task {
     public void setId ( int id){
         this.id = id;
     }
-    public void setDeadline(String deadline) {
-        this.Deadline = Deadline;
 
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
     }
-
-    public String getDeadline () {
-        return Deadline;
+    public LocalDate getDeadline () {
+        return deadline;
     }
 
 
@@ -56,5 +58,45 @@ public class Task {
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
+    }
+
+
+
+    public int getTimeEstimate() {
+        return timeEstimate;
+    }
+
+    public void setTimeEstimate(int timeEstimate) {
+        this.timeEstimate = timeEstimate;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public double getHoursOfPeriod() {
+        return hoursOfPeriod;
+    }
+
+    public void setHoursOfPeriod() {
+        TimeCalc timeCalc = new TimeCalc();
+        Double h = timeCalc.getAvalableWorkHours((startDate),(deadline));
+        if(h != null) {
+            this.hoursOfPeriod = h;
+        }else {
+            this.hoursOfPeriod = 0;
+        }
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 }

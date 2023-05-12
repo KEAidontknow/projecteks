@@ -2,10 +2,12 @@
 <html xmlns:th="http//thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add a new task</title>
 </head>
 <body>
-<form action="#" th:action="@{taskAdded}" method="POST" th:object="${task}">
+
+<form action="#" th:action="@{/taskAdded/{user}(user=${user})}" method="POST" th:object="${task}">
+    <input type="hidden" id="projectId" name="projectId" th:value="${projectId}" />
     <label for="name">Task name:</label>
     <input type="text" id="name" name="name" th:value="*{name}" required>
     <label for="state">Status:</label>
@@ -14,17 +16,23 @@
         <option type="text" value="2">In Progress</option>
         <option type="text" value="3">DONE</option>
     </select>
+    <label for="timeEstimate">Estimated completion time[hours]:</label>
+    <input type="text" id="timeEstimate" name="timeEstimate" th:value="*{timeEstimate}" required>
 
-    </select><br>
-    <input type="hidden" id="creationDate" name="creationDate" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
+    <br>
+
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" th:field="*{startDate}" />
+
     <label for="deadline">Deadline:</label>
+
     <input type="date" id="deadline" name="deadline" th:field="*{deadline}" /><br>
+
 
 
     <input type="submit" value="Add Task" />
 
 
-    </select>
-  <input type="submit" value="Submit">
+
 </form>
 
