@@ -7,6 +7,11 @@ public class Project {
     private String deadline;
     private  String subProjectName;
 
+    public Project(int projectId, String projectName){
+        this.projectId = projectId;
+        this.projectName = projectName;
+    }
+
     public Project() {}
 
     public String getProjectName() {

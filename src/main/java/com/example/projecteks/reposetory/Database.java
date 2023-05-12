@@ -160,6 +160,9 @@ public class Database implements DatabaseInterface {
 
     public void updateProjectName(int projectId, String projectName) {
         try {
+            if (con == null) {
+                throw new RuntimeException("Connection is null");
+            }
             String SQL = "update project set projectName = ? where projectId = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, projectName);
@@ -181,7 +184,7 @@ public class Database implements DatabaseInterface {
             while (rs.next()) {
                 String projectName = rs.getString("projectName");
                 projectId = rs.getInt("projectId");
-                project = new Project();
+                project = new Project(projectId, projectName);
             }
             return project;
         } catch (SQLException e) {
