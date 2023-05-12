@@ -13,30 +13,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ProjectController {
     DatabaseInterface database = new Database();
-    @GetMapping("showProject/{user}")
-    private String showProjects(Model model, @PathVariable String user){
+    @GetMapping("showProject")
+    private String showProjects(Model model){
         model.addAttribute("pList", database.showProjects());
-        model.addAttribute("user", user);
         return "showProjects";
     }
 
-    @GetMapping("addProject/{user}")
-    public String addProject(Model model, @PathVariable String user){
+    @GetMapping("addProject")
+    public String addProject(Model model){
         model.addAttribute("project", new Project());
-        model.addAttribute("user", user);
         return "addProject";
     }
-    @PostMapping("projectAdded/{user}")
-    public String projectAdded(@ModelAttribute("project") Project project, @PathVariable String user){
+    @PostMapping("projectAdded")
+    public String projectAdded(@ModelAttribute("project") Project project){
         database.addProject(project);
-        return "redirect:/showProject/" + user;
+        return "redirect:/showProject/";
     }
 
-    @GetMapping("deleteProject/{user}/{projectID}")
-    public String deleteProject (@PathVariable int projectID, @PathVariable String user){
+    @GetMapping("deleteProject/{projectID}")
+    public String deleteProject (@PathVariable int projectID){
         database.deleteAllTasksInProject(projectID);
         database.deleteById(projectID);
-        return "redirect:/showProject/" + user;
+        return "redirect:/showProject/";
     }
 
 
