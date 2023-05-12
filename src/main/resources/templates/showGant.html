@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http//thymeleaf.org">
+<html xmlns:th="http//thymeleaf.org" xmlns:extras="http://www.thymeleaf.org/extras/java8time">
 <head>
     <meta charset="UTF-8">
     <title>Gant diagram</title>
@@ -30,6 +30,14 @@
     <tr>
         <th th:style="'width: 300px'"></th>
         <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
+            <th th:if="${(i.count == 1)}" th:text="${dto.year}" th:style="'width: ' + ${dateDTOList.columnsOfFirstYear * 30} + 'px'" th:colspan="${dateDTOList.columnsOfFirstYear}" >|</th>
+            <th th:if="${(i.count > 1 and dto.date.dayOfYear == 1)}" th:text="${dto.year}" th:style="'width: ' + ${dateDTOList.columnsOfSecondYear * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondYear}">|</th>
+        </div>
+    </tr>
+
+    <tr>
+        <th th:style="'width: 300px'"></th>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
             <th th:if="${(i.count == 1)}" th:text="${dto.monthName}" th:style="'width: ' + ${dateDTOList.columnsOfFirstMonth * 30} + 'px'" th:colspan="${dateDTOList.columnsOfFirstMonth}" >|</th>
             <th th:if="${(i.count > 1 and dto.dayOfMonth == 1)}" th:text="${dto.monthName}" th:style="'width: ' + ${dateDTOList.columnsOfSecondMonth * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondMonth}">|</th>
         </div>
@@ -42,11 +50,18 @@
         </div>
     </tr>
 
+    <tr>
+        <th th:style="'width: 300px'"></th>
+        <div th:each="dto : ${dateDTOList.dateDTOS}">
+            <th  th:text="${#strings.substring(dto.dayName, 0, 2)}" th:style="'width: 30px'"></th>
+        </div>
+    </tr>
+
     <tr th:each="o : ${objectList}">
         <td th:text="${o.name}" th:style="'width: 300px'"></td>
         <div th:each="dto,i : ${dateDTOList.dateDTOS}" th:class="${i.odd}? 'odd-col' : 'even-col'" >
             <td th:if="${dto.date < o.startDate}" th:style="'width: 30px'" > </td>
-            <td th:if="${dto.date >= o.startDate and dto.date <= o.deadline }" style="background-color: red;" th:style="'width: 30px'">I</td>
+            <td th:if="${dto.date >= o.startDate and dto.date <= o.deadline }"  th:style="'width: 30px; background-color: red; color: red;'" >I</td>
         </div>
     </tr>
 
