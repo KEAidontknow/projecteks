@@ -62,10 +62,9 @@
                 </a>
             </td>
             <td>
-                <form method="get" th:action="@{/editTask}" th:object="${task}">
-                    <button type="submit">Edit</button>
-                    <input type="hidden" name="task" th:value="${task}"/>
-                </form>
+                <a th:href="@{/editTask/{user}(user=${user})/{taskId}(taskId=${task.id})}">
+                    <button>edit</button>
+                </a>
             </td>
             <td>
                 <a th:href="@{/removeTask/{user}(user=${user})/{projectId}/{taskId}(projectId=${projectId},taskId=${task.id})}">

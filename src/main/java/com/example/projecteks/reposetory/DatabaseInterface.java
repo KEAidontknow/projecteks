@@ -8,15 +8,14 @@ import java.util.ArrayList;
 
 public interface DatabaseInterface {
     ArrayList<Task> getTasks(int projectId);
-
-
+    Task getTaskById(int taskId);
     void addTask(Task task);
 
     void removeTask(int taskId);
 
     void updateState(int taskId, int state);
 
-    void editTask(int taskId, Task updatedTask);
+    void editTask(Task updatedTask);
 
     void addUserToProject(int userId, int projectId);
 

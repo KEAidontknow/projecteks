@@ -38,8 +38,8 @@ public class TaskController {
         return "redirect:/showTask/"+ user + "/" + projectId;
     }
 
-    @GetMapping("removeTask/{user}/{projectId}/{taskId}")
-    private String removeTask(@PathVariable int projectId,@PathVariable int taskId, @PathVariable String user) {
+    @GetMapping("removeTask/{user}/{taskId}")
+    private String removeTask(@PathVariable String user,@PathVariable String projectId,@PathVariable int taskId) {
         database.removeTask(taskId);
         return "redirect:/showTask/"+ user + "/" + projectId;
     }
@@ -51,19 +51,27 @@ public class TaskController {
     }
 
 
-    @PostMapping("editTask/{user}/{project}/{taskId}")
-    private String editTask(@PathVariable String user,@PathVariable int projectId,@PathVariable int taskId, @ModelAttribute Task updatedTask) {
-        database.editTask(taskId, updatedTask);
-        return "redirect:/showTask/"+ user + "/" + projectId;
+    @GetMapping("editTask/{user}/{taskId}")
+    private String editTask(@PathVariable String user,@PathVariable int taskId, Model model) {
+        model.addAttribute("task",database.getTaskById(taskId));
+        model.addAttribute("newTask", new Task());
+        return "editTask";
+    }
 
+    @PostMapping("editTask/{user}")
+    private String editTask(@PathVariable String user,@ModelAttribute("newTask") Task newTask,@ModelAttribute("projectId") int projectId,@ModelAttribute("id") int taskId) {
+        newTask.setId(taskId);
+        database.editTask(newTask);
+        System.out.println("tId "+ taskId+" pId "+ projectId);
+        return "redirect:/showTask/"+ user + "/" + projectId;
     }
 
 
-    @GetMapping("/updateTask")
+    /*@GetMapping("/updateTask")
     public String updateTask(@ModelAttribute("task") Task task) {
         database.updateTask(task);
         return "redirect:/tasks";
-    }
+    }*/
 
 }
 
