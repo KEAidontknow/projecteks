@@ -1,37 +1,40 @@
-<div th:fragment ="navwelcome">
+<div th:fragment ="main-nav">
 <body>
 <nav id="nav">
   <ul>
-    <li>ProjectEks</li>
-    <li><a href="#m1" >Menu 1</a></li>
-    <li><a href="#m2" >Menu 2</a></li>
-    <li><a href="#m3" >Log In</a></li>
+    <li>ProjectEks<sup>beta</sup></li>
+    <li><a th:href="@{/login}" ><button>Log In</button></a></li>
   </ul>
 </nav>
 </body>
 </div>
 
-<div th:fragment ="navlogin">
+<div th:fragment ="login-nav">
   <body>
   <nav id="nav2">
     <ul>
-      <li>ProjectEks</li>
-      <li><a href="#m1" >Menu 1</a></li>
-      <li><a href="#m2" >Menu 2</a></li>
-      <li><a href="#m3" >Main</a></li>
+      <li>ProjectEks<sup>beta</sup></li>
+      <li><a th:href="@{/}" ><button>Main</button></a></li>
     </ul>
   </nav>
   </body>
 </div>
 
-<div th:fragment ="navlogout">
+<div th:fragment ="project-nav">
   <body>
   <nav id="nav3">
     <ul>
-      <li>ProjectEks</li>
-      <li><a href="#m1" >Menu 1</a></li>
-      <li><a href="#m2" >Menu 2</a></li>
-      <li><a href="#m3" >Log out</a></li>
+      <li>ProjectEks<sup>beta</sup></li>
+    </ul>
+  </nav>
+  </body>
+</div>
+
+<div th:fragment ="task-nav">
+  <body>
+  <nav id="nav4">
+    <ul>
+      <li>ProjectEks<sup>beta</sup></li>
     </ul>
   </nav>
   </body>
