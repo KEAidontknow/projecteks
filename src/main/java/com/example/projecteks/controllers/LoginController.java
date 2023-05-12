@@ -27,7 +27,7 @@ public class LoginController {
     @PostMapping("/createUser")
     private String userCreated(@ModelAttribute User user){
         database.addUser(user);
-        return "redirect:/showUser";
+        return "redirect:/login";
     }
     @GetMapping("/login")
     public String isConnected(HttpSession session, Model model) {
