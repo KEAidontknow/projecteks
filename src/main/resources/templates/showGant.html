@@ -17,6 +17,12 @@
 <body>
 
 <table>
+    <tr>
+
+        <div th:each="d : ${dateList}" />
+        <th th:each="mv : ${d.getMonthValue()} " th:text="${d.getMonth()}"></th>
+
+    </tr>
 
     <tr>
         <th>Task......................</th>
