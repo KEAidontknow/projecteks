@@ -45,16 +45,16 @@ public class TaskController {
     }
 
     @GetMapping("updateState/{user}/{projectId}/{taskId}/{state}")
-    private String updateTask(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int state, @PathVariable String user) {
+    private String updateTask(@PathVariable String user,@PathVariable int projectId,@PathVariable int taskId, @PathVariable int state) {
         database.updateState(taskId, state);
         return "redirect:/showTask/"+ user + "/" + projectId;
     }
 
 
-    @PostMapping("editTask/{user}/{taskId}")
-    private String editTask(@PathVariable int taskId, @ModelAttribute Task updatedTask, @PathVariable String user) {
+    @PostMapping("editTask/{user}/{project}/{taskId}")
+    private String editTask(@PathVariable String user,@PathVariable int projectId,@PathVariable int taskId, @ModelAttribute Task updatedTask) {
         database.editTask(taskId, updatedTask);
-        return "redirect:/showTask";
+        return "redirect:/showTask/"+ user + "/" + projectId;
 
     }
 

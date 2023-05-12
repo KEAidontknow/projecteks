@@ -55,7 +55,7 @@
             <td th:if="${task.state}==2"><a style="color: gold;">In Progress</a></td>
             <td th:if="${task.state}==3"><a style="color: green;">Done</a></td>
             <td>
-                <a th:href="@{/updateState/{projectId}/{taskId}/{state}(projectId=${projectId},taskId=${task.id},state=${task.state})}">
+                <a th:href="@{/updateState/{user}(user=${user})/{projectId}/{taskId}/{state}(projectId=${projectId},taskId=${task.id},state=${task.state})}">
                     <button th:if="${task.state==1}">In Progress</button>
                     <button th:if="${task.state==2}">Done</button>
                     <button th:if="${task.state==3}">Reset</button>
