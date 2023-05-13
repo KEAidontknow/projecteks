@@ -48,6 +48,34 @@ public class Database implements DatabaseInterface {
         return list;
     }
 
+    public Task getTaskById(int taskId) throws RuntimeException {
+
+
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.task where taskId = ?";
+        Task task = new Task();
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1,taskId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                task.setId(rs.getInt("taskId"));
+                task.setName(rs.getString("taskName"));
+                task.setState(rs.getInt("taskState"));
+                task.setTimeEstimate(rs.getInt("timeEstimate"));
+                task.setCreationDate(rs.getString("creationDate"));
+                task.setDeadline(LocalDate.parse(rs.getString("deadline")));
+                task.setStartDate(LocalDate.parse(rs.getString("startDate")));
+                //task.setHoursOfPeriod();
+                task.setTimeEstimate(rs.getInt("timeEstimate"));
+                task.setProjectId(rs.getInt("projectId"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return task;
+    }
+
     public void addTask(Task task) {  //UNITEST
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate,projectId) values(?,?,?,?,?,?,?)";
@@ -119,7 +147,7 @@ public class Database implements DatabaseInterface {
     }
 
     //Jeg har valgt at pille Status fra da den er til at ændre altid som vi snakkede om
-    public void editTask(int taskId, Task updatedTask) {
+    public void editTask(Task updatedTask) {
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "update Projectmanagement.task set taskName=?, timeEstimate=?, startDate=?, deadline=? where taskId=?";
 
@@ -129,7 +157,7 @@ public class Database implements DatabaseInterface {
             ps.setInt(2, updatedTask.getTimeEstimate());
             ps.setString(3, updatedTask.getStartDate().toString());
             ps.setString(4, updatedTask.getDeadline().toString());
-            ps.setInt(5, taskId);
+            ps.setInt(5,updatedTask.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

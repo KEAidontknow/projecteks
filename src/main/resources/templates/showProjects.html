@@ -51,6 +51,11 @@
       <td><a th:href="@{/showTask/{user}(user=${user})/{projectId}(projectId=${project.projectId})}" class="btn btn primary">
         Show tasks </a>
       </td>
+      <td>
+        <a th:href="@{/updateProjectName/{user}(user=${user})/update/{projectId}(projectId=${project.projectId})}" class="btn btn-primary">
+          Update project
+        </a>
+      </td>
     </tr>
     </tbody>
   </table>

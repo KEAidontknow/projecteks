@@ -1,30 +1,73 @@
 <!DOCTYPE html>
-<html xmlns:th="http//thymeleaf.org">
+<html xmlns:th="http//thymeleaf.org" xmlns:extras="http://www.thymeleaf.org/extras/java8time">
 <head>
     <meta charset="UTF-8">
     <title>Gant diagram</title>
+    <title>Title</title>
+    <link th:href="@{/TableStyle.css}" rel="stylesheet" >
+    <style>
+        .even-col {
+            background-color: #f2f2f2;
+        }
+        .odd-col {
+            background-color: #ffffff;
+        }
+    </style>
+ <!--  <style>
+       /*tr{
+            display: flex;
+        }*/
+        th{
+            flex: 1;
+        }
+    </style>-->
+
+
 </head>
 <body>
 
 <table>
     <tr>
-        <th>Task......................</th>
-        <div th:each="d : ${dateList}">
-            <th  th:text="${d}"></th>
+        <th th:style="'width: 300px'"></th>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
+            <th th:if="${(i.count == 1)}" th:text="${dto.year}" th:style="'width: ' + ${dateDTOList.columnsOfFirstYear * 30} + 'px'" th:colspan="${dateDTOList.columnsOfFirstYear}" >|</th>
+            <th th:if="${(i.count > 1 and dto.date.dayOfYear == 1)}" th:text="${dto.year}" th:style="'width: ' + ${dateDTOList.columnsOfSecondYear * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondYear}">|</th>
+        </div>
+    </tr>
+
+    <tr>
+        <th th:style="'width: 300px'"></th>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
+            <th th:if="${(i.count == 1)}" th:text="${dto.monthName}" th:style="'width: ' + ${dateDTOList.columnsOfFirstMonth * 30} + 'px'" th:colspan="${dateDTOList.columnsOfFirstMonth}" >|</th>
+            <th th:if="${(i.count > 1 and dto.dayOfMonth == 1)}" th:text="${dto.monthName}" th:style="'width: ' + ${dateDTOList.columnsOfSecondMonth * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondMonth}">|</th>
+        </div>
+    </tr>
+
+    <tr>
+        <th th:style="'width: 300px'"></th>
+        <div th:each="dto : ${dateDTOList.dateDTOS}">
+            <th  th:text="${dto.dayOfMonth}" th:style="'width: 30px'"></th>
+        </div>
+    </tr>
+
+    <tr>
+        <th th:style="'width: 300px'"></th>
+        <div th:each="dto : ${dateDTOList.dateDTOS}">
+            <th  th:text="${#strings.substring(dto.dayName, 0, 2)}" th:style="'width: 30px'"></th>
         </div>
     </tr>
 
     <tr th:each="o : ${objectList}">
-        <td th:text="${o.name}"></td>
-        <div th:each="d : ${dateList}" >
-            <td th:if="${d < o.startDate}" > </td>
-            <td th:if="${d >= o.startDate and d <= o.deadline }" style="background-color: red;" >I</td>
+        <td th:text="${o.name}" th:style="'width: 300px'"></td>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}" th:class="${i.odd}? 'odd-col' : 'even-col'" >
+            <td th:if="${dto.date < o.startDate}" th:style="'width: 30px'" > </td>
+            <td th:if="${dto.date >= o.startDate and dto.date <= o.deadline }"  th:style="'width: 30px; background-color: red; color: red;'" >I</td>
         </div>
     </tr>
 
 
 </table>
-<a th:href="@{/showTask/{projectId}(projectId=${projectId})}">
+<a th:href="@{/showTask/{user}(user=${user})/{projectId}(projectId=${projectId})}">
     <button>Show as List</button>
 </a>
 

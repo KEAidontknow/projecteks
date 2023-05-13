@@ -17,12 +17,12 @@ public class LoginController {
     private String showTasks(Model model){
         model.addAttribute("userList", database.getUser());
 
-        return "/users/showUser";
+        return "users/showUser";
     }
     @GetMapping("/createUser")
     private String createUser(Model model){
         model.addAttribute("user", new User());
-        return "/users/createUser";
+        return "users/createUser";
     }
     @PostMapping("/createUser")
     private String userCreated(@ModelAttribute User user){

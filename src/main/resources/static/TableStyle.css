@@ -1,6 +1,7 @@
 th, td {
     border:1px solid black;
     color: black;
+    min-width: 50px;
 }
 table{
     border:1px solid black;

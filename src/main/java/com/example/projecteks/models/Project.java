@@ -9,6 +9,11 @@ public class Project {
 
     public Project() {}
 
+    public Project(int projectId, String projectName){
+        this.projectId = projectId;
+        this.projectName = projectName;
+    }
+
     public String getProjectName() {
         return projectName;
     }

@@ -17,7 +17,9 @@ public class GantControllers {
     @GetMapping("showGant/{projectId}")
     public String showGant(Model model, @PathVariable int projectId){
         model.addAttribute("objectList", database.getTasks(projectId));
-        model.addAttribute("dateList", DateGenerator.getDateList());
+        model.addAttribute("dateDTOList", DateGenerator.getDateDTOList());
+
+
         model.addAttribute("projectId",projectId);
         return "showGant";
     }
