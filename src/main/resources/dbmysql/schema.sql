@@ -2,10 +2,13 @@ drop database if exists Projectmanagement;
 create database Projectmanagement;
 
 use Projectmanagement;
-CREATE TABLE user
-(
-    userName VARCHAR(255) NOT NULL PRIMARY KEY,
-    password VARCHAR(255) NOT NULL
+CREATE TABLE `users` (
+                         `user_id` int(11) NOT NULL AUTO_INCREMENT,
+                         `username` varchar(45) NOT NULL,
+                         `password` varchar(64) NOT NULL,
+                         `role` varchar(45) NOT NULL,
+                         `enabled` tinyint(4) DEFAULT NULL,
+                         PRIMARY KEY (`user_id`)
 );
 
 create table project
@@ -14,9 +17,9 @@ create table project
     projectName varchar(20) not null,
     startDate varchar(10),
     deadline varchar(10),
-    userName varchar(255) ,
+    user_id int(11) ,
     primary key (projectId),
-    foreign key (userName) references user (userName)
+    foreign key (user_id) references `users` (`user_id`)
 );
 
 create table task
@@ -31,6 +34,4 @@ create table task
     projectId int         ,
     primary key (taskId),
     foreign key (projectId) references project (projectid)
-
-
 );

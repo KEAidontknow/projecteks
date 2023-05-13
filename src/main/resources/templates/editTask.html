@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="#" th:action="@{/editTask/{user}(user=${user})}" method="POST" th:object="${newTask}">
+<form action="#" th:action="@{/editTask/}" method="POST" th:object="${newTask}">
     <input type="hidden" id="id" name="id" th:value="${task.id}"/>
     <input type="hidden" id="projectId" name="projectId" th:value="${task.projectId}" />
     <label for="name">Task name:</label>

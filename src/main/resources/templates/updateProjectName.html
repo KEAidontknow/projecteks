@@ -8,7 +8,7 @@
 
 <body>
 <h1>Update Project Name</h1>
-<form action="#" th:action="@{/showProject/{user}(user=${user})/update/{projectId}(projectId=${project.projectId})}" method="post" th:object="${project}">
+<form action="#" th:action="@{/showProject/update/{projectId}(projectId=${project.projectId})}" method="post" th:object="${project}">
   <label>Give the project a new name:</label>
   <input type="text" th:field="*{projectName}"/>
   <button type="submit">Update</button>

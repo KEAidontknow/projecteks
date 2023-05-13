@@ -3,6 +3,7 @@
 <nav id="nav">
   <ul>
     <li>ProjectEks<sup>beta</sup></li>
+    <li><a th:href="@{/createUser}" ><button>Create user</button></a></li>
     <li><a th:href="@{/login}" ><button>Log In</button></a></li>
   </ul>
 </nav>
@@ -25,6 +26,9 @@
   <nav id="nav3">
     <ul>
       <li>ProjectEks<sup>beta</sup></li>
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" />
+      </form>
     </ul>
   </nav>
   </body>
@@ -35,6 +39,9 @@
   <nav id="nav4">
     <ul>
       <li>ProjectEks<sup>beta</sup></li>
+      <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" />
+      </form>
     </ul>
   </nav>
   </body>

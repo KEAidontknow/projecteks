@@ -12,7 +12,7 @@
   <form method="post" th:action="@{/createUser}" th:object="${user}">
     <label for="userName">User name:</label>
     <input id="userName" type="text"
-           th:field="*{userName}"
+           th:field="*{username}"
            placeholder="username"
            required="required"/>
 

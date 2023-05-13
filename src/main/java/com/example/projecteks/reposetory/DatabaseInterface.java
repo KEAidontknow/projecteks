@@ -28,7 +28,6 @@ public interface DatabaseInterface {
     void updateProjectName(int projectId, String projectName);
     void addUser(User user);
     ArrayList<User> getUser();
-    User logIn(String userName, String password);
 
    void updateTask(Task task);
 
