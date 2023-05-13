@@ -1,48 +1,118 @@
-<div th:fragment ="main-nav">
-<body>
-<nav id="nav">
-  <ul>
-    <li>ProjectEks<sup>beta</sup></li>
-    <li><a th:href="@{/createUser}" ><button>Create user</button></a></li>
-    <li><a th:href="@{/login}" ><button>Log In</button></a></li>
-  </ul>
-</nav>
-</body>
-</div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(45deg, #ea4f4c 0%, #6d0019 100%);
+    }
 
-<div th:fragment ="login-nav">
-  <body>
-  <nav id="nav2">
-    <ul>
-      <li>ProjectEks<sup>beta</sup></li>
-      <li><a th:href="@{/}" ><button>Main</button></a></li>
+    .navigationWrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: #222;
+      box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
+      color: white;
+      text-transform: uppercase;
+      overflow: hidden;
+      width: 600px;
+    }
+    .logoWrapper {
+      display: flex;
+    }
+
+    .stylish {
+      font-weight: bold;
+    }
+
+    .logo {
+      padding-left: 4px;
+      color: #ea4f4c;
+    }
+    .navigation {
+      display: flex;
+      list-style-type: none;
+    }
+
+    li {
+      opacity: 1;
+      list-style-type: none;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .parent {
+      padding: 0 10px;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+    .link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.3s ease-in-out;
+      color: white;
+    }
+    button {
+      border:none;
+      outline:none;
+    }
+  </style>
+</head>
+
+<div th:fragment ="main-nav">
+  <nav class="navigationWrapper">
+    <div class="logoWrapper">
+      <span class="stylish">ProjectEks</span>
+      <span class="logo"><sup>beta</sup></span>
+    </div>
+    <ul class="navigation">
+      <li class="parent"><a th:href="@{/createUser}" ><button>Create user</button></a></li>
+      <li class="parent"><a th:href="@{/login}" ><button>Log In</button></a></li>
     </ul>
   </nav>
-  </body>
 </div>
+
 
 <div th:fragment ="project-nav">
-  <body>
-  <nav id="nav3">
-    <ul>
-      <li>ProjectEks<sup>beta</sup></li>
-      <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout" />
-      </form>
+  <nav class="navigationWrapper">
+    <div class="logoWrapper">
+      <span class="stylish">ProjectEks</span>
+      <span class="logo"><sup>beta</sup></span>
+    </div>
+    <ul class="navigation">
+      <li class="parent"><a th:href="@{/showProject}" ><button>Project List</button></a></li>
+      <li class="parent"><a th:href="@{/addProject}" ><button>Create new Project</button></a></li>
+      <li class="parent"><a th:href="@{/logout}" ><button>Log out</button></a></li>
     </ul>
   </nav>
-  </body>
 </div>
 
 <div th:fragment ="task-nav">
-  <body>
-  <nav id="nav4">
-    <ul>
-      <li>ProjectEks<sup>beta</sup></li>
-      <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout" />
-      </form>
+  <nav class="navigationWrapper">
+    <div class="logoWrapper">
+      <span class="stylish">ProjectEks</span>
+      <span class="logo"><sup>beta</sup></span>
+    </div>
+    <ul class="navigation">
+      <li class="parent"><a th:href="@{/showProject}" ><button>Project List</button></a></li>
+      <li class="parent"><a th:href="@{/addProject}" ><button>Create new Project</button></a></li>
+      <li class="parent"><a th:href="@{/logout}" ><button>Log out</button></a></li>
     </ul>
   </nav>
-  </body>
 </div>
