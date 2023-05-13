@@ -29,7 +29,7 @@ public class LoginController {
     @PostMapping("/createUser")
     private String userCreated(@ModelAttribute User user){
         database.addUser(user);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
 

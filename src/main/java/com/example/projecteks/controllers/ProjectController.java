@@ -30,14 +30,14 @@ public class ProjectController {
     @PostMapping("projectAdded")
     public String projectAdded(@ModelAttribute("project") Project project){
         database.addProject(project);
-        return "redirect:/showProject/";
+        return "redirect:/showProject";
     }
 
     @GetMapping("deleteProject/{projectID}")
     public String deleteProject (@PathVariable int projectID){
         database.deleteAllTasksInProject(projectID);
         database.deleteById(projectID);
-        return "redirect:/showProject/";
+        return "redirect:/showProject";
     }
 
     @GetMapping("/updateProjectName/{user}/update/{projectId}")

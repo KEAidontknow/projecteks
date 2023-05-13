@@ -28,7 +28,7 @@ public class TaskController {
         return "addTask";
     }
 
-    @PostMapping("taskAdded/")
+    @PostMapping("taskAdded")
     private String taskAdded(@ModelAttribute("task") Task task, @ModelAttribute("projectId") int projectId) {
         task.setProjectId(projectId);
         System.out.println("Test post projectId: " + task.getProjectId());
