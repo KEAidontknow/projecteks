@@ -9,13 +9,15 @@
 <body>
 <table>
   <tr>
-    <th>Name</th>
-    <th>Password</th>
+    <th>user_id</th>
+    <th>username</th>
+    <th>password</th>
   </tr>
 
   <div th:each="user : ${userList}">
     <tr>
-      <td th:text="${user.userName}"></td>
+      <td th:text="${user.user_id}"></td>
+      <td th:text="${user.username}"></td>
       <td th:text="${user.password}"></td>
     </tr>
   </div>

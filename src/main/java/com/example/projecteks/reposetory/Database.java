@@ -1,9 +1,12 @@
 package com.example.projecteks.reposetory;
 
+import com.example.projecteks.Config.SecurityConfig;
 import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.models.User;
 import com.example.projecteks.reposetory.utilities.ConnectionManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -46,6 +49,34 @@ public class Database implements DatabaseInterface {
             throw new RuntimeException(e);
         }
         return list;
+    }
+
+    public Task getTaskById(int taskId) throws RuntimeException {
+
+
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.task where taskId = ?";
+        Task task = new Task();
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1,taskId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                task.setId(rs.getInt("taskId"));
+                task.setName(rs.getString("taskName"));
+                task.setState(rs.getInt("taskState"));
+                task.setTimeEstimate(rs.getInt("timeEstimate"));
+                task.setCreationDate(rs.getString("creationDate"));
+                task.setDeadline(LocalDate.parse(rs.getString("deadline")));
+                task.setStartDate(LocalDate.parse(rs.getString("startDate")));
+                //task.setHoursOfPeriod();
+                task.setTimeEstimate(rs.getInt("timeEstimate"));
+                task.setProjectId(rs.getInt("projectId"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return task;
     }
 
     public void addTask(Task task) {  //UNITEST
@@ -119,7 +150,7 @@ public class Database implements DatabaseInterface {
     }
 
     //Jeg har valgt at pille Status fra da den er til at ændre altid som vi snakkede om
-    public void editTask(int taskId, Task updatedTask) {
+    public void editTask(Task updatedTask) {
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "update Projectmanagement.task set taskName=?, timeEstimate=?, startDate=?, deadline=? where taskId=?";
 
@@ -129,7 +160,7 @@ public class Database implements DatabaseInterface {
             ps.setInt(2, updatedTask.getTimeEstimate());
             ps.setString(3, updatedTask.getStartDate().toString());
             ps.setString(4, updatedTask.getDeadline().toString());
-            ps.setInt(5, taskId);
+            ps.setInt(5,updatedTask.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -306,13 +337,14 @@ public class Database implements DatabaseInterface {
         ArrayList<User> userList = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.user";
+        String SQLScript = "select * from Projectmanagement.users";
 
         try {
             ResultSet rs = con.createStatement().executeQuery(SQLScript);
             while (rs.next()) {
                 User user = new User();
-                user.setUserName(rs.getString("userName"));
+                user.setUser_id(rs.getInt("user_id"));
+                user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 userList.add(user);
             }
@@ -324,34 +356,15 @@ public class Database implements DatabaseInterface {
 
     public void addUser(User user) {
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.user (userName, password) values(?,?)";
+        String SQLScript = "insert into Projectmanagement.users (userName, password, role, enabled) values(?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setString(1, user.getUserName());
+            ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
+            ps.setString(3, "USER");
+            ps.setInt(4, 1);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public User logIn(String userName, String password) {
-        User user = null;
-
-        try {
-            Connection con = ConnectionManager.getConnection();
-            String SQL = "SELECT * FROM Projectmanagement.user WHERE userName = ? AND password = ?;";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setString(1, userName);
-            ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                String name = rs.getString("userName");
-                user = new User(name, password);
-            }
-            return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -4,6 +4,8 @@ import com.example.projecteks.models.User;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,30 +31,6 @@ public class LoginController {
         database.addUser(user);
         return "redirect:/login";
     }
-    @GetMapping("/login")
-    public String isConnected(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            model.addAttribute("user", new User());
-            return "users/login";
-        } else {
-            return "redirect:showProject/" + user;
-        }
-    }
-    @PostMapping("/login")
-    public String signIn(HttpSession session, @ModelAttribute("user") User user) {
-        try {
-            User login = database.logIn(user.getUserName(), user.getPassword());
-            if (login != null) {
-                session.setAttribute("user", login);
-                session.setMaxInactiveInterval(69);
 
-                return "redirect:showProject/" + login;
-            } else {
-                return "users/login";
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }

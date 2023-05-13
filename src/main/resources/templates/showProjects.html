@@ -45,19 +45,25 @@
       <td th:text="${project.projectName}"></td>
       <td th:text="${project.startDate}"></td>
       <td th:text="${project.deadline}"></td>
-      <td><a th:href="@{/deleteProject/{user}(user=${user})/{projectId}(projectId=${project.projectId})}" class="btn btn-danger">
+      <td><a th:href="@{/deleteProject/{projectId}(projectId=${project.projectId})}" class="btn btn-danger">
         Delete </a>
       </td>
-      <td><a th:href="@{/showTask/{user}(user=${user})/{projectId}(projectId=${project.projectId})}" class="btn btn primary">
+      <td><a th:href="@{/showTask/{projectId}(projectId=${project.projectId})}" class="btn btn primary">
         Show tasks </a>
+      </td>
+      <td>
+        <a th:href="@{/updateProjectName/update/{projectId}(projectId=${project.projectId})}" class="btn btn-primary">
+          Update project
+        </a>
       </td>
     </tr>
     </tbody>
   </table>
   <p>
-    <a th:href="@{/addProject/{user}(user=${user})}">
+    <a th:href="@{/addProject}">
       <button class="center">Add new Project </button>
     </a>
+
   </p>
 </div>
 </body>

@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class GantControllers {
     DatabaseInterface database = new Database();
 
-    @GetMapping("showGant/{user}/{projectId}")
-    public String showGant(Model model, @PathVariable int projectId, @PathVariable String user){
+    @GetMapping("showGant/{projectId}")
+    public String showGant(Model model, @PathVariable int projectId){
         model.addAttribute("objectList", database.getTasks(projectId));
-        model.addAttribute("dateList", DateGenerator.getDateList());
+        model.addAttribute("dateDTOList", DateGenerator.getDateDTOList());
+
+
         model.addAttribute("projectId",projectId);
-        model.addAttribute("user", user);
         return "showGant";
     }
 
