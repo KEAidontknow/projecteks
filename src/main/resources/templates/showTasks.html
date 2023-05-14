@@ -29,17 +29,36 @@
         }
 
 
-        /*design af knapper for gant og add new task*/
-        button.black-button {
-            background-color: black; /* Set button background color */
-            color: white; /* Set button text color */
+        /* Design for Gantt button */
+        button.black-button.gantt-button {
+            background-color: black;
+            color: white;
             border: none;
             padding: 5px 10px;
             cursor: pointer;
         }
-        button.black-button:hover {
-            background-color: darkslategray; /* Set button background color on hover */
+
+        button.black-button.gantt-button:hover {
+            background-color: darkslategray;
         }
+
+        /* Design for Add New Task button */
+        button.dark-green-button.add-task-button {
+            background-color: limegreen;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        button.dark-green-button.add-task-button:hover {
+            background-color: darkgreen;
+        }
+
+        button.dark-green-button.add:hover {
+            background-color: darkgreen;
+        }
+
         /* back knap*/
         button.back-button {
             background-color: grey; /* Set button background color */
@@ -135,11 +154,11 @@
 </table>
 
 <a th:href="@{/addTask/{projectId}(projectId=${projectId})}">
-    <button class="black-button">add new Task</button>
+    <button class="dark-green-button add-task-button">Add new Task</button>
 </a>
 <br>
 <a th:href="@{/showGant/{projectId}(projectId=${projectId})}">
-    <button class="black-button">Show as Gantt</button>
+    <button class="black-button gantt-button">Show as Gantt</button>
 </a>
 <a th:href="@{/showProject}">
     <button class="back-button">
