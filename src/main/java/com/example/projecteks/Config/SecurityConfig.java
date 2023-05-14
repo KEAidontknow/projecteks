@@ -53,6 +53,7 @@ public class SecurityConfig {
                         .requestMatchers("/createUser").permitAll()
                         .requestMatchers("users/createUser").permitAll()
                         .requestMatchers("/showUser").permitAll()
+                        .requestMatchers("/images/2.png").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions().sameOrigin())
