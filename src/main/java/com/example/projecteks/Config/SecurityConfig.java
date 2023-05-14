@@ -62,6 +62,7 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/showProject", true)
                 .and()
                 .logout().permitAll()
+                .logoutSuccessUrl("/logOutSuccess")
                 .and()
                 .build();
     }

@@ -31,6 +31,8 @@ public class LoginController {
         database.addUser(user);
         return "redirect:/login";
     }
-
-
+    @GetMapping("/logOutSuccess")
+    private String LogoutAfter(){
+        return "users/LogOut";
+    }
 }
