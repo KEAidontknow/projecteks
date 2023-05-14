@@ -1,40 +1,189 @@
 <!DOCTYPE html>
-<html xmlns:th="http//thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Add a new task</title>
     <link rel="stylesheet" type="text/css" th:href="@{/topnav.css}">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #192A56, #FF5722);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 67px; /* Reduced by 30% */
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        form {
+            margin-top: 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        table {
+            border-collapse: collapse;
+            background-color: transparent;
+            margin: 0 auto;
+            font-size: 18px;
+            color: #fff;
+            position: relative;
+            z-index: 2;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            background-color: #fffbf6;
+            width: 300px;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            display: block;
+            margin: 20px auto 0;
+            background-color: darkgreen;
+            border: 2px solid lightgreen;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: lightgreen;
+        }
+
+
+        .bubble-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            animation-name: float;
+            animation-duration: 10s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            pointer-events: none;
+        }
+
+        .bubble:nth-child(1) {
+            width: 160px;
+            height: 160px;
+            top: 20%;
+            left: 10%;
+        }
+
+        .bubble:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            left: 50%;
+        }
+
+        .bubble:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            top: 70%;
+            left: 90%;
+        }
+
+        .bubble:nth-child(4) {
+            width: 160px;
+            height: 160px;
+            top: 60%;
+            left: 30%;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+
+
+
+    </style>
 </head>
 <body>
 <div th:replace="fragment/topnav :: task-nav">
 </div>
+<div class="bubble-container">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+</div>
+
+<h1>Add a new task</h1>
 <form action="#" th:action="@{/taskAdded}" method="POST" th:object="${task}">
-    <input type="hidden" id="projectId" name="projectId" th:value="${projectId}" />
-    <label for="name">Task name:</label>
-    <input type="text" id="name" name="name" th:value="*{name}" required>
-    <label for="state">Status:</label>
-    <select name="state" id="state">
-        <option type="text" value="1">TODO</option>
-        <option type="text" value="2">In Progress</option>
-        <option type="text" value="3">DONE</option>
-    </select>
-    <label for="timeEstimate">Estimated completion time[hours]:</label>
-    <input type="text" id="timeEstimate" name="timeEstimate" th:value="*{timeEstimate}" required>
-
-    <br>
-
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" name="startDate" th:field="*{startDate}" />
-
-    <label for="deadline">Deadline:</label>
-
-    <input type="date" id="deadline" name="deadline" th:field="*{deadline}" /><br>
-
-
-
-    <input type="submit" value="Add Task" />
-
-
-
+    <table class="center">
+        <tbody>
+        <tr>
+            <td><input type="hidden" id="projectId" name="projectId" th:value="${projectId}" /></td>
+        </tr>
+        <tr>
+            <td><label for="name">Task name:</label></td>
+            <td><input type="text" id="name" name="name" th:value="*{name}" required></td>
+        </tr>
+        <tr>
+            <td><label for="state">Status:</label></td>
+            <td>
+                <select name="state" id="state">
+                    <option value="1">TODO</option>
+                    <option value="2">In Progress</option>
+                    <option value="3">DONE</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="timeEstimate">Estimated completion time[hours]:</label></td>
+            <td><input type="text" id="timeEstimate" name="timeEstimate" th:value="*{timeEstimate}" required></td>
+        </tr>
+        <tr>
+            <td><label for="startDate">Start Date:</label></td>
+            <td><input type="date" id="startDate" name="startDate" th:field="*{startDate}" /></td>
+        </tr>
+        <tr>
+            <td><label for="deadline">Deadline:</label></td>
+            <td><input type="date" id="deadline" name="deadline" th:field="*{deadline}" /></td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit" value="Add Task" class="center">Add Task</button>
 </form>
 
+</body>
+</html>
