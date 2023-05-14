@@ -5,7 +5,8 @@
     <title>Add a new task</title>
 </head>
 <body>
-
+<div th:replace="fragment/topnav :: task-nav">
+</div>
 <form action="#" th:action="@{/taskAdded}" method="POST" th:object="${task}">
     <input type="hidden" id="projectId" name="projectId" th:value="${projectId}" />
     <label for="name">Task name:</label>

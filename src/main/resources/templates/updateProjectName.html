@@ -7,6 +7,8 @@
 </head>
 
 <body>
+<div th:replace="fragment/topnav :: project-nav">
+</div>
 <h1>Update Project Name</h1>
 <form action="#" th:action="@{/showProject/update/{projectId}(projectId=${project.projectId})}" method="post" th:object="${project}">
   <label>Give the project a new name:</label>

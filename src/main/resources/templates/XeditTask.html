@@ -7,6 +7,8 @@
 </head>
 
 <body>
+<div th:replace="fragment/topnav :: task-nav">
+</div>
 <h1>Edit Task</h1>
 <form th:action="@{/tasks/{id}(id=${taskId})}" method="post">
   <input type="hidden" th:name="_method" th:value="put" />
