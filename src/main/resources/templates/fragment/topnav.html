@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" type="text/css" href="../../static/Topnav.css">
+  <link rel="stylesheet" type="text/css" href="../../static/Topnav.css" th:href="@{/Topnav.css}"></head>
 </head>
-
 <div th:fragment ="main-nav">
   <nav class="navigationWrapper">
     <div class="logoWrapper">
@@ -62,3 +61,4 @@
     </ul>
   </nav>
 </div>
+</html>
