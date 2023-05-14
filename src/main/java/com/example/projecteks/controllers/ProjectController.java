@@ -40,8 +40,8 @@ public class ProjectController {
         return "redirect:/showProject";
     }
 
-    @GetMapping("/updateProjectName/{user}/update/{projectId}")
-    public String showUpdateProjectNameForm(@PathVariable("projectId") int projectId, Model model, @PathVariable String user) {
+    @GetMapping("/updateProjectName/update/{projectId}")
+    public String showUpdateProjectNameForm(@PathVariable("projectId") int projectId, Model model) {
         Project project = database.getCertainProject(projectId);
         model.addAttribute("project", project);
 
@@ -49,13 +49,11 @@ public class ProjectController {
         return "updateProjectName";
     }
 
-    @PostMapping("/showProject/{user}/update/{projectId}")
-    public String updateProjectName(@ModelAttribute("project") Project project, @PathVariable("projectId") int projectId, Model model, @PathVariable String user) {
+    @PostMapping("/showProject/update/{projectId}")
+    public String updateProjectName(@ModelAttribute("project") Project project, @PathVariable("projectId") int projectId, Model model) {
         database.updateProjectName(projectId, project.getProjectName());
         List<Project> pList = database.showProjects(); //Fetcher den opdateret projektliste
         model.addAttribute("pList", pList); // tilføjer den opdaterede liste til modellen
-        model.addAttribute("user", user);
-
 
 
         return "showProjects";
