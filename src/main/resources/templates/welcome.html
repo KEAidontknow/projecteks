@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http//thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" href="../static/Topnav.css" th:href="@{/topnav.css}"></head>
 </head>
 
 <body>
 <div th:replace="fragment/topnav :: main-nav">
-
 </div>
-<h2 th:text="#{/}">Welcome to ProjectEks</h2>
+<h2>Welcome to ProjectEks</h2>
 <div class="row">
-  <div class="col-md-12">
-    <img class="img" src="../static/images/2.png" th:src="@{/static/images/2.png}"/>
+  <div class="img">
+    <img src="../static/images/2.png" th:src="@{images/2.png}">
   </div>
 </div>
 <a th:href="@{/login}">

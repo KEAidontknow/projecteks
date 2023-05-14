@@ -1,11 +1,55 @@
 <!DOCTYPE html>
-<html xmlns:th="http//thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <title>Edit this task!</title>
+    <style>
+        body {
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            background-color: #FDF5E6;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em; /* Double size */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        table {
+            font-size: 2em; /* Double size */
+            margin-top: 20px;
+        }
+    </style>
     <title>Add a new task</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/topnav.css}">
 </head>
 <body>
+<div class="container">
+    <h1>Edit me!</h1>
 
+
+
+
+<div th:replace="fragment/topnav :: task-nav">
+</div>
 <form action="#" th:action="@{/editTask/}" method="POST" th:object="${newTask}">
     <input type="hidden" id="id" name="id" th:value="${task.id}"/>
     <input type="hidden" id="projectId" name="projectId" th:value="${task.projectId}" />
@@ -35,4 +79,6 @@
 
 
 </form>
-
+</div>
+</body>
+</html>

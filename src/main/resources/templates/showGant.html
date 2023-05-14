@@ -5,6 +5,7 @@
     <title>Gant diagram</title>
     <title>Title</title>
     <link th:href="@{/TableStyle.css}" rel="stylesheet" >
+    <link rel="stylesheet" type="text/css" th:href="@{/topnav.css}">
     <style>
         .even-col {
             background-color: #f2f2f2;
@@ -25,7 +26,8 @@
 
 </head>
 <body>
-
+<div th:replace="fragment/topnav :: task-nav">
+</div>
 <table>
     <tr>
         <th th:style="'width: 300px'"></th>
