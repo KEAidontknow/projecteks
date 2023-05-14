@@ -4,76 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Welcome</title>
-    <style>body {
-        font-family: "Roboto", sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        background: linear-gradient(45deg, #ea4f4c 0%, #6d0019 100%);
-    }
+    <style>
+        body {
+            font-family: "Roboto", sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #ea4f4c 0%, #6d0019 100%);
+        }
 
-    button {
-        border:none;
-        outline:none;
-    }
+        navigationWrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #222;
+            box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
+            color: white;
+            text-transform: uppercase;
+            overflow: hidden;
+            width: 600px;
+        }
+        logoWrapper {
+            display: flex;
+        }
 
-    navigationWrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px;
-        background-color: #222;
-        box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
-        color: white;
-        text-transform: uppercase;
-        overflow: hidden;
-        width: 600px;
-    }
+        stylish {
+            font-weight: bold;
+        }
 
-    logoWrapper {
-        display: flex;
-    }
+        logo {
+            padding-left: 4px;
+            color: #ea4f4c;
+        }
+        navigation {
+            display: flex;
+            list-style-type: none;
+        }
 
-    stylish {
-        font-weight: bold;
-    }
+        li {
+            opacity: 1;
+            list-style-type: none;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+        }
 
-    logo {
-        padding-left: 4px;
-        color: #ea4f4c;
-    }
-    navigation {
-        display: flex;
-        list-style-type: none;
-    }
-
-    li {
-        opacity: 1;
-        list-style-type: none;
-        color: white;
-        text-decoration: none;
-        transition: all 0.3s ease-in-out;
-    }
-
-    parent {
-        padding: 0 10px;
-        border: 0;
-        background: none;
-        cursor: pointer;
-    }
-    link {
-        position: relative;
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        transition: all 0.3s ease-in-out;
-        color: white;
-    }
+        parent {
+            padding: 0 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+        link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            color: white;
+        }
+        button {
+            border:none;
+            outline:none;
+        }
     </style>
 </head>
 

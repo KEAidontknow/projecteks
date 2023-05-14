@@ -1,21 +1,16 @@
 body {
-    font-family: "Roboto", sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: linear-gradient(45deg, #ea4f4c 0%, #6d0019 100%);
+font-family: "Roboto", sans-serif;
+margin: 0;
+padding: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 100vh;
+background: linear-gradient(45deg, #ea4f4c 0%, #6d0019 100%);
 }
 
-button {
-    border:none;
-    outline:none;
-}
-
-navigationWrapper {
+.navigationWrapper {
     position: relative;
     display: flex;
     align-items: center;
@@ -28,20 +23,19 @@ navigationWrapper {
     overflow: hidden;
     width: 600px;
 }
-
-logoWrapper {
+.logoWrapper {
     display: flex;
 }
 
-stylish {
+.stylish {
     font-weight: bold;
 }
 
-logo {
+.logo {
     padding-left: 4px;
     color: #ea4f4c;
 }
-navigation {
+.navigation {
     display: flex;
     list-style-type: none;
 }
@@ -54,17 +48,21 @@ li {
     transition: all 0.3s ease-in-out;
 }
 
-parent {
+.parent {
     padding: 0 10px;
-    border: 0;
+    border: none;
     background: none;
     cursor: pointer;
 }
-link {
+.link {
     position: relative;
     display: flex;
     align-items: center;
     text-decoration: none;
     transition: all 0.3s ease-in-out;
     color: white;
+}
+button {
+    border:none;
+    outline:none;
 }
