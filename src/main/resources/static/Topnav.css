@@ -54,15 +54,14 @@ li {
     background: none;
     cursor: pointer;
 }
-.link {
-    position: relative;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
-    color: white;
-}
-button {
+button{
+    background-color: #222;
+    height: 30px;
     border:none;
     outline:none;
+    color: white;
+    padding: 0px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
 }
