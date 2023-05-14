@@ -85,6 +85,11 @@
             color: white;
         }
 
+        button.edit-button:hover i {
+            color: white;
+            animation: spin 2s infinite linear;
+        }
+
         button.status-button {
             background-color: lightgrey;
             color: black;
@@ -95,6 +100,15 @@
 
         button.status-button:hover {
             background-color: darkgrey;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
 
