@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
     <style>
         body {
             background: linear-gradient(to bottom, #000066, #000033);
         }
         table {
             background-color: white;
+            width: 100%;
+        }
+        td {
+            text-align: center;
         }
         .delete-button {
             background-color: red;
@@ -21,6 +27,57 @@
         .delete-button:hover {
             background-color: darkred;
         }
+
+
+        /*design af knapper for gant og add new task*/
+        button.black-button {
+            background-color: black; /* Set button background color */
+            color: white; /* Set button text color */
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        button.black-button:hover {
+            background-color: darkslategray; /* Set button background color on hover */
+        }
+        /* back knap*/
+        button.back-button {
+            background-color: grey; /* Set button background color */
+            color: white; /* Set button text color */
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        button.back-button:hover {
+            background-color: darkgrey; /* Set button background color on hover */
+        }
+
+
+        button.edit-button {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        button.edit-button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        button.status-button {
+            background-color: lightgrey;
+            color: black;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        button.status-button:hover {
+            background-color: darkgrey;
+        }
+
 
     </style>
 
@@ -56,14 +113,16 @@
             <td th:if="${task.state}==3"><a style="color: green;">Done</a></td>
             <td>
                 <a th:href="@{/updateState/{projectId}/{taskId}/{state}(projectId=${projectId},taskId=${task.id},state=${task.state})}">
-                    <button th:if="${task.state==1}">In Progress</button>
-                    <button th:if="${task.state==2}">Done</button>
-                    <button th:if="${task.state==3}">Reset</button>
+                    <button class="status-button" th:if="${task.state==1}">In Progress</button>
+                    <button class="status-button" th:if="${task.state==2}">Done</button>
+                    <button class="status-button" th:if="${task.state==3}">Reset</button>
                 </a>
             </td>
             <td>
                 <a th:href="@{/editTask/{taskId}(taskId=${task.id})}">
-                    <button>edit</button>
+                    <button class="edit-button">
+                        <i class="fas fa-cog"></i>
+                    </button>
                 </a>
             </td>
             <td>
@@ -75,14 +134,17 @@
     </div>
 </table>
 
-<a th:href="@{/showGant/{projectId}(projectId=${projectId})}">
-    <button>Show as Gant</button>
-</a><br>
 <a th:href="@{/addTask/{projectId}(projectId=${projectId})}">
-    <button>add new Task</button>
-</a><br>
+    <button class="black-button">add new Task</button>
+</a>
+<br>
+<a th:href="@{/showGant/{projectId}(projectId=${projectId})}">
+    <button class="black-button">Show as Gantt</button>
+</a>
 <a th:href="@{/showProject}">
-    <button>Back</button>
+    <button class="back-button">
+        <i class="fas fa-arrow-left"></i>
+    </button>
 </a>
 </body>
 </html>
