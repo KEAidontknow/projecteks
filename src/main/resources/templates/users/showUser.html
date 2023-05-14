@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <link th:href="@{/TableStyle.css}" rel="stylesheet" >
   <title>show user</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/topnav.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/Topnav.css}">
 </head>
 <h2>Remove in Final</h2>
 <body>
+<div th:replace="fragment/topnav :: main-nav">
+</div>
 <table>
   <tr>
     <th>user_id</th>
