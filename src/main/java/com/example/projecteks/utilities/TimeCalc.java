@@ -4,8 +4,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
 
-import static java.time.DayOfWeek.*;
-
 public class TimeCalc {
 
     private static Map<DayOfWeek,Double> weeklyWorkHours;

@@ -1,6 +1,5 @@
 package com.example.projecteks.controllers;
 
-import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;

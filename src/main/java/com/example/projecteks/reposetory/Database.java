@@ -1,11 +1,9 @@
 package com.example.projecteks.reposetory;
 
-import com.example.projecteks.Config.SecurityConfig;
 import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.models.User;
 import com.example.projecteks.reposetory.utilities.ConnectionManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
