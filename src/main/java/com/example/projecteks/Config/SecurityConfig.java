@@ -56,6 +56,7 @@ public class SecurityConfig {
                         .requestMatchers("/images/2.png").permitAll()
                         .requestMatchers("/Topnav.css").permitAll()
                         .requestMatchers("/Stylesheet.css").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions().sameOrigin())
