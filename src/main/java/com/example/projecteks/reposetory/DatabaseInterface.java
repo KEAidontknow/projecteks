@@ -25,7 +25,7 @@ public interface DatabaseInterface {
 
     int getProjectId(String projectName);
 
-    void updateProjectName(int projectId, String projectName);
+    void updateProjectName(int projectId, String projectName, String startDate, String deadline);
     void addUser(User user);
     ArrayList<User> getUser();
 

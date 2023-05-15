@@ -1,0 +1,20 @@
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(45deg, #ea4f4c 0%, #6d0019 100%);
+}
+h1{
+    color: white;
+}
+h2{
+    color: white;
+}
+label{
+    color: white;
+}

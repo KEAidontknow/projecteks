@@ -4,27 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Update Project</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/Topnav.css}">
 </head>
 
 <body>
-<div th:replace="fragment/topnav :: project-nav">
-</div>
-<h1>Update Project Name</h1>
+<h1>Update Project</h1>
 <form action="#" th:action="@{/showProject/update/{projectId}(projectId=${project.projectId})}" method="post" th:object="${project}">
-  <label>Give the project a new name:</label>
-  <input type="text" th:field="*{projectName}"/>
+  <label for="projectName">Give the project a new name:</label>
+  <input type="text" id="projectName" name="projectName" th:field="*{projectName}" />
+  <label for="startDate">Start Date:</label>
+  <input type="text" id="startDate" name="startDate" th:field="*{startDate}" />
+  <label for="deadline">Deadline:</label>
+  <input type="text" id="deadline" name="deadline" th:field="*{deadline}" />
   <button type="submit">Update</button>
 </form>
 </body>
 
 </html>
-
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Update Project</title>
-</head>
-<body>
