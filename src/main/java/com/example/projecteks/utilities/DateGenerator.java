@@ -4,16 +4,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DateGenerator {
-    public static DateDTOList getDateDTOList(){
+    public static DateDTOList getDateDTOList(int daysFroNow){
         ArrayList<DateDTO> list = new ArrayList<>();
         DateDTO dateDTO;
-        LocalDate d =LocalDate.now();
+        LocalDate d = LocalDate.now();
+        if(daysFroNow>0){
+            d=d.plusDays(daysFroNow);
+        } else if (daysFroNow<0){
+            d=d.minusDays(-daysFroNow);
+        }
+
 
         int columnsOfFirstMonth = 0;
         int columnsOfFirstYear = 0;
         boolean sameMonth = true;
         boolean sameYear = true;
-        for(int i = 0; i<30; i++){
+        for(int i = 0; i<30 ; i++){
             dateDTO = new DateDTO();
             dateDTO.setDate(d);
             dateDTO.setDayName(d.getDayOfWeek().toString());
