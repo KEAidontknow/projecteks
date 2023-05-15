@@ -63,7 +63,7 @@
         <td th:text="${o.name}" th:style="'width: 300px'"></td>
         <div th:each="dto,i : ${dateDTOList.dateDTOS}" th:class="${i.odd}? 'odd-col' : 'even-col'" >
             <td th:if="${dto.date < o.startDate}" th:style="'width: 30px'" > </td>
-            <td th:if="${dto.date >= o.startDate and dto.date <= o.deadline }"  th:style="'width: 30px; background-color: red; color: red;'" >I</td>
+            <td th:if="${dto.date >= o.startDate and dto.date <= o.deadline }"  th:style="'width: 30px; <!--background-color: red; color: red;-->'" ><div class="circle"/></td>
         </div>
     </tr>
 
