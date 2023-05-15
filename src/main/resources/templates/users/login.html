@@ -1,38 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Please Log In</title>
+    <link rel="stylesheet" type="text/css" href="../../static/Topnav.css" th:href="@{/Topnav.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/Stylesheet.css" th:href="@{/Stylesheet.css}">
 </head>
 <body>
-
-<h2>Log in</h2>
-
-<div class="login">
-    <form method="post" th:action="@{/login}" th:object="${user}">
-        <label for="userName">User name:</label>
-        <input id="userName" type="text"
-               th:field="*{userName}"
-               placeholder="username"
-               required="required"/>
-
-        <label for="password">Password:</label>
-        <input id="password" type="text"
-               th:field="*{password}"
-               placeholder="Password"
-               required="required"/>
-
-        <input type="submit" value="Log in">
-
-
-    </pre>
-    </form>
-        <a th:href="@{/createUser}">
-            <button>Create user</button>
-        </a>
-
-
-</div>
-
+<h1>Please Log In</h1>
+<div th:if="${param.error}">
+    Invalid username and password.</div>
+<div th:if="${param.logout}">
+    You have been logged out.</div>
+<form th:action="@{/login}" method="post">
+    <div>
+        <input type="text" name="username" placeholder="Username"/>
+    </div>
+    <div>
+        <input type="password" name="password" placeholder="Password"/>
+    </div>
+    <input type="submit" value="Log in" />
+</form>
 </body>
 </html>
