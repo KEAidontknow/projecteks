@@ -1,7 +1,6 @@
 package com.example.projecteks.controllers;
 
 import com.example.projecteks.models.Project;
-import com.example.projecteks.models.User;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
 import org.springframework.stereotype.Controller;

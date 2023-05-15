@@ -1,11 +1,10 @@
 package com.example.projecteks.reposetory;
 
-import com.example.projecteks.Config.SecurityConfig;
 import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.models.User;
 import com.example.projecteks.reposetory.utilities.ConnectionManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -357,12 +356,13 @@ public class Database implements DatabaseInterface {
 
     public void addUser(User user) {
         Connection con = ConnectionManager.getConnection();
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String SQLScript = "insert into Projectmanagement.users (userName, password, role, enabled) values(?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
+            ps.setString(2, passwordEncoder.encode(user.getPassword()));
             ps.setString(3, "USER");
             ps.setInt(4, 1);
             ps.executeUpdate();
