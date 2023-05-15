@@ -53,7 +53,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/"))
                 .authorizeHttpRequests( auth -> auth
-                        .requestMatchers(("/css/**")).permitAll()
+                        .requestMatchers(("/css/**")).permitAll()//TODO:move all css into a css folder
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/createUser").permitAll()
                         .requestMatchers("users/createUser").permitAll()
@@ -61,11 +61,11 @@ public class SecurityConfig {
                         .requestMatchers("/images/2.png").permitAll()
                         .requestMatchers("/Topnav.css").permitAll()
                         .requestMatchers("/Stylesheet.css").permitAll()
-                        .requestMatchers("/showProjects").permitAll()
+                        .requestMatchers("/showProjects").permitAll()//azure didn't work without this??
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions().sameOrigin())
-                .formLogin()
+                .formLogin()//TODO: create a custom login site instead of using default form
                 .defaultSuccessUrl("/showProject", true)
                 .and()
                 .logout().permitAll()
