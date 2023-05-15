@@ -51,13 +51,11 @@ public class ProjectController {
 
     @PostMapping("/showProject/update/{projectId}")
     public String updateProjectName(@ModelAttribute("project") Project project, @PathVariable("projectId") int projectId, Model model) {
-        database.updateProjectName(projectId, project.getProjectName());
-        List<Project> pList = database.showProjects(); //Fetcher den opdateret projektliste
-        model.addAttribute("pList", pList); // tilføjer den opdaterede liste til modellen
-
+        database.updateProjectName(projectId, project.getProjectName(), project.getStartDate(), project.getDeadline());
+        List<Project> pList = database.showProjects(); // Fetch the updated project list
+        model.addAttribute("pList", pList); // Add the updated list to the model
 
         return "showProjects";
-
     }
 
 

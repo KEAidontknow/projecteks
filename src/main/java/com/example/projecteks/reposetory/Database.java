@@ -258,13 +258,14 @@ public class Database implements DatabaseInterface {
         }
     }
 
-
-    public void updateProjectName(int projectId, String projectName) {
+    public void updateProjectName(int projectId, String projectName, String startDate, String deadline) {
         try {
-            String SQL = "update Projectmanagement.project set projectName = ? where projectId = ?";
+            String SQL = "UPDATE Projectmanagement.project SET projectName = ?, startDate = ?, deadline = ? WHERE projectId = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, projectName);
-            ps.setInt(2, projectId);
+            ps.setString(2, startDate);
+            ps.setString(3, deadline);
+            ps.setInt(4, projectId); // Corrected index to 4
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
