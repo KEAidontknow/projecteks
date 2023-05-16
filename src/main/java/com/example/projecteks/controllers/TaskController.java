@@ -48,10 +48,11 @@ public class TaskController {
     }
 
 
-    @GetMapping("editTask/{taskId}")
-    private String editTask(@PathVariable int taskId, Model model) {
+    @GetMapping("editTask/{taskId}/{projectId}")
+    private String editTask(@PathVariable int taskId, Model model, @PathVariable String projectId) {
         model.addAttribute("task",database.getTaskById(taskId));
         model.addAttribute("newTask", new Task());
+        model.addAttribute("projectId", projectId);
         return "Task/editTask";
     }
 

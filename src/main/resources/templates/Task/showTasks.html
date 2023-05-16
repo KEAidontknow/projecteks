@@ -49,7 +49,7 @@
             </a>
         </td>
         <td>
-            <a th:href="@{/editTask/{taskId}(taskId=${task.id})}">
+            <a th:href="@{/editTask/{taskId}/{projectId}(taskId=${task.id}, projectId=${projectId})}">
                 <button class="edit-button">
                     <i class="fas fa-cog"></i>
                 </button>
