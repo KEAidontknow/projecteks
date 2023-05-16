@@ -3,127 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-
     <link rel="stylesheet" type="text/css" th:href="@{/Topnav.css}">
-    <link rel="stylesheet" type="text/css" href="../static/Stylesheet.css" th:href="@{/Stylesheet.css}">
-
-    <style>
-        body {
-            background: linear-gradient(to bottom, #000066, #000033);
-        }
-        table {
-            background-color: white;
-            width: 100%;
-        }
-        td {
-            text-align: center;
-        }
-        .delete-button {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        .delete-button:hover {
-            background-color: darkred;
-        }
+    <link rel="stylesheet" type="text/css" th:href="@{/showtasks.css}">
 
 
-        /* Design for Gantt button */
-        button.black-button.gantt-button {
-            background-color: black;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        button.black-button.gantt-button:hover {
-            background-color: darkslategray;
-        }
-
-        /* Design for Add New Task button */
-        button.dark-green-button.add-task-button {
-            background-color: limegreen;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        button.dark-green-button.add-task-button:hover {
-            background-color: darkgreen;
-        }
-
-        button.dark-green-button.add:hover {
-            background-color: darkgreen;
-        }
-
-        /* back knap*/
-        button.back-button {
-            background-color: grey; /* Set button background color */
-            color: white; /* Set button text color */
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        button.back-button:hover {
-            background-color: darkgrey; /* Set button background color on hover */
-        }
 
 
-        button.edit-button {
-            background-color: white;
-            color: black;
-            border: 2px solid black;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        button.edit-button:hover {
-            background-color: black;
-            color: white;
-        }
-
-        button.edit-button:hover i {
-            color: white;
-            animation: spin 2s infinite linear;
-        }
-
-        button.status-button {
-            background-color: lightgrey;
-            color: black;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        button.status-button:hover {
-            background-color: darkgrey;
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-
-    </style>
-
-    <title>Tasks</title>
-</head>
+    </head>
 <body>
+<div th:replace="fragment/topnav :: task-nav"></div>
 
-<div th:replace="fragment/topnav :: task-nav">
-</div>
+
+
 <table>
+    <tbody>
     <tr>
         <th>Id</th>
         <th>Name</th>
@@ -137,49 +30,48 @@
         <th>Edit</th>
         <th>Delete</th>
     </tr>
-
-    <div th:each="task : ${list}">
-        <tr>
-            <td th:text="${task.id}"></td>
-            <td th:text="${task.name}"></td>
-            <td th:text="${task.creationDate}"></td>
-            <td th:text="${task.startDate}"></td>
-            <td th:text="${task.deadline}"></td>
-            <td th:text="${task.timeEstimate}"></td>
-            <td th:text="${task.hoursOfPeriod}"></td>
-            <td th:if="${task.state}==1"><a style="color: crimson;">TODO</a></td>
-            <td th:if="${task.state}==2"><a style="color: gold;">In Progress</a></td>
-            <td th:if="${task.state}==3"><a style="color: green;">Done</a></td>
-            <td>
-                <a th:href="@{/updateState/{projectId}/{taskId}/{state}(projectId=${projectId},taskId=${task.id},state=${task.state})}">
-                    <button class="status-button" th:if="${task.state==1}">In Progress</button>
-                    <button class="status-button" th:if="${task.state==2}">Done</button>
-                    <button class="status-button" th:if="${task.state==3}">Reset</button>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{/editTask/{taskId}(taskId=${task.id})}">
-                    <button class="edit-button">
-                        <i class="fas fa-cog"></i>
-                    </button>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{/removeTask/{projectId}/{taskId}(projectId=${projectId},taskId=${task.id})}">
-                    <button class="delete-button"><i class="fas fa-trash-alt"></i></button>
-                </a>
-            </td>
-        </tr>
-    </div>
+    <tr th:each="task : ${list}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.name}"></td>
+        <td th:text="${task.creationDate}"></td>
+        <td th:text="${task.startDate}"></td>
+        <td th:text="${task.deadline}"></td>
+        <td th:text="${task.timeEstimate}"></td>
+        <td th:text="${task.hoursOfPeriod}"></td>
+        <td th:if="${task.state}==1"><a style="color: crimson;">TODO</a></td>
+        <td th:if="${task.state}==2"><a style="color: gold;">In Progress</a></td>
+        <td th:if="${task.state}==3"><a style="color: green;">Done</a></td>
+        <td>
+            <a th:href="@{/updateState/{projectId}/{taskId}/{state}(projectId=${projectId},taskId=${task.id},state=${task.state})}">
+                <button class="status-button" th:if="${task.state==1}">In Progress</button>
+                <button class="status-button" th:if="${task.state==2}">Done</button>
+                <button class="status-button" th:if="${task.state==3}">Reset</button>
+            </a>
+        </td>
+        <td>
+            <a th:href="@{/editTask/{taskId}(taskId=${task.id})}">
+                <button class="edit-button">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </a>
+        </td>
+        <td>
+            <a th:href="@{/removeTask/{projectId}/{taskId}(projectId=${projectId},taskId=${task.id})}">
+                <button class="delete-button"><i class="fas fa-trash-alt"></i></button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
 </table>
 
 <a th:href="@{/addTask/{projectId}(projectId=${projectId})}">
-    <button class="dark-green-button add-task-button">Add new Task</button>
+    <button class="dark-green-button add-task-button">Add Task</button>
 </a>
 <br>
 <a th:href="@{/showGant/{projectId}(projectId=${projectId})}">
-    <button class="black-button gantt-button">Show as Gantt</button>
+    <button class="black-button gantt-button">Show Gantt</button>
 </a>
+<br>
 <a th:href="@{/showProject}">
     <button class="back-button">
         <i class="fas fa-arrow-left"></i>
@@ -187,3 +79,4 @@
 </a>
 </body>
 </html>
+
