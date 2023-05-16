@@ -16,7 +16,7 @@ public class TaskController {
     private String showTasks(Model model,@PathVariable int projectId) {
         model.addAttribute("list", database.getTasks(projectId));
         model.addAttribute("projectId",projectId);
-        return "showTasks";
+        return "Task/showTasks";
     }
 
     @GetMapping("addTask/{projectId}")
@@ -24,7 +24,7 @@ public class TaskController {
         model.addAttribute("task", new Task());
         model.addAttribute("projectId", projectId);
         //System.out.println("Test pre projectId: " + projectId);
-        return "addTask";
+        return "Task/addTask";
     }
 
     @PostMapping("taskAdded")
@@ -32,19 +32,19 @@ public class TaskController {
         task.setProjectId(projectId);
         System.out.println("Test post projectId: " + task.getProjectId());
         database.addTask(task);
-        return "redirect:/showTask/"+ projectId;
+        return "redirect:/Task/showTask/"+ projectId;
     }
 
     @GetMapping("removeTask/{taskId}")
     private String removeTask(@PathVariable String projectId,@PathVariable int taskId) {
         database.removeTask(taskId);
-        return "redirect:/showTask/"+ projectId;
+        return "redirect:/Task/showTask/"+ projectId;
     }
 
     @GetMapping("updateState/{projectId}/{taskId}/{state}")
     private String updateTask(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int state) {
         database.updateState(taskId, state);
-        return "redirect:/showTask/"+ projectId;
+        return "redirect:/Task/showTask/"+ projectId;
     }
 
 
@@ -52,7 +52,7 @@ public class TaskController {
     private String editTask(@PathVariable int taskId, Model model) {
         model.addAttribute("task",database.getTaskById(taskId));
         model.addAttribute("newTask", new Task());
-        return "editTask";
+        return "Task/editTask";
     }
 
     @PostMapping("editTask/")
@@ -60,7 +60,7 @@ public class TaskController {
         newTask.setId(taskId);
         database.editTask(newTask);
         System.out.println("tId "+ taskId+" pId "+ projectId);
-        return "redirect:/showTask/" + projectId;
+        return "redirect:/Task/showTask/" + projectId;
     }
 
 

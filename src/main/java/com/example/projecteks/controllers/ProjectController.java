@@ -18,25 +18,25 @@ public class ProjectController {
     @GetMapping("showProject")
     private String showProjects(Model model){
         model.addAttribute("pList", database.showProjects());
-        return "showProjects";
+        return "Project/showProjects";
     }
 
     @GetMapping("addProject")
     public String addProject(Model model){
         model.addAttribute("project", new Project());
-        return "addProject";
+        return "Project/addProject";
     }
     @PostMapping("projectAdded")
     public String projectAdded(@ModelAttribute("project") Project project){
         database.addProject(project);
-        return "redirect:/showProject";
+        return "redirect:/Project/showProject";
     }
 
     @GetMapping("deleteProject/{projectID}")
     public String deleteProject (@PathVariable int projectID){
         database.deleteAllTasksInProject(projectID);
         database.deleteById(projectID);
-        return "redirect:/showProject";
+        return "redirect:/Project/showProject";
     }
 
     @GetMapping("/updateProjectName/update/{projectId}")
@@ -45,7 +45,7 @@ public class ProjectController {
         model.addAttribute("project", project);
 
 
-        return "updateProjectName";
+        return "Project/updateProjectName";
     }
 
     @PostMapping("/showProject/update/{projectId}")
@@ -54,7 +54,7 @@ public class ProjectController {
         List<Project> pList = database.showProjects(); // Fetch the updated project list
         model.addAttribute("pList", pList); // Add the updated list to the model
 
-        return "showProjects";
+        return "Project/showProjects";
     }
 
 

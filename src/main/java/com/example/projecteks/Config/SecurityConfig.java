@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -63,11 +64,13 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions().sameOrigin())
-                .formLogin()//TODO: create a custom login site instead of using default form
+                .formLogin()
+                .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/showProject", true)
                 .and()
-                .logout().permitAll()
-                .logoutSuccessUrl("/logOutSuccess")
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .permitAll()
                 .and()
                 .build();
     }
