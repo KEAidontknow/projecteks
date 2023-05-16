@@ -29,6 +29,7 @@
 <body>
 <div th:replace="fragment/topnav :: task-nav">
 </div>
+
 <table>
     <tr>
         <th th:style="'width: 300px'"></th>
@@ -64,15 +65,40 @@
         <td th:text="${o.name}" th:style="'width: 300px'"></td>
         <div th:each="dto,i : ${dateDTOList.dateDTOS}" th:class="${i.odd}? 'odd-col' : 'even-col'" >
             <td th:if="${dto.date < o.startDate}" th:style="'width: 30px'" > </td>
-            <td th:if="${dto.date >= o.startDate and dto.date <= o.deadline }"  th:style="'width: 30px; background-color: red; color: red;'" >I</td>
+            <td th:if="${dto.date >= o.startDate and dto.date <= o.deadline }"  th:style="'width: 30px; <!--background-color: red; color: red;-->'" ><div class="circle"/></td>
         </div>
     </tr>
 
 
 </table>
+<br/>
+
 <a th:href="@{/showTask/{projectId}(projectId=${projectId})}">
     <button>Show as List</button>
 </a>
 
+<br/>
+
+<table1>
+
+    <tr>
+        <td>
+            <a th:href="@{/decrement/{projectId}(projectId=${projectId})}">
+                <button> << </button>
+            </a>
+
+        </td>
+        <td>
+            <a th:href="@{/now/{projectId}(projectId=${projectId})}">
+                <button>now</button>
+            </a>
+        </td>
+        <td>
+            <a th:href="@{/increment/{projectId}(projectId=${projectId})}">
+                <button> >> </button>
+            </a>
+        </td>
+    </tr>
+</table1>
 </body>
 </html>

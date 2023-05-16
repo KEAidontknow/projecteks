@@ -1,10 +1,24 @@
 th, td {
     border:1px solid black;
     color: black;
-    min-width: 50px;
+    /*min-width: 50px;*/
 }
 table{
     border:1px solid black;
-    min-width: 500px;
+    /*min-width: 500px;*/
     color: green;
+}
+
+.circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: red;
+}
+.rounded-square {
+    flex-flow: row;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: blue;
 }

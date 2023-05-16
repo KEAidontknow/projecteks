@@ -1,0 +1,138 @@
+body {
+    background: linear-gradient(to bottom, #000066, #000033);
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+table {
+    background-color: white;
+    width: 92%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td {
+    text-align: center;
+}
+
+.delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
+
+/* Designet for Gantt knappen */
+
+button.black-button.gantt-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto 0;
+    background-color: antiquewhite;
+    border: 2px lightgray;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+}
+
+button.black-button.gantt-button:hover {
+    background-color: lightgray;
+    border-color: lightgrey;
+}
+
+
+
+
+
+button.dark-green-button.add-task-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto 0;
+    background-color: darkgreen;
+    border: 2px solid lightgreen;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+}
+
+button.dark-green-button.add-task-button:hover {
+    background-color: lightgreen;
+    border-color: lightgreen;
+}
+
+/* back knap*/
+button.back-button {
+    background-color: grey;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button.back-button:hover {
+    background-color: darkgrey;
+}
+
+button.edit-button {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button.edit-button:hover {
+    background-color: black;
+    color: white;
+}
+
+button.edit-button:hover i {
+    color: white;
+    animation: spin 2s infinite linear;
+}
+
+button.status-button {
+    background-color: lightgrey;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button.status-button:hover {
+    background-color: darkgrey;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
