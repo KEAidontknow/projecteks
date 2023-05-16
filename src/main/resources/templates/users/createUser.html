@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Create user</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/Topnav.css}">
+  <link rel="stylesheet" type="text/css" href="../../static/Topnav.css" th:href="@{/Topnav.css}">
   <link rel="stylesheet" type="text/css" href="../../static/Stylesheet.css" th:href="@{/Stylesheet.css}">
 </head>
 <body>
@@ -12,7 +12,7 @@
 <h2>Create User</h2>
 
 <div class="createUser">
-  <form method="post" th:action="@{/createUser}" th:object="${user}">
+  <form method="post" th:action="@{/createUser}" th:object="${user}" id="createUser">
     <label for="userName">User name:</label>
     <input id="userName" type="text"
            th:field="*{username}"
@@ -24,9 +24,8 @@
            th:field="*{password}"
            placeholder="Password"
            required="required"/>
+    <button type="submit" form="createUser" value="Submit">Create User</button>
 
-    <input type="submit" value="Create User">
-    </pre>
   </form>
 
 

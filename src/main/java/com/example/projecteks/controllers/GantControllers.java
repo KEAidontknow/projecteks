@@ -26,12 +26,12 @@ public class GantControllers {
     @GetMapping("/increment/{projectId}")
     public String increment(@PathVariable int projectId){
         daysFromNow += 30;
-        return "redirect:Task/showGant/"+ projectId;
+        return "redirect:/showGant/"+ projectId;
     }
     @GetMapping("/now/{projectId}")
     public String now(@PathVariable int projectId){
         daysFromNow = 0;
-        return "redirect:Task/showGant/"+ projectId;
+        return "redirect:/showGant/"+ projectId;
     }
 
 
