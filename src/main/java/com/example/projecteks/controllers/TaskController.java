@@ -1,5 +1,6 @@
 package com.example.projecteks.controllers;
 
+import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
@@ -23,14 +24,15 @@ public class TaskController {
     private String addTask(Model model, @PathVariable Integer projectId) {
         model.addAttribute("task", new Task());
         model.addAttribute("projectId", projectId);
-        //System.out.println("Test pre projectId: " + projectId);
+        Project p = database.getCertainProject(projectId);
+        model.addAttribute("projectStart", p.getStartDate());
+        model.addAttribute("projectDeadline", p.getDeadline());
         return "Task/addTask";
     }
 
     @PostMapping("taskAdded")
     private String taskAdded(@ModelAttribute("task") Task task, @ModelAttribute("projectId") int projectId) {
         task.setProjectId(projectId);
-        System.out.println("Test post projectId: " + task.getProjectId());
         database.addTask(task);
         return "redirect:/showTask/"+ projectId;
     }
@@ -53,6 +55,7 @@ public class TaskController {
         model.addAttribute("task",database.getTaskById(taskId));
         model.addAttribute("newTask", new Task());
         model.addAttribute("projectId", projectId);
+
         return "Task/editTask";
     }
 

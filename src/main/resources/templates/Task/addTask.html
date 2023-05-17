@@ -174,7 +174,7 @@
         </tr>
         <tr>
             <td><label for="startDate">Start Date:</label></td>
-            <td><input type="date" id="startDate" name="startDate" th:field="*{startDate}" /></td>
+            <td><input type="date" id="startDate" name="startDate" th:field="*{startDate}" th:attr="min=${projectStart}, max=${projectDeadline}"/></td>
         </tr>
         <tr>
             <td><label for="deadline">Deadline:</label></td>
