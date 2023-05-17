@@ -39,8 +39,9 @@ public class Database implements DatabaseInterface {
                 task.setCreationDate(rs.getString("creationDate"));
                 task.setDeadline(LocalDate.parse(rs.getString("deadline")));
                 task.setStartDate(LocalDate.parse(rs.getString("startDate")));
-                task.setHoursOfPeriod();
                 task.setTimeEstimate(rs.getInt("timeEstimate"));
+                task.setHoursOfPeriod();
+                task.setEmpNeeded();
                 list.add(task);
 
             }

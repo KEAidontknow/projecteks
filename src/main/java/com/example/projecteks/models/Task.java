@@ -14,6 +14,7 @@ public class Task {
     private String creationDate; //skal ´Date´ være JAVA.UTIL eller JAVA.SQL?
     private int timeEstimate;
     private double hoursOfPeriod;
+    private int empNeeded;
 
 
 
@@ -98,5 +99,14 @@ public class Task {
 
     public void setProjectId(int projectId) {
         this.projectId = projectId;
+    }
+
+    public int getEmpNeeded() {
+        return empNeeded;
+    }
+
+    public void setEmpNeeded() {
+
+        this.empNeeded = (int)(timeEstimate/hoursOfPeriod)+1;
     }
 }
