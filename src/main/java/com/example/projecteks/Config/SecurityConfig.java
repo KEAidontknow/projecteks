@@ -50,9 +50,14 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
+                /*
+                csrf disabled for landing page
+                 */
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/"))
                 .authorizeHttpRequests( auth -> auth
-                        .requestMatchers(("/css/**")).permitAll()//TODO:move all css into a css folder
+                        /*
+                        sites which does not require authentication
+                         */
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/createUser").permitAll()
                         .requestMatchers("users/createUser").permitAll()
@@ -60,16 +65,16 @@ public class SecurityConfig {
                         .requestMatchers("/images/2.png").permitAll()
                         .requestMatchers("/Topnav.css").permitAll()
                         .requestMatchers("/Stylesheet.css").permitAll()
-                        .requestMatchers("/showProjects").permitAll()//azure didn't work without this??
-                        .anyRequest().authenticated()
+                        .requestMatchers("/showProjects").permitAll()
+                        .anyRequest().authenticated()// any request must be authenticated
                 )
-                .headers(headers -> headers.frameOptions().sameOrigin())
+                .headers(headers -> headers.frameOptions().sameOrigin())//allow newer browsers to prevent clickjacking attacks
                 .formLogin()
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/showProject", true)
+                .loginPage("/login").permitAll()//overwrite of default spring security login form with custom login form
+                .defaultSuccessUrl("/showProject", true) //overwrite of default landing page which is / to custom landing page
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //changed to allow Get logout instead of the default post logout only
                 .permitAll()
                 .and()
                 .build();
