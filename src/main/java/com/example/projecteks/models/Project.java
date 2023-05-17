@@ -6,6 +6,7 @@ public class Project {
     private String startDate;
     private String deadline;
     private  String subProjectName;
+    private  int hoursOfTasks;
 
     public Project() {}
 
@@ -51,4 +52,11 @@ public class Project {
         this.subProjectName = subProjectName;
     }
 
+    public int getHoursOfTasks() {
+        return hoursOfTasks;
+    }
+
+    public void setHoursOfTasks(int hoursOfTasks) {
+        this.hoursOfTasks = hoursOfTasks;
+    }
 }

@@ -21,6 +21,7 @@
       <th>Project Name</th>
       <th>Start Date</th>
       <th>Deadline</th>
+      <th>Hours of Tasks</th>
       <th>Delete</th>
       <th>Show tasks</th>
       <th>Update project</th>
@@ -33,6 +34,7 @@
       <td th:text="${project.projectName}"></td>
       <td th:text="${project.startDate}"></td>
       <td th:text="${project.deadline}"></td>
+      <td th:text="${project.hoursOfTasks}"></td>
       <td>
         <form th:action="@{/deleteProject/{projectId}(projectId=${project.projectId})}" method="post">
           <button type="submit" onclick="return confirm('Are you sure you want to delete this project?')" class="btn btn-danger">Delete</button>

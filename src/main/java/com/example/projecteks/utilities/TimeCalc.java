@@ -1,5 +1,7 @@
 package com.example.projecteks.utilities;
 
+import com.example.projecteks.models.Task;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
@@ -81,5 +83,12 @@ public class TimeCalc {
         LocalDate date = LocalDate.of(year,month,day).plusDays(1);
 
         return date;
+    }
+    public static int hoursOfTaskInProject(ArrayList<Task> taskList){
+        int sum = 0;
+        for (Task t : taskList){
+         sum += t.getTimeEstimate();
+        }
+        return sum;
     }
 }

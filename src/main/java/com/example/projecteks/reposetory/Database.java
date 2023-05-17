@@ -4,6 +4,7 @@ import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.models.User;
 import com.example.projecteks.reposetory.utilities.ConnectionManager;
+import com.example.projecteks.utilities.TimeCalc;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -284,10 +285,12 @@ public class Database implements DatabaseInterface {
             ResultSet rs = con.createStatement().executeQuery(SQLScript);
             while (rs.next()) {
                 Project project = new Project();
-                project.setProjectId(rs.getInt("projectId"));
+                int projectId = rs.getInt("projectId");
+                project.setProjectId(projectId);
                 project.setProjectName(rs.getString("projectName"));
                 project.setStartDate(rs.getString("startDate"));
                 project.setDeadline(rs.getString("deadline"));
+                project.setHoursOfTasks(TimeCalc.hoursOfTaskInProject(getTasks(projectId))); //TODO Måske spørge directe med SQL om summen af timer
                 pList.add(project);
 
             }
