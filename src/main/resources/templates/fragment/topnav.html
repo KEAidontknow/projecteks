@@ -29,20 +29,8 @@
     <ul class="navigation">
       <li class="parent"><a th:href="@{/showProject}" ><button>Project List</button></a></li>
       <li class="parent"><a th:href="@{/addProject}" ><button>Create new Project</button></a></li>
-      <li class="parent"><button type="button" ONCLICK="confirmFunction()">Log out</button></a></li>
+      <li class="parent"><a th:href="@{/logout}" onclick="return confirm('Are you sure you want to log out?')"><button>Log out</button></a></li>
     </ul>
-    <SCRIPT>
-      function confirmFunction() {
-        if (confirm("Are you sure you want to log out?") == true) {
-          if (window.location.href.includes("localhost")) {
-            window.location = ('http://localhost:8080/logout');
-          } else
-            window.location = ('https://projecteks.azurewebsites.net/logout') ;
-        } else {
-          ;
-        }
-      }
-    </SCRIPT>
   </nav>
 </div>
 
@@ -56,19 +44,7 @@
       <li class="parent"><a th:href="@{/showProject}" ><button>Project List</button></a></li>
       <li class="parent"><a th:href="@{/showTask/{projectId}(projectId=${projectId})}" ><button>Task List</button></a></li>
       <li class="parent"><a th:href="@{/addTask/{projectId}(projectId=${projectId})}" ><button>Add Task</button></a></li>
-      <li class="parent"><button type="button" ONCLICK="confirmFunction()">Log out</button></a></li>
+      <li class="parent"><a th:href="@{/logout}" onclick="return confirm('Are you sure you want to log out?')"><button>Log out</button></a></li>
     </ul>
-    <SCRIPT>
-      function confirmFunction() {
-        if (confirm("Are you sure you want to log out?") == true) {
-          if (window.location.href.includes("localhost")) {
-            window.location = ('http://localhost:8080/logout');
-          } else
-          window.location = ('https://projecteks.azurewebsites.net/logout') ;
-        } else {
-          ;
-        }
-      }
-    </SCRIPT>
   </nav>
 </div>
