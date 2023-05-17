@@ -32,19 +32,19 @@ public class TaskController {
         task.setProjectId(projectId);
         System.out.println("Test post projectId: " + task.getProjectId());
         database.addTask(task);
-        return "redirect:/Task/showTask/"+ projectId;
+        return "redirect:/showTask/"+ projectId;
     }
 
-    @GetMapping("removeTask/{taskId}")
+    @GetMapping("removeTask/{projectId}/{taskId}")
     private String removeTask(@PathVariable String projectId,@PathVariable int taskId) {
         database.removeTask(taskId);
-        return "redirect:/Task/showTask/"+ projectId;
+        return "redirect:/showTask/"+ projectId;
     }
 
     @GetMapping("updateState/{projectId}/{taskId}/{state}")
     private String updateTask(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int state) {
         database.updateState(taskId, state);
-        return "redirect:/Task/showTask/"+ projectId;
+        return "redirect:/showTask/"+ projectId;
     }
 
 
@@ -61,7 +61,7 @@ public class TaskController {
         newTask.setId(taskId);
         database.editTask(newTask);
         System.out.println("tId "+ taskId+" pId "+ projectId);
-        return "redirect:/Task/showTask/" + projectId;
+        return "redirect:/showTask/" + projectId;
     }
 
 
