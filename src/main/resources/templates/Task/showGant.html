@@ -9,20 +9,16 @@
     <link rel="stylesheet" type="text/css" href="../../static/Stylesheet.css" th:href="@{/Stylesheet.css}">
     <style>
         .even-col {
-            background-color: #f2f2f2;
+            background-color: darkred;
         }
         .odd-col {
-            background-color: #ffffff;
+            background-color: firebrick;
+        }
+        .dayOff-col{
+            background-color: orange;
         }
     </style>
- <!--  <style>
-       /*tr{
-            display: flex;
-        }*/
-        th{
-            flex: 1;
-        }
-    </style>-->
+
 
 
 </head>
@@ -63,8 +59,8 @@
 
     <tr th:each="o : ${objectList}">
         <td th:text="${o.name}" th:style="'width: 300px'"></td>
-        <div th:each="dto,i : ${dateDTOList.dateDTOS}" th:class="${i.odd}? 'odd-col' : 'even-col'" >
-            <td th:if="${dto.date < o.startDate}" th:style="'width: 30px; height: 30px'" > </td>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
+            <td th:if="${dto.date < o.startDate}" th:style="'width: 30px; height: 30px'" th:class="${i.count % 2 != 0}? 'odd-col' : 'even-col'" > </td>
 
             <span th:if="${dto.date >= o.startDate and dto.date <= o.deadline }">
                 <td th:if="${o.state==1}" th:style="'width: 30px; height: 30px'" ><div class="circle"  style="background-color: red"/></td>
@@ -72,7 +68,7 @@
                 <td th:if="${o.state==3}" th:style="'width: 30px; height: 30px'"  ><div class="circle" style="background-color: green"/></td>
             </span>
 
-            <td th:if="${dto.date > o.deadline}" th:style="'width: 30px; height: 30px'" > </td>
+            <td th:if="${dto.date > o.deadline}" th:style="'width: 30px; height: 30px'" th:class="${i.count % 2 != 0}? 'odd-col' : 'even-col'" > </td>
 
         </div>
     </tr>
