@@ -8,6 +8,7 @@ public class DateDTO {
     private int dayOfMonth;
     private String monthName;
     private int year;
+    private boolean isDayOff;
 
     public DateDTO() {
     }
@@ -50,5 +51,13 @@ public class DateDTO {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public boolean isDayOff() {
+        return isDayOff;
+    }
+
+    public void setDayOff(boolean dayOff) {
+        isDayOff = dayOff;
     }
 }

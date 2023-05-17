@@ -8,7 +8,7 @@ public class TimeCalc {
 
     private static Map<DayOfWeek,Double> weeklyWorkHours;
 
-    public void setWeeklyWorkHours(){
+    public static void setWeeklyWorkHours(){
         weeklyWorkHours = new HashMap<>();
         weeklyWorkHours.put(DayOfWeek.MONDAY,7.5);
         weeklyWorkHours.put(DayOfWeek.TUESDAY,7.5);
@@ -17,7 +17,7 @@ public class TimeCalc {
         weeklyWorkHours.put(DayOfWeek.FRIDAY,7.0);
     }
 
-    public double getAvalableWorkHours(LocalDate start, LocalDate end){ //UNITEST
+    public static double getAvalableWorkHours(LocalDate start, LocalDate end){ //UNITEST
         setWeeklyWorkHours();
         double hours = 0;
 
@@ -30,11 +30,11 @@ public class TimeCalc {
         return hours;
     }
 
-    public boolean isWorkday(LocalDate day){
+    public static boolean isWorkday(LocalDate day){
         return !(day.getDayOfWeek()==DayOfWeek.SATURDAY)&&!(day.getDayOfWeek()==DayOfWeek.SUNDAY)&&!isHoliday(day);
     }
 
-    public boolean isHoliday(LocalDate day){ //This is Danish holidays   //UNITEST
+    public static boolean isHoliday(LocalDate day){ //This is Danish holidays   //UNITEST
         int year = day.getYear();
         LocalDate easter = easterDay(year);
         ArrayList<LocalDate> holidays = new ArrayList<>();
@@ -61,7 +61,7 @@ public class TimeCalc {
     }
 
 
-    public LocalDate easterDay(int year){       //UNITEST
+    public static LocalDate easterDay(int year){       //UNITEST
         int a,b,c,d,e,f,g,h,i,k,l,m,month,day;
         a = year % 19;     //rest
         b = year / 100;

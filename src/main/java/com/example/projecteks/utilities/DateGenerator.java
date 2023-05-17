@@ -26,6 +26,7 @@ public class DateGenerator {
             dateDTO.setDayOfMonth(d.getDayOfMonth());
             dateDTO.setMonthName(d.getMonth().toString());
             dateDTO.setYear(d.getYear());
+            dateDTO.setDayOff(!TimeCalc.isWorkday(d));
             list.add(dateDTO);
             if(sameMonth){
                 sameMonth = (d.getMonthValue()==d.plusDays(1).getMonthValue());
@@ -46,10 +47,7 @@ public class DateGenerator {
         dateDTOList.setColumnsOfSecondYear(30-columnsOfFirstYear);
 
 
-        //TEST
-        for(DateDTO dto : dateDTOList.getDateDTOS()) {
-            System.out.println(""+ d + " " + dto.getDate()+", day: "+ dto.getDayName()+" day: "+dto.getDayOfMonth()+" month :"+dto.getMonthName() + "  "+ dateDTOList.getColumnsOfFirstMonth());
-        }
+
         return dateDTOList;
     }
 

@@ -85,7 +85,7 @@ public class Task {
 
     public void setHoursOfPeriod() {
         TimeCalc timeCalc = new TimeCalc();
-        Double h = timeCalc.getAvalableWorkHours((startDate),(deadline));
+        Double h = TimeCalc.getAvalableWorkHours((startDate),(deadline));
         if(h != null) {
             this.hoursOfPeriod = h;
         }else {
