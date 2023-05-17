@@ -70,8 +70,10 @@
                 <td th:if="${o.state==1}" th:style="'width: 30px; height: 30px'" ><div class="circle"  style="background-color: red"/></td>
                 <td th:if="${o.state==2}" th:style="'width: 30px; height: 30px'"  ><div class="circle" style="background-color: gold"/></td>
                 <td th:if="${o.state==3}" th:style="'width: 30px; height: 30px'"  ><div class="circle" style="background-color: green"/></td>
-
             </span>
+
+            <td th:if="${dto.date > o.deadline}" th:style="'width: 30px; height: 30px'" > </td>
+
         </div>
     </tr>
 
