@@ -64,8 +64,14 @@
     <tr th:each="o : ${objectList}">
         <td th:text="${o.name}" th:style="'width: 300px'"></td>
         <div th:each="dto,i : ${dateDTOList.dateDTOS}" th:class="${i.odd}? 'odd-col' : 'even-col'" >
-            <td th:if="${dto.date < o.startDate}" th:style="'width: 30px'" > </td>
-            <td th:if="${dto.date >= o.startDate and dto.date <= o.deadline }"  th:style="'width: 30px; <!--background-color: red; color: red;-->'" ><div class="circle"/></td>
+            <td th:if="${dto.date < o.startDate}" th:style="'width: 30px; height: 30px'" > </td>
+
+            <span th:if="${dto.date >= o.startDate and dto.date <= o.deadline }">
+                <td th:if="${o.state==1}" th:style="'width: 30px; height: 30px'" ><div class="circle"  style="background-color: red"/></td>
+                <td th:if="${o.state==2}" th:style="'width: 30px; height: 30px'"  ><div class="circle" style="background-color: gold"/></td>
+                <td th:if="${o.state==3}" th:style="'width: 30px; height: 30px'"  ><div class="circle" style="background-color: green"/></td>
+
+            </span>
         </div>
     </tr>
 
