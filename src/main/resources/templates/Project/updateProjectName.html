@@ -12,7 +12,7 @@
 <div th:replace="fragment/topnav :: task-nav">
 </div>
 <h1>Update Project</h1>
-<form action="#" th:action="@{/showProject/update/{projectId}(projectId=${project.projectId})}" method="post" th:object="${project}">
+<form action="#" th:action="@{/update/{projectId}(projectId=${project.projectId})}" method="post" th:object="${project}">
   <label for="projectName">Give the project a new name:</label>
   <input type="text" id="projectName" name="projectName" th:field="*{projectName}" />
   <label for="startDate">Start Date:</label>
