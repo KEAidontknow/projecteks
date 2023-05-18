@@ -439,6 +439,26 @@ public class Database implements DatabaseInterface {
         }
 
     }
+    public ArrayList<String> getUserNameByTaskId(int taskId){
+        ArrayList<String> nameList = new ArrayList<>();
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select username from Projectmanagement.users where user_id in (select user_id from Projectmanagement.assign where taskId = ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1,taskId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String name;
+                name = rs.getString("username");
+                nameList.add(name);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+       return  nameList;
+    }
 
 
 }

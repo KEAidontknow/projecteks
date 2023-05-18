@@ -46,5 +46,6 @@ public interface DatabaseInterface {
     void addAssignment(int taskId, int userId);
 
 
+    ArrayList<String> getUserNameByTaskId(int taskId);
 }
 

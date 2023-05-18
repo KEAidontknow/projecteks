@@ -36,13 +36,13 @@ create table task
     foreign key (projectId) references project (projectid)
 );
 
-
-create table assignment
+create table assign
 (
-    assignmetId int auto_increment,
-    taskId int,
-    userId int,
-    primary key (assignmentId),
+    assignId 	int auto_increment,
+    taskId		int,
+    user_id		int(11),
+    primary key (assignId),
     foreign key (taskId) references task (taskId),
-    foreign key (userId) references `users` (`user_id`)
+    foreign key (user_id) references `users` (`user_id`)
+
 );

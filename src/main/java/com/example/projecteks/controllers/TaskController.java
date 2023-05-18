@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 @RequestMapping
 public class TaskController {
@@ -15,8 +17,16 @@ public class TaskController {
 
     @GetMapping("showTask/{projectId}")
     private String showTasks(Model model,@PathVariable int projectId) {
-        model.addAttribute("list", database.getTasks(projectId));
+        ArrayList<Task> taskList = database.getTasks(projectId);
+        model.addAttribute("list", taskList);
         model.addAttribute("projectId",projectId);
+
+        ArrayList<ArrayList<String>> dto = new ArrayList<>();
+        for(Task t : taskList){
+
+            dto.add(database.getUserNameByTaskId(t.getId()));
+        }
+        model.addAttribute("nameDTO",dto);
         return "Task/showTasks";
     }
 
@@ -27,6 +37,7 @@ public class TaskController {
         Project p = database.getCertainProject(projectId);
         model.addAttribute("projectStart", p.getStartDate());
         model.addAttribute("projectDeadline", p.getDeadline());
+
         return "Task/addTask";
     }
 
