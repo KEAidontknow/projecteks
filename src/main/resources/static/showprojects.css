@@ -12,7 +12,6 @@ td {
 h1{
     color: white;
 }
-
 .transparent-button {
     background-color: transparent;
     color: black;
@@ -22,6 +21,17 @@ h1{
 
 .transparent-button:hover {
     background-color: lightgray;
+}
+
+.add-button {
+    background-color: green;
+    color: white;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: darkgreen;
 }
 
 .delete-button {
