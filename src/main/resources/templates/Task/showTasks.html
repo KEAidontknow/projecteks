@@ -69,17 +69,22 @@
 </table>
 
 <a th:href="@{/addTask/{projectId}(projectId=${projectId})}">
-    <button class="dark-green-button add-task-button">Add Task</button>
-</a>
-<br>
-<a th:href="@{/showGant/{projectId}(projectId=${projectId})}">
-    <button class="black-button gantt-button">Show Gantt</button>
-</a>
-<br>
-<a th:href="@{/showProject}">
-    <button class="back-button">
-        <i class="fas fa-arrow-left"></i>
+    <button class="dark-green-button add-task-button" type="button">
+        <i class="fas fa-plus"></i>
     </button>
+</a>
+
+<a th:href="@{/showGant/{projectId}(projectId=${projectId})}">
+    <button class="black-button gantt-button" type="button"> Gantt
+    </button>
+    <br>
+</a>
+
+<a th:href="@{/showProject}">
+        <button class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </a>
 </a>
 </body>
 </html>

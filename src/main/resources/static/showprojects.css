@@ -1,5 +1,3 @@
-
-
 table {
     background-color: white;
     width: 92%;
@@ -14,3 +12,30 @@ td {
 h1{
     color: white;
 }
+
+.transparent-button {
+    background-color: transparent;
+    color: black;
+    border: 1px solid black;
+    transition: background-color 0.3s;
+}
+
+.transparent-button:hover {
+    background-color: lightgray;
+}
+
+.delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
+
+
+
+
+
