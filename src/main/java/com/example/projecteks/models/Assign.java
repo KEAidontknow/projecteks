@@ -1,11 +1,11 @@
 package com.example.projecteks.models;
 
-public class Assignment {
+public class Assign {
     private int assignId;
     private int userId;
     private int taskId;
 
-    public Assignment() {
+    public Assign() {
     }
 
     public int getAssignId() {

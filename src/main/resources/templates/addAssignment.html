@@ -5,8 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/assignmentAdded}" method="post" >
-    <select th:field="${userId}">
+<form th:action="@{/assignmentAdded}" method="post" th:object="${assignment}" >
+    <select th:field="*{userId}">
         <option th:each="user : ${userList}" th:value="${user.user_id}" th:text="${user.username}"/>
     </select>
     <input type="hidden" id="projectId" name="projectId" th:value="${projectId}" />

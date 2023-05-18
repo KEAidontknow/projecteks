@@ -45,7 +45,7 @@
         </tr>
         <tr>
             <td><label for="deadline">Deadline:</label></td>
-            <td><input type="date" id="deadline" name="deadline" th:field="*{deadline}" /></td>
+            <td><input type="date" id="deadline" name="deadline" th:field="*{deadline}" th:attr="min=${projectStart}, max=${projectDeadline}"/></td>
         </tr>
         </tbody>
     </table>

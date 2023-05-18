@@ -1,6 +1,6 @@
 package com.example.projecteks.reposetory;
 
-import com.example.projecteks.models.Assignment;
+import com.example.projecteks.models.Assign;
 import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.models.User;
@@ -41,8 +41,8 @@ public interface DatabaseInterface {
     void deleteAllTasksInProject(int projectID);
 
     //_________ASSIGNMENT:____________
-    ArrayList<Assignment> getAssignmentsByTaskId(int taskId);
-    ArrayList<Assignment> getAssignmentsByUserId(int userId);
+    ArrayList<Assign> getAssignmentsByTaskId(int taskId);
+    ArrayList<Assign> getAssignmentsByUserId(int userId);
     void addAssignment(int taskId, int userId);
 
 
