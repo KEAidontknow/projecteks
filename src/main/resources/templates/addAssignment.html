@@ -5,10 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/addAssignment}" method="post" >
+<form th:action="@{/assignmentAdded}" method="post" >
     <select th:field="${userId}">
         <option th:each="user : ${userList}" th:value="${user.user_id}" th:text="${user.username}"/>
     </select>
+    <input type="hidden" id="projectId" name="projectId" th:value="${projectId}" />
     <button type="submit" value="Assign Employee" class="center">Assign Employee</button>
 
 </form>

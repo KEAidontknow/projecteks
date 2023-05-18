@@ -2,12 +2,13 @@ package com.example.projecteks.controllers;
 
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+@Controller
 public class AssignmentController {
     DatabaseInterface database = new Database();
 
@@ -21,7 +22,7 @@ public class AssignmentController {
 
         return "/addAssignment";
     }
-    @PostMapping ("/addAssignment")
+    @PostMapping ("/assignmentAdded")
     public String addAssignment(@RequestParam("projectId") int projectId, @RequestParam("taskId") int taskId,@RequestParam("userId") int userId){
         database.addAssignment(taskId,userId);
         return "redirect: /showTask/"+projectId;
