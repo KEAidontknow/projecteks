@@ -34,6 +34,7 @@ public class TaskController {
     private String taskAdded(@ModelAttribute("task") Task task, @ModelAttribute("projectId") int projectId) {
         task.setProjectId(projectId);
         database.addTask(task);
+        //database.addAssignment(taskId,userId);
         return "redirect:/showTask/"+ projectId;
     }
 

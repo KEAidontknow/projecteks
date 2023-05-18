@@ -1,5 +1,6 @@
 package com.example.projecteks.reposetory;
 
+import com.example.projecteks.models.Assignment;
 import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.models.User;
@@ -374,4 +375,70 @@ public class Database implements DatabaseInterface {
             throw new RuntimeException(e);
         }
     }
+
+
+    //___________________ASSIGNMENTS_______________________________________________________
+
+    public ArrayList<Assignment> getAssignmentsByTaskId(int taskId) throws RuntimeException {
+
+
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.assign where taskId = ?";
+        ArrayList<Assignment> assignmentList = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1,taskId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Assignment assignment = new Assignment();
+                assignment.setAssignId(rs.getInt("assignId"));
+                assignment.setTaskId(rs.getInt("taskId"));
+                assignment.setUserId(rs.getInt("user_id"));
+                assignmentList.add(assignment);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return assignmentList;
+    }
+
+    public ArrayList<Assignment> getAssignmentsByUserId(int userId) throws RuntimeException {
+
+
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.assign where user_id = ?";
+        ArrayList<Assignment> assignmentList = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1,userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Assignment assignment = new Assignment();
+                assignment.setAssignId(rs.getInt("assignId"));
+                assignment.setTaskId(rs.getInt("taskId"));
+                assignment.setUserId(rs.getInt("user_id"));
+                assignmentList.add(assignment);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return assignmentList;
+    }
+
+    public void addAssignment(int taskId, int userId) {  //UNITEST
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "insert into Projectmanagement.assing (taskId,user_id) values(?,?)";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1,taskId);
+            ps.setInt(2,userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
 }
