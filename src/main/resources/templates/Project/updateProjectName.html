@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<div th:replace="fragment/topnav :: task-nav">
+<div th:replace="~{fragment/topnav :: project-nav}">
 </div>
 <h1>Update Project</h1>
 <form action="#" th:action="@{/update/{projectId}(projectId=${project.projectId})}" method="post" th:object="${project}">
