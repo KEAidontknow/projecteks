@@ -17,7 +17,7 @@
 
 
 
-    <div th:replace="fragment/topnav :: task-nav">
+    <div th:replace="~{fragment/topnav :: task-nav}">
     </div>
     <form action="#" th:action="@{/editTask/}" method="POST" th:object="${newTask}">
         <input type="hidden" id="id" name="id" th:value="${task.id}"/>
