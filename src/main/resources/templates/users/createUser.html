@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <title>Create user</title>
   <link rel="stylesheet" type="text/css" href="../../static/Topnav.css" th:href="@{/Topnav.css}">
-  <link rel="stylesheet" type="text/css" href="../../static/Stylesheet.css" th:href="@{/Stylesheet.css}">
+  <link rel="stylesheet" type="text/css" href="../static/Stylesheet.css" th:href="@{/Stylesheet.css}">
+
 </head>
 <body>
 <div th:replace="fragment/topnav :: main-nav">
 </div>
-<h2>Create User</h2>
+<h1>Create User</h1>
 
 <div class="createUser">
   <form method="post" th:action="@{/createUser}" th:object="${user}" id="createUser">

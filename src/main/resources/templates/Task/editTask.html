@@ -3,41 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit this task!</title>
-    <style>
-        body {
-            display: grid;
-            place-items: center;
-            height: 100vh;
-            background-color: #FDF5E6;
-            margin: 0;
-        }
+    <link rel="stylesheet" type="text/css" th:href="@{/TITLE.BACKGROUND.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/editTask.css}">
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-        }
 
-        h1 {
-            text-align: center;
-            font-size: 2em; /* Double size */
-        }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        table {
-            font-size: 2em; /* Double size */
-            margin-top: 20px;
-        }
-    </style>
     <link rel="stylesheet" type="text/css" th:href="@{/Topnav.css}">
 </head>
 <body>
@@ -47,37 +17,37 @@
 
 
 
-<div th:replace="fragment/topnav :: task-nav">
-</div>
-<form action="#" th:action="@{/editTask/}" method="POST" th:object="${newTask}">
-    <input type="hidden" id="id" name="id" th:value="${task.id}"/>
-    <input type="hidden" id="projectId" name="projectId" th:value="${task.projectId}" />
-    <label for="name">Task name:</label>
-    <input type="text" id="name" name="name" th:value="*{name}" th:field="${task.name}">
-    <!-- <label for="state">Status:</label>
-    <select name="state" id="state">
-         <option type="text" value="1">TODO</option>
-         <option type="text" value="2">In Progress</option>
-         <option type="text" value="3">DONE</option>
-     </select>-->
-    <label for="timeEstimate">Estimated completion time[hours]:</label>
-    <input type="text" id="timeEstimate" name="timeEstimate" th:value="*{timeEstimate}" th:field="${task.timeEstimate}" >
+    <div th:replace="fragment/topnav :: task-nav">
+    </div>
+    <form action="#" th:action="@{/editTask/}" method="POST" th:object="${newTask}">
+        <input type="hidden" id="id" name="id" th:value="${task.id}"/>
+        <input type="hidden" id="projectId" name="projectId" th:value="${task.projectId}" />
+        <label for="name">Task name:</label>
+        <input type="text" id="name" name="name" th:value="*{name}" th:field="${task.name}">
+        <!-- <label for="state">Status:</label>
+        <select name="state" id="state">
+             <option type="text" value="1">TODO</option>
+             <option type="text" value="2">In Progress</option>
+             <option type="text" value="3">DONE</option>
+         </select>-->
+        <label for="timeEstimate">Estimated completion time[hours]:</label>
+        <input type="text" id="timeEstimate" name="timeEstimate" th:value="*{timeEstimate}" th:field="${task.timeEstimate}" >
 
-    <br>
+        <br>
 
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" name="startDate" th:field="${task.startDate}" />
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" th:field="${task.startDate}" />
 
-    <label for="deadline">Deadline:</label>
-    <input type="date" id="deadline" name="deadline" th:field="${task.deadline}" /><br>
-
-
-
-    <input type="submit" value="Save Changes" />
+        <label for="deadline">Deadline:</label>
+        <input type="date" id="deadline" name="deadline" th:field="${task.deadline}" /><br>
 
 
 
-</form>
+        <input type="submit" value="Save Changes" />
+
+
+
+    </form>
 </div>
 </body>
 </html>

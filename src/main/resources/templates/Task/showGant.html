@@ -6,7 +6,10 @@
     <title>Title</title>
     <link th:href="@{/TableStyle.css}" rel="stylesheet" >
     <link rel="stylesheet" type="text/css" th:href="@{/Topnav.css}">
-    <link rel="stylesheet" type="text/css" href="../../static/Stylesheet.css" th:href="@{/Stylesheet.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/TITLE.BACKGROUND.css}">
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+
+
     <style>
         .even-col {
             background-color: darkred;
@@ -78,28 +81,26 @@
 <br/>
 
 <a th:href="@{/showTask/{projectId}(projectId=${projectId})}">
-    <button>Show as List</button>
+    <button class="button show-as-list-button">Show as List</button>
 </a>
 
 <br/>
 
 <table1>
-
     <tr>
         <td>
             <a th:href="@{/decrement/{projectId}(projectId=${projectId})}">
-                <button> << </button>
+                <button class="button transparent-button">&lt;&lt;</button>
             </a>
-
         </td>
         <td>
             <a th:href="@{/now/{projectId}(projectId=${projectId})}">
-                <button>now</button>
+                <button class="button white-button">now</button>
             </a>
         </td>
         <td>
             <a th:href="@{/increment/{projectId}(projectId=${projectId})}">
-                <button> >> </button>
+                <button class="button transparent-button">&gt;&gt;</button>
             </a>
         </td>
     </tr>

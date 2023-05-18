@@ -25,3 +25,37 @@ table{
     border-radius: 15px;
     background-color: blue;
 }
+.button {
+    background-color: transparent;
+    color: blue;
+    border: none;
+    padding: 14px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 8px;
+    outline: none;
+}
+
+.show-as-list-button {
+    background-color: black;
+    color: white;
+}
+
+.white-button {
+    background-color: white;
+    color: black;
+}
+
+.button:focus {
+    outline: none;
+}
+
+.button span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}

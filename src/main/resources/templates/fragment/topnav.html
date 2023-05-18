@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" type="text/css" href="../../static/Topnav.css" th:href="@{/Topnav.css}"></head>
+  <link rel="stylesheet" type="text/css" href="../../static/Topnav.css" th:href="@{/Topnav.css}">
 </head>
 <div th:fragment ="main-nav">
   <nav class="navigationWrapper">
@@ -12,9 +12,9 @@
       <span class="logo"><sup>beta</sup></span>
     </div>
     <ul class="navigation">
-      <li class="parent"><a th:href="@{/}" ><button>Home</button></a></li>
-      <li class="parent"><a th:href="@{/createUser}" ><button>Create user</button></a></li>
-      <li class="parent"><a th:href="@{/login}" ><button>Log In</button></a></li>
+      <li class="parent"><a th:href="@{/}"><button>Home</button></a></li>
+      <li class="parent"><a th:href="@{/createUser}"><button>Create user</button></a></li>
+      <li class="parent"><a th:href="@{/login}"><button>Log In</button></a></li>
     </ul>
   </nav>
 </div>
@@ -27,8 +27,8 @@
       <span class="logo"><sup>beta</sup></span>
     </div>
     <ul class="navigation">
-      <li class="parent"><a th:href="@{/showProject}" ><button>Project List</button></a></li>
-      <li class="parent"><a th:href="@{/addProject}" ><button>Create new Project</button></a></li>
+      <li class="parent"><a th:href="@{/showProject}"><button>Project List</button></a></li>
+      <li class="parent"><a th:href="@{/addProject}"><button>Create new Project</button></a></li>
       <li class="parent"><a th:href="@{/logout}" onclick="return confirm('Are you sure you want to log out?')"><button>Log out</button></a></li>
     </ul>
   </nav>
@@ -41,9 +41,9 @@
       <span class="logo"><sup>beta</sup></span>
     </div>
     <ul class="navigation">
-      <li class="parent"><a th:href="@{/showProject}" ><button>Project List</button></a></li>
-      <li class="parent"><a th:href="@{/showTask/{projectId}(projectId=${projectId})}" ><button>Task List</button></a></li>
-      <li class="parent"><a th:href="@{/addTask/{projectId}(projectId=${projectId})}" ><button>Add Task</button></a></li>
+      <li class="parent"><a th:href="@{/showProject}"><button>Project List</button></a></li>
+      <li class="parent"><a th:href="@{/showTask/{projectId}(projectId=${projectId})}"><button>Task List</button></a></li>
+      <li class="parent"><a th:href="@{/addTask/{projectId}(projectId=${projectId})}"><button>Add Task</button></a></li>
       <li class="parent"><a th:href="@{/logout}" onclick="return confirm('Are you sure you want to log out?')"><button>Log out</button></a></li>
     </ul>
   </nav>
