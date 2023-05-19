@@ -24,14 +24,26 @@ h1{
 }
 
 .add-button {
-    background-color: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto 0;
+    background-color: darkgreen;
+    border: 2px solid lightgreen;
     color: white;
-    border: none;
-    transition: background-color 0.3s;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
 }
 
 .add-button:hover {
-    background-color: darkgreen;
+    background-color: lightgreen;
+    border-color: lightgreen;
 }
 
 .delete-button {
