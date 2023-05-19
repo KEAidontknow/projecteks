@@ -19,7 +19,7 @@ input[type="date"] {
 }
 
 button[type="submit"] {
-    display: block;
+    display: flex;
     margin: 20px auto 0;
     background-color: darkgreen;
     border: 2px solid lightgreen;
