@@ -10,8 +10,7 @@ Developed by "KEAidk" - Andreas, Stinus, Wenmin & Yuying
 3.   GANTT: Users can visualize their tasks using a GANTT diagram.
 4.   User management: Users can create accounts and log in to created accounts.
 
-Technologies
-What technologies ProjectEks is built on:
+Technologies:
 Frontend: HTML, CSS, JavaScript
 Backend: Java, Spring Boot, Thymeleaf, JDBC
 Database: MySql
