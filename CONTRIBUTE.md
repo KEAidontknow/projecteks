@@ -4,6 +4,7 @@
 
 
 Guidelines - Projecteks
+
 1.	Fork the repository on GitHub.
 2.	Open the specific repository to your computer.
 3.	Create a new branch from the master branch with a title that reflects the contribution.
@@ -15,7 +16,9 @@ Guidelines - Projecteks
 9.	Submit a pull request to the original repository's master branch.
 10.	Actively participate in the review process, make the requested changes as necessary.
 11.	When the improvements are approved, they will be merged into the main branch.
+
 Issues
 when encountering deficiencies or issues while operating Projecteks, please open an issue in the GitHub repository. 
+
 Requests
 If you feel that it is appropriate to implement new improvements to Projecteks, you are welcome to add an issue in the GitHub repository.
