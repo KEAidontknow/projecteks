@@ -9,7 +9,7 @@ Guidelines - Projecteks
 2.	Open the specific repository to your computer.
 3.	Create a new branch from the master branch with a title that reflects the contribution.
 4.	Make your changes to the branch
-5.	Ensure adherence to project's coding style when making changes.
+5.	Ensure compliance with project's coding style when making changes.
 6.	Make sure your changes do not introduce unwelcomed issues.
 7.	Commit your changes with a commit message that reflects the improvements.
 8.	Push the changes to your repository.
