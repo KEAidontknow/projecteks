@@ -14,7 +14,9 @@ Features:
 Technologies:
 
 Frontend: HTML, CSS, JavaScript
+
 Backend: Java, Spring Boot, Thymeleaf, JDBC
+
 Database: MySql
 
 Instalments:
