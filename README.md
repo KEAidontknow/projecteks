@@ -12,11 +12,12 @@ Features:
 4.   User management: Users can create accounts and log in to created accounts.
 
 Technologies:
+
 Frontend: HTML, CSS, JavaScript
 Backend: Java, Spring Boot, Thymeleaf, JDBC
 Database: MySql
 
-Instalments
+Instalments:
 1. Clone the repository.
 2. Make sure to have backend dependencies installed (Java, Spring Boot, Thymeleaf, JDBC).
 3. Set up MySql database with correct connection configuration.
