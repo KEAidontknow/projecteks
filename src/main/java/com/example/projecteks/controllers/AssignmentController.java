@@ -20,7 +20,7 @@ public class AssignmentController {
         model.addAttribute("assignment",new Assign());
         model.addAttribute("userList", database.getUser());
 
-        return "/addAssignment";
+        return "addAssignment";
     }
     @PostMapping ("/assignmentAdded")
     public String addAssignment(@ModelAttribute("projectId") int projectId, @ModelAttribute("assignment") Assign assignment){
