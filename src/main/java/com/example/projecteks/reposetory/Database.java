@@ -15,18 +15,33 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.example.projecteks.reposetory.utilities.ConnectionManager.con;
 
 @Repository
 public class Database implements DatabaseInterface {
 
+    public void updateStar(int taskId, int star) {
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "UPDATE Projectmanagement.task SET taskStar=? WHERE taskId=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1, star == 1 ? 2 : 1); // Switch between 1 and 2
+            ps.setInt(2, taskId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public ArrayList<Task> getTasks(int projectId) throws RuntimeException {  //UNITEST
         ArrayList<Task> list = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.task where projectId = ?";
+        String SQLScript = "select * from Projectmanagement.task where projectId = ? ORDER BY taskState DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -44,12 +59,26 @@ public class Database implements DatabaseInterface {
                 task.setTimeEstimate(rs.getInt("timeEstimate"));
                 task.setHoursOfPeriod();
                 task.setEmpNeeded();
+                task.setStar(rs.getInt("taskStar"));
+
                 list.add(task);
 
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
+        Collections.sort(list, (t1, t2) -> {
+            if (t1.getStar() == 2 && t2.getStar() != 2) {
+                return -1;
+            } else if (t1.getStar() != 2 && t2.getStar() == 2) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
         return list;
     }
 
@@ -73,6 +102,7 @@ public class Database implements DatabaseInterface {
                 task.setStartDate(LocalDate.parse(rs.getString("startDate")));
                 //task.setHoursOfPeriod();
                 task.setTimeEstimate(rs.getInt("timeEstimate"));
+                task.setStar(rs.getInt("taskStar"));
                 task.setProjectId(rs.getInt("projectId"));
             }
         } catch (SQLException e) {
@@ -83,7 +113,7 @@ public class Database implements DatabaseInterface {
 
     public void addTask(Task task) {  //UNITEST
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate,projectId) values(?,?,?,?,?,?,?)";
+        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate,taskStar,projectId) values(?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -98,7 +128,9 @@ public class Database implements DatabaseInterface {
             ps.setString(4, task.getStartDate().toString());
             ps.setString(5, task.getDeadline().toString());
             ps.setInt(6, task.getTimeEstimate());
-            ps.setInt(7, task.getProjectId());
+            ps.setInt(7, task.getStar());
+            ps.setInt(8, task.getProjectId());
+
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

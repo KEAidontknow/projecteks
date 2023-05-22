@@ -34,6 +34,7 @@
         <th>Change<br/>Status</th>
         <th>Edit</th>
         <th>Delete</th>
+
     </tr>
     <tr th:each="task,i : ${list}">
         <td th:text="${task.id}"></td>
@@ -75,6 +76,12 @@
         <td>
             <a th:href="@{/removeTask/{projectId}/{taskId}(projectId=${projectId},taskId=${task.id})}">
                 <button class="delete-button" onclick="return confirm('Are you sure you want to delete this Task?')"><i class="fas fa-trash-alt"></i></button>
+            </a>
+        </td>
+        <td>
+            <a th:href="@{/updateStar/{projectId}/{taskId}/{star}(projectId=${projectId},taskId=${task.id},star=${task.star})}">
+                <button class="star-button" th:if="${task.star == 1}">NOTFAV</button>
+                <button class="star-button" th:if="${task.star == 2}">FAV</button>
             </a>
         </td>
 

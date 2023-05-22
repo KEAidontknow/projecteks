@@ -69,6 +69,12 @@ public class TaskController {
         return "redirect:/showTask/"+ projectId;
     }
 
+    @GetMapping("updateStar/{projectId}/{taskId}/{star}")
+    private String updateStar(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int star) {
+        database.updateStar(taskId, star);
+        return "redirect:/showTask/"+ projectId;
+    }
+
 
     @GetMapping("editTask/{taskId}/{projectId}")
     private String editTask(@PathVariable int taskId, Model model, @PathVariable String projectId) {
