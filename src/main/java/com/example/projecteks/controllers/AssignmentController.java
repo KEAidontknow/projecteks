@@ -16,6 +16,7 @@ public class AssignmentController {
     public String addAssignment(@PathVariable int projectId, @PathVariable int taskId, Model model){
 
         model.addAttribute("projectId",projectId);
+        model.addAttribute("taskId", taskId);
         model.addAttribute("assignment",new Assign());
         model.addAttribute("userList", database.getUser());
 
