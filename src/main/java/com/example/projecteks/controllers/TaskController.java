@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 @Controller
@@ -23,9 +24,16 @@ public class TaskController {
 
         ArrayList<ArrayList<String>> dto = new ArrayList<>();
         for(Task t : taskList){
-
             dto.add(database.getUserNameByTaskId(t.getId()));
         }
+        //Test start
+        for(ArrayList<String> l : dto){
+            System.out.println("-------------");
+            for(String n : l){
+                System.out.println("UserName: "+n);
+            }
+        }
+        //Test end
         model.addAttribute("nameDTO",dto);
         return "Task/showTasks";
     }
