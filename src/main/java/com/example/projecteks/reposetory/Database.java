@@ -41,7 +41,7 @@ public class Database implements DatabaseInterface {
         ArrayList<Task> list = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.task where projectId = ? ORDER BY taskState DESC";
+        String SQLScript = "select * from Projectmanagement.task where projectId = ? ORDER BY taskStar DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);

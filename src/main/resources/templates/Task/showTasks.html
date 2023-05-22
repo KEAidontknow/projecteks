@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/Topnav.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/showtasks.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/TITLE.BACKGROUND.css}">
@@ -38,7 +40,7 @@
     </tr>
     <tr th:each="task,i : ${list}">
         <td th:text="${task.id}"></td>
-        <td th:text="${task.name}"></td>
+        <td th:text="${task.name}" th:class="${task.star == 2} ? 'task-name-fav' : ''"></td>
         <td th:text="${task.creationDate}"></td>
         <td th:text="${task.startDate}"></td>
         <td th:text="${task.deadline}"></td>
@@ -80,8 +82,10 @@
         </td>
         <td>
             <a th:href="@{/updateStar/{projectId}/{taskId}/{star}(projectId=${projectId},taskId=${task.id},star=${task.star})}">
-                <button class="star-button" th:if="${task.star == 1}">NOTFAV</button>
-                <button class="star-button" th:if="${task.star == 2}">FAV</button>
+                <button class="star-button" style="background: none; border: none;">
+                    <i class="far fa-star star-icon-grey" th:if="${task.star == 1}"></i>
+                    <i class="fas fa-star star-icon" th:if="${task.star == 2}"></i>
+                </button>
             </a>
         </td>
 
