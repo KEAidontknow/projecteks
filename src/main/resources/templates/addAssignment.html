@@ -9,6 +9,7 @@
     <select th:field="*{userId}">
         <option th:each="user : ${userList}" th:value="${user.user_id}" th:text="${user.username}"/>
     </select>
+    <input type="hidden" id="taskId" name="taskId" th:value="${taskId}" th:field="*{taskId}" />
     <input type="hidden" id="projectId" name="projectId" th:value="${projectId}" />
     <button type="submit" value="Assign Employee" class="center">Assign Employee</button>
 
