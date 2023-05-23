@@ -418,6 +418,29 @@ public ArrayList<Project> showUserProjects(int userId) throws RuntimeException {
         return userList;
     }
 
+    public User getUserById(int userId) {
+        User user = new User();
+
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.users where user_id = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1,userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                user.setUser_id(rs.getInt("user_id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
+    }
+
+
+
     public void addUser(User user) {
         Connection con = ConnectionManager.getConnection();
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -543,5 +566,8 @@ public ArrayList<Project> showUserProjects(int userId) throws RuntimeException {
 
         return taskList;
     }
+
+
+
 
 }

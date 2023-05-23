@@ -29,6 +29,7 @@ public interface DatabaseInterface {
     void updateProjectName(int projectId, String projectName, String startDate, String deadline);
     void addUser(User user);
     ArrayList<User> getUser();
+    User getUserById(int userId);
 
    void updateTask(Task task);
 
@@ -51,5 +52,7 @@ public interface DatabaseInterface {
 
     void updateStar(int taskId, int star);
     ArrayList<Task> getAssignedTasksByUserId(int userId);
+
+
 }
 

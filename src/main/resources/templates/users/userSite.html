@@ -7,13 +7,13 @@
   <link rel="stylesheet" type="text/css" th:href="@{/Topnav.css}">
   <link rel="stylesheet" type="text/css" href="../../static/Stylesheet.css" th:href="@{/Stylesheet.css}">
 </head>
-<h2>User Site</h2>
+<h2 th:text="'Hej '+${userName}"></h2>
 <body>
 <div th:replace="~{fragment/topnav :: main-nav}">
 </div>
 <table>
   <tr>
-    <th>Choice</th>
+    <th></th>
   </tr>
   <tr>
     <td><a th:href="@{/myAssignment/{userId}(userId=${userId})}">

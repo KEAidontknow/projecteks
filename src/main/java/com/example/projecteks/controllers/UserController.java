@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -33,7 +32,8 @@ public class UserController {
 
     @GetMapping ("/userSite")
     private String userSite(Model model){
-        model.addAttribute("userId",2); //Todo "2" er hardcodet, og skal substitueres med den brugerID på den der rent faktisk er logget ind
+        model.addAttribute("userId",2);//Todo "2" er hardcodet, og skal substitueres med den brugerID på den der rent faktisk er logget ind
+        model.addAttribute("userName",database.getUserById(2).getUsername());
         return "users/userSite";
     }
 }
