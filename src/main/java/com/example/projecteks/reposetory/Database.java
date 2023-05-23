@@ -518,6 +518,29 @@ public ArrayList<Project> showUserProjects(int userId) throws RuntimeException {
 
        return  nameList;
     }
+    public ArrayList<Task> getAssignedTasksByUserId(int userId) {
+        ArrayList<Task> taskList = new ArrayList<>();
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.task where taskId in (select taskId from Projectmanagement.assign where user_id = ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Task task = new Task();
+                task.setId(rs.getInt("taskId"));
+                task.setState(rs.getInt("taskState"));
+                task.setName(rs.getString("taskName"));
+                task.setDeadline(LocalDate.parse(rs.getString("deadline")));
+                task.setStartDate(LocalDate.parse(rs.getString("startDate")));
+                taskList.add(task);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+
+        return taskList;
+    }
 
 }

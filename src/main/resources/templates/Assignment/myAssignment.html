@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http//thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/Topnav.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/showtasks.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/TITLE.BACKGROUND.css}">
+
+
+
+
+
+</head>
+<body>
+<div th:replace="~{fragment/topnav :: task-nav}"></div>
+
+
+
+<table>
+    <tbody>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+
+        <th>Start Date</th>
+        <th>Deadline</th>
+
+        <!--<th>Status</th>
+        <th>Change<br/>Status</th>-->
+
+
+    </tr>
+    <tr th:each="task,i : ${list}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.name}" th:class="${task.star == 2} ? 'task-name-fav' : ''"></td>
+
+        <td th:text="${task.startDate}"></td>
+        <td th:text="${task.deadline}"></td>
+
+
+
+
+        <!--<td th:if="${task.state}==1"><a style="color: crimson;">TODO</a></td>
+        <td th:if="${task.state}==2"><a style="color: gold;">In Progress</a></td>
+        <td th:if="${task.state}==3"><a style="color: green;">Done</a></td>
+        <td>
+            <a th:href="@{/updateState/{projectId}/{taskId}/{state}(projectId=${projectId},taskId=${task.id},state=${task.state})}">
+                <button class="status-button" th:if="${task.state==1}">In Progress</button>
+                <button class="status-button" th:if="${task.state==2}">Done</button>
+                <button class="status-button" th:if="${task.state==3}">Reset</button>
+            </a>
+        </td>-->
+
+    </tr>
+    </tbody>
+</table>
+
+
+<a th:href="@{/userSite}">
+    <button class="back-button">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+</a>
+
+</body>
+</html>
+
+

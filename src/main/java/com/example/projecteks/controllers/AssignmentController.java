@@ -28,15 +28,15 @@ public class AssignmentController {
 
         return "redirect:/showTask/"+projectId;
     }
-    @PostMapping("/getAssigmentByUserId")
-    public String getAssignmentByUserId(@RequestParam("userId") int userId){
-        database.getAssignmentsByUserId(userId);
-        return "redirect: /userPage";
+    @GetMapping("/myAssignment/{userId}")
+    public String getAssignmentByUserId(@PathVariable("userId") int userId, Model model){
+        model.addAttribute("list", database.getAssignedTasksByUserId(userId));
+        return "Assignment/myAssignment";
     }
     @GetMapping("/getAssigmentByTaskId/{projectId}/{userId}")
     public String getAssignmentByTaskId(@PathVariable int projectId,@PathVariable int userId){
         database.getAssignmentsByUserId(userId);
-        return "redirect: /showTask/"+projectId;
+        return "redirect:/showTask/"+projectId;
     }
 
 
