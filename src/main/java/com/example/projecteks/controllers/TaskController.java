@@ -22,7 +22,7 @@ public class TaskController {
         ArrayList<Task> taskList = database.getTasks(projectId);
         model.addAttribute("list", taskList);
         model.addAttribute("projectId",projectId);
-
+        System.out.println("test "+taskList);
         ArrayList<ArrayList<String>> dto = new ArrayList<>(); //TODO gør til en metode
         for(Task t : taskList){
             dto.add(database.getUserNameByTaskId(t.getId()));
