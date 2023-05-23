@@ -14,17 +14,19 @@ public class AssignmentController {
 
     @GetMapping("/addAssignment/{projectId}/{taskId}")
     public String addAssignment(@PathVariable int projectId, @PathVariable int taskId, Model model){
-
+        Assign assignment = new Assign();
+        model.addAttribute("taskId",taskId);
         model.addAttribute("projectId",projectId);
-        model.addAttribute("taskId", taskId);
-        model.addAttribute("assignment",new Assign());
+        model.addAttribute("assignment",assignment);
         model.addAttribute("userList", database.getUser());
 
         return "addAssignment";
     }
     @PostMapping ("/assignmentAdded")
     public String addAssignment(@ModelAttribute("projectId") int projectId, @ModelAttribute("assignment") Assign assignment){
-        database.addAssignment(assignment.getUserId(),assignment.getUserId());
+        System.out.println("PostMapping: TaskId: "+assignment.getTaskId()+", UserId: "+assignment.getUserId());
+        database.addAssignment(assignment.getTaskId(),assignment.getUserId());
+
         return "redirect:/showTask/"+projectId;
     }
     @PostMapping("/getAssigmentByUserId")
