@@ -3,7 +3,6 @@ package com.example.projecteks.controllers;
 import com.example.projecteks.models.Assign;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
-import org.springframework.data.relational.core.sql.Assignment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,7 @@ public class AssignmentController {
         model.addAttribute("assignment",assignment);
         model.addAttribute("userList", database.getUser());
 
-        return "addAssignment";
+        return "Assignment/addAssignment";
     }
     @PostMapping ("/assignmentAdded")
     public String addAssignment(@ModelAttribute("projectId") int projectId,@ModelAttribute("taskId") int taskId, @ModelAttribute("assignment") Assign assignment){

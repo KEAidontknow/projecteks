@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http//thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/TableStyle.css}" rel="stylesheet" >
+  <title>User Site</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/Topnav.css}">
+  <link rel="stylesheet" type="text/css" href="../../static/Stylesheet.css" th:href="@{/Stylesheet.css}">
+</head>
+<h2>User Site</h2>
+<body>
+<div th:replace="~{fragment/topnav :: main-nav}">
+</div>
+<table>
+  <tr>
+    <th>Choice</th>
+  </tr>
+  <tr>
+    <td><a th:href="@{/myAssignment/{userName}(userName=${userName})}">
+      <button class="status-button">My Assignments</button>
+    </a></td>
+  </tr><tr>
+    <td><a th:href="@{/showProject/{userName}(userName=${userName})}">
+      <button class="status-button">My Projects</button>
+    </a></td>
+  </tr>
+
+
+
+</table>
+</body>
+</html>

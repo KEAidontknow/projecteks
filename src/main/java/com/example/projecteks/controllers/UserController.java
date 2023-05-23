@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -28,5 +29,11 @@ public class UserController {
 
         database.addUser(user);
         return "redirect:/login";
+    }
+
+    @GetMapping ("/userSite/{userId}")
+    private String userSite(@PathVariable String userName, Model model){
+        model.addAttribute("userId",userName);
+        return "users/userSite";
     }
 }

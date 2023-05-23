@@ -15,9 +15,9 @@ import java.util.List;
 @Controller
 public class ProjectController {
     DatabaseInterface database = new Database();
-    @GetMapping("showProject")
-    private String showProjects(Model model){
-        model.addAttribute("pList", database.showProjects());
+    @GetMapping("showProject/{userId}")
+    private String showProjects(Model model, @PathVariable int userId){
+        model.addAttribute("pList", database.showUserProjects(userId));
         return "Project/showProjects";
     }
 

@@ -33,6 +33,7 @@ public interface DatabaseInterface {
    void updateTask(Task task);
 
    ArrayList<Project> showProjects();
+   ArrayList<Project> showUserProjects(int userId);
 
    void addProject(Project project);
 

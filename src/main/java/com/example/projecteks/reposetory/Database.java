@@ -332,6 +332,32 @@ public class Database implements DatabaseInterface {
         }
         return pList;
     }
+public ArrayList<Project> showUserProjects(int userId) throws RuntimeException {
+        ArrayList<Project> pList = new ArrayList<>();
+
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.project where user_id = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1,userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Project project = new Project();
+                int projectId = rs.getInt("projectId");
+                project.setProjectId(projectId);
+                project.setProjectName(rs.getString("projectName"));
+                project.setStartDate(rs.getString("startDate"));
+                project.setDeadline(rs.getString("deadline"));
+                project.setHoursOfTasks(TimeCalc.hoursOfTaskInProject(getTasks(projectId))); //TODO Måske spørge directe med SQL om summen af timer
+                pList.add(project);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return pList;
+    }
 
     public void addProject(Project project) { //UNITEST
         Connection con = ConnectionManager.getConnection();
