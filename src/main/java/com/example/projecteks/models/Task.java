@@ -15,6 +15,17 @@ public class Task {
     private int timeEstimate;
     private double hoursOfPeriod;
     private int empNeeded;
+    private int star;
+
+
+    public int getStar() {
+        return star;
+    }
+
+    public void setStar(int star) {
+        this.star = star;
+    }
+
 
 
 

@@ -47,5 +47,7 @@ public interface DatabaseInterface {
 
 
     ArrayList<String> getUserNameByTaskId(int taskId);
+
+    void updateStar(int taskId, int star);
 }
 

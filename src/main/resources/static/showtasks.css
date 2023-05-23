@@ -8,6 +8,19 @@ table {
 td {
     text-align: center;
 }
+.star-icon {
+    color: #FFD700;
+    font-size: 18px;
+}
+.star-icon-grey {
+    color: #808080;
+    font-size: 18px;
+}
+
+.task-name-fav {
+    text-shadow: 2px 2px 4px #FFD700;
+}
+
 
 .delete-button {
     background-color: red;

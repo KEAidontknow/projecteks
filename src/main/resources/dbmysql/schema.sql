@@ -31,6 +31,7 @@ create table task
     startDate   varchar(10) not null ,
     deadline    varchar(10) not null ,
     timeEstimate    int not null ,
+    taskStar tinyint not null,
     projectId int         ,
     primary key (taskId),
     foreign key (projectId) references project (projectid)
