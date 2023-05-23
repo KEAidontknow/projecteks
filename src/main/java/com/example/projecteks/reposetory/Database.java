@@ -408,7 +408,7 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
             ResultSet rs = con.createStatement().executeQuery(SQLScript);
             while (rs.next()) {
                 User user = new User();
-                user.setUser_id(rs.getInt("user_id"));
+
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 userList.add(user);
@@ -430,7 +430,6 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
             ps.setString(1,userName);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                user.setUser_id(rs.getInt("user_id"));
                 user.setUsername(rs.getString("username"));
                 //user.setPassword(rs.getString("password"));
             }
