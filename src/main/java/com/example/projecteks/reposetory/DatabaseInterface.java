@@ -44,7 +44,7 @@ public interface DatabaseInterface {
 
     //_________ASSIGNMENT:____________
     ArrayList<Assign> getAssignmentsByTaskId(int taskId);
-    ArrayList<Assign> getAssignmentsByUserName();
+    ArrayList<Assign> getAssignmentsByUserName(String userName);
     void addAssignment(int taskId, String userName);
 
 

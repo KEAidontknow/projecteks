@@ -3,12 +3,12 @@ create database Projectmanagement;
 
 use Projectmanagement;
 CREATE TABLE `users` (
-                         `user_id` int(11) NOT NULL AUTO_INCREMENT,
+
                          `username` varchar(45) NOT NULL,
                          `password` varchar(64) NOT NULL,
                          `role` varchar(45) NOT NULL,
                          `enabled` tinyint(4) DEFAULT NULL,
-                         PRIMARY KEY (`user_id`)
+                         PRIMARY KEY (`username`)
 );
 
 create table project
@@ -17,9 +17,9 @@ create table project
     projectName varchar(20) not null,
     startDate varchar(10),
     deadline varchar(10),
-    user_id int(11) ,
+    username varchar(45) ,
     primary key (projectId),
-    foreign key (user_id) references `users` (`user_id`)
+    foreign key (username) references `users` (`username`)
 );
 
 create table task
@@ -31,19 +31,18 @@ create table task
     startDate   varchar(10) not null ,
     deadline    varchar(10) not null ,
     timeEstimate    int not null ,
-    taskStar tinyint not null,
     projectId int         ,
     primary key (taskId),
-    foreign key (projectId) references project (projectid)
+    foreign key (projectId) references project (projectId)
 );
 
 create table assign
 (
     assignId 	int auto_increment,
     taskId		int,
-    user_id		int(11),
+    username	varchar(45),
     primary key (assignId),
     foreign key (taskId) references task (taskId),
-    foreign key (user_id) references `users` (`user_id`)
+    foreign key (username) references `users` (`username`)
 
 );

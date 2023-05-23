@@ -337,11 +337,11 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
         ArrayList<Project> pList = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.project where user_id = ?";
+        String SQLScript = "select * from Projectmanagement.project where username = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(1, getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName()).getUser_id());
+            ps.setString(1, SecurityContextHolder.getContext().getAuthentication().getName());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Project project = new Project();
@@ -363,14 +363,14 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
     public void addProject(Project project) { //UNITEST
         Connection con = ConnectionManager.getConnection();
         // String SQLScript="insert into project_DB.project(name, id) valued=(?,?) ";
-        String SQL = "INSERT INTO Projectmanagement.project (projectName,startDate,deadline,user_id) VALUES (?,?,?,?)";
+        String SQL = "INSERT INTO Projectmanagement.project (projectName,startDate,deadline,username) VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ps.setString(1, project.getProjectName());
             ps.setString(2, project.getStartDate());
             ps.setString(3, project.getDeadline());
-            ps.setInt(4, getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName()).getUser_id());
+            ps.setString(4, SecurityContextHolder.getContext().getAuthentication().getName());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -485,7 +485,7 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
         return assignmentList;
     }
 
-    public ArrayList<Assign> getAssignmentsByUserName() throws RuntimeException {
+    public ArrayList<Assign> getAssignmentsByUserName(String userName) throws RuntimeException {
 
 
         Connection con = ConnectionManager.getConnection();
@@ -493,7 +493,7 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
         ArrayList<Assign> assignmentList = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setString(1,);
+            ps.setString(1,userName);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Assign assignment = new Assign();
@@ -545,7 +545,7 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
     public ArrayList<Task> getAssignedTasks() {
         ArrayList<Task> taskList = new ArrayList<>();
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.task where taskId in (select taskId from Projectmanagement.assign where user_id = ?)";
+        String SQLScript = "select * from Projectmanagement.task where taskId in (select taskId from Projectmanagement.assign where username = ?)";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setString(1, SecurityContextHolder.getContext().getAuthentication().getName());

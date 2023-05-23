@@ -34,7 +34,7 @@ public class UserController {
     @GetMapping ("/userSite")
     private String userSite(Model model){
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("userId",database.getUserByUserName(userName).getUser_id());
+
         model.addAttribute("userName",userName);
         return "users/userSite";
     }
