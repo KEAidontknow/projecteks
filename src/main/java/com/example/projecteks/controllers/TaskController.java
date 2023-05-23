@@ -38,7 +38,7 @@ public class TaskController {
         model.addAttribute("nameDTO",dto);
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("userId",database.getUserByUserName(userName).getUser_id());
-
+        model.addAttribute("userName",userName);
         return "Task/showTasks";
     }
 

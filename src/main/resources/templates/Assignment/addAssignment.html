@@ -10,8 +10,8 @@
 <div th:replace="~{fragment/topnav :: project-nav}"></div>
 
 <form th:action="@{/assignmentAdded}" method="post" th:object="${assignment}" >
-    <select th:field="*{userId}">
-        <option th:each="user : ${userList}" th:value="${user.user_id}" th:text="${user.username}"/>
+    <select th:field="*{userName}">
+        <option th:each="user : ${userList}" th:value="${user.username}" th:text="${user.username}"/>
     </select>
     <input type="hidden" id="taskId" name="taskId"  th:value="${taskId}" />
     <input type="hidden" id="projectId" name="projectId" th:value="${projectId}" />

@@ -370,7 +370,7 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
             ps.setString(1, project.getProjectName());
             ps.setString(2, project.getStartDate());
             ps.setString(3, project.getDeadline());
-            ps.setInt(4, project.getUserId());
+            ps.setInt(4, getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName()).getUser_id());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -476,7 +476,7 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
                 Assign assignment = new Assign();
                 assignment.setAssignId(rs.getInt("assignId"));
                 assignment.setTaskId(rs.getInt("taskId"));
-                assignment.setUserId(rs.getInt("user_id"));
+                assignment.setUserName(rs.getString("username"));
                 assignmentList.add(assignment);
             }
         } catch (SQLException e) {
@@ -485,21 +485,21 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
         return assignmentList;
     }
 
-    public ArrayList<Assign> getAssignmentsByUserId(int userId) throws RuntimeException {
+    public ArrayList<Assign> getAssignmentsByUserName() throws RuntimeException {
 
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.assign where user_id = ?";
+        String SQLScript = "select * from Projectmanagement.assign where username = ?";
         ArrayList<Assign> assignmentList = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(1,userId);
+            ps.setString(1,);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Assign assignment = new Assign();
                 assignment.setAssignId(rs.getInt("assignId"));
                 assignment.setTaskId(rs.getInt("taskId"));
-                assignment.setUserId(rs.getInt("user_id"));
+                assignment.setUserName(rs.getString("username"));
                 assignmentList.add(assignment);
             }
         } catch (SQLException e) {
@@ -508,14 +508,14 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
         return assignmentList;
     }
 
-    public void addAssignment(int taskId, int userId) {  //UNITEST
+    public void addAssignment(int taskId, String userName) {  //UNITEST
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.assign (taskId,user_id) values(?,?)";
+        String SQLScript = "insert into Projectmanagement.assign (taskId,username) values(?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setInt(1,taskId);
-            ps.setInt(2,userId);
+            ps.setString(2,userName);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -525,7 +525,7 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
     public ArrayList<String> getUserNameByTaskId(int taskId){
         ArrayList<String> nameList = new ArrayList<>();
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select username from Projectmanagement.users where user_id in (select user_id from Projectmanagement.assign where taskId = ?)";
+        String SQLScript = "select username from Projectmanagement.assign where taskId = ?)";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setInt(1,taskId);
@@ -548,7 +548,7 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
         String SQLScript = "select * from Projectmanagement.task where taskId in (select taskId from Projectmanagement.assign where user_id = ?)";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(1, getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName()).getUser_id());
+            ps.setString(1, SecurityContextHolder.getContext().getAuthentication().getName());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Task task = new Task();
