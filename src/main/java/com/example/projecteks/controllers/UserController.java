@@ -3,6 +3,7 @@ package com.example.projecteks.controllers;
 import com.example.projecteks.models.User;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +33,9 @@ public class UserController {
 
     @GetMapping ("/userSite")
     private String userSite(Model model){
-        model.addAttribute("userId",2);//Todo "2" er hardcodet, og skal substitueres med den brugerID på den der rent faktisk er logget ind
-        model.addAttribute("userName",database.getUserById(2).getUsername());
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("userId",database.getUserByUserName(userName).getUser_id());
+        model.addAttribute("userName",userName);
         return "users/userSite";
     }
 }

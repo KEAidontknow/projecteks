@@ -29,7 +29,7 @@ public interface DatabaseInterface {
     void updateProjectName(int projectId, String projectName, String startDate, String deadline);
     void addUser(User user);
     ArrayList<User> getUser();
-    User getUserById(int userId);
+    User getUserByUserName(String userName);
 
    void updateTask(Task task);
 

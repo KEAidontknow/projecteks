@@ -418,20 +418,20 @@ public ArrayList<Project> showUserProjects(int userId) throws RuntimeException {
         return userList;
     }
 
-    public User getUserById(int userId) {
+    public User getUserByUserName(String userName) {
         User user = new User();
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.users where user_id = ?";
+        String SQLScript = "select * from Projectmanagement.users where username = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(1,userId);
+            ps.setString(1,userName);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 user.setUser_id(rs.getInt("user_id"));
                 user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
+                //user.setPassword(rs.getString("password"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

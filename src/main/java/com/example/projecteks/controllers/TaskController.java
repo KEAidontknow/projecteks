@@ -4,6 +4,7 @@ import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +23,12 @@ public class TaskController {
         model.addAttribute("list", taskList);
         model.addAttribute("projectId",projectId);
 
-        ArrayList<ArrayList<String>> dto = new ArrayList<>();
+        ArrayList<ArrayList<String>> dto = new ArrayList<>(); //TODO gør til en metode
         for(Task t : taskList){
             dto.add(database.getUserNameByTaskId(t.getId()));
         }
         //Test start
-        for(ArrayList<String> l : dto){
+        for(ArrayList<String> l : dto){  //TODO GØR TIL EN LOG
             System.out.println("-------------");
             for(String n : l){
                 System.out.println("UserName: "+n);
@@ -35,6 +36,9 @@ public class TaskController {
         }
         //Test end
         model.addAttribute("nameDTO",dto);
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("userId",database.getUserByUserName(userName).getUser_id());
+
         return "Task/showTasks";
     }
 
