@@ -28,7 +28,7 @@ public class Database implements DatabaseInterface {
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(1, star == 1 ? 2 : 1); // Switch between 1 and 2
+            ps.setInt(1, star == 1 ? 2 : 1); // skifter mellem 1 og 2
             ps.setInt(2, taskId);
             ps.executeUpdate();
         } catch (SQLException e) {
