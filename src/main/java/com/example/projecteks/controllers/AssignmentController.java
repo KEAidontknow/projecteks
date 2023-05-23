@@ -23,9 +23,9 @@ public class AssignmentController {
         return "addAssignment";
     }
     @PostMapping ("/assignmentAdded")
-    public String addAssignment(@ModelAttribute("projectId") int projectId, @ModelAttribute("assignment") Assign assignment){
-        System.out.println("PostMapping: TaskId: "+assignment.getTaskId()+", UserId: "+assignment.getUserId());
-        database.addAssignment(assignment.getTaskId(),assignment.getUserId());
+    public String addAssignment(@ModelAttribute("projectId") int projectId,@ModelAttribute("taskId") int taskId, @ModelAttribute("assignment") Assign assignment){
+        System.out.println("PostMapping: TaskId: "+taskId+", UserId: "+assignment.getUserId());
+        database.addAssignment(taskId,assignment.getUserId());
 
         return "redirect:/showTask/"+projectId;
     }
