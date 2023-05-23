@@ -6,6 +6,7 @@ import com.example.projecteks.models.Task;
 import com.example.projecteks.models.User;
 import com.example.projecteks.reposetory.utilities.ConnectionManager;
 import com.example.projecteks.utilities.TimeCalc;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -332,7 +333,7 @@ public class Database implements DatabaseInterface {
         }
         return pList;
     }
-public ArrayList<Project> showUserProjects(int userId) throws RuntimeException {
+public ArrayList<Project> showUserProjects() throws RuntimeException {
         ArrayList<Project> pList = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
@@ -340,7 +341,7 @@ public ArrayList<Project> showUserProjects(int userId) throws RuntimeException {
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(1,userId);
+            ps.setInt(1, getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName()).getUser_id());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Project project = new Project();
@@ -537,17 +538,17 @@ public ArrayList<Project> showUserProjects(int userId) throws RuntimeException {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
        return  nameList;
     }
-    public ArrayList<Task> getAssignedTasksByUserId(int userId) {
+
+
+    public ArrayList<Task> getAssignedTasks() {
         ArrayList<Task> taskList = new ArrayList<>();
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "select * from Projectmanagement.task where taskId in (select taskId from Projectmanagement.assign where user_id = ?)";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(1, userId);
+            ps.setInt(1, getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName()).getUser_id());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Task task = new Task();
@@ -562,8 +563,6 @@ public ArrayList<Project> showUserProjects(int userId) throws RuntimeException {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
         return taskList;
     }
 

@@ -28,10 +28,9 @@ public class AssignmentController {
 
         return "redirect:/showTask/"+projectId;
     }
-    @GetMapping("/myAssignment/{userId}")
-    public String getAssignmentByUserId(@PathVariable("userId") int userId, Model model){
-        model.addAttribute("userId",userId);
-        model.addAttribute("list", database.getAssignedTasksByUserId(userId));
+    @GetMapping("/myAssignment")
+    public String getAssignmentByUserId(Model model){
+        model.addAttribute("list", database.getAssignedTasks());
         return "Assignment/myAssignment";
     }
     @GetMapping("/getAssigmentByTaskId/{projectId}/{userId}")

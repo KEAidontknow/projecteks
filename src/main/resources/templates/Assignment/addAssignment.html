@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../static/Topnav.css" th:href="@{/Topnav.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/Stylesheet.css" th:href="@{/Stylesheet.css}">
 </head>
 <body>
+<div th:replace="~{fragment/topnav :: project-nav}"></div>
+
 <form th:action="@{/assignmentAdded}" method="post" th:object="${assignment}" >
     <select th:field="*{userId}">
         <option th:each="user : ${userList}" th:value="${user.user_id}" th:text="${user.username}"/>
