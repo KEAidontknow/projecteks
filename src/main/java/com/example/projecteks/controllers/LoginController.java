@@ -17,6 +17,6 @@ public class LoginController {
             return "users/login";
         }
 
-        return "redirect:/userSite/1"; //Todo "1" er hardcodet, og skal substitueres med den brugerID på den der rent faktisk er logget ind
+        return "redirect:/userSite"; //Todo "1" er hardcodet, og skal substitueres med den brugerID på den der rent faktisk er logget ind
     }
 }

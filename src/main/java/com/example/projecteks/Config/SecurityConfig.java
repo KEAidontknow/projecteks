@@ -71,7 +71,7 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions().sameOrigin())//allow newer browsers to prevent clickjacking attacks
                 .formLogin()
                 .loginPage("/login").permitAll()//overwrite of default spring security login form with custom login form
-                .defaultSuccessUrl("/showProject", true) //overwrite of default landing page which is / to custom landing page
+                .defaultSuccessUrl("/userSite", true) //overwrite of default landing page which is / to custom landing page
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //changed to allow Get logout instead of the default post logout only

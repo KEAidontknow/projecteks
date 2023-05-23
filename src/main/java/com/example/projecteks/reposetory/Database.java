@@ -362,13 +362,14 @@ public ArrayList<Project> showUserProjects(int userId) throws RuntimeException {
     public void addProject(Project project) { //UNITEST
         Connection con = ConnectionManager.getConnection();
         // String SQLScript="insert into project_DB.project(name, id) valued=(?,?) ";
-        String SQL = "INSERT INTO Projectmanagement.project (projectName,startDate,deadline) VALUES (?,?,?)";
+        String SQL = "INSERT INTO Projectmanagement.project (projectName,startDate,deadline,user_id) VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ps.setString(1, project.getProjectName());
             ps.setString(2, project.getStartDate());
             ps.setString(3, project.getDeadline());
+            ps.setInt(4, project.getUserId());
             ps.executeUpdate();
 
         } catch (SQLException e) {

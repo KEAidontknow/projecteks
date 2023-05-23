@@ -18,18 +18,22 @@ public class ProjectController {
     @GetMapping("showProject/{userId}")
     private String showProjects(Model model, @PathVariable int userId){
         model.addAttribute("pList", database.showUserProjects(userId));
+        model.addAttribute("userId",userId);
         return "Project/showProjects";
     }
 
-    @GetMapping("addProject")
-    public String addProject(Model model){
+    @GetMapping("addProject/{userId}")
+    public String addProject(@PathVariable int userId, Model model){
+        model.addAttribute("userId", userId);
         model.addAttribute("project", new Project());
         return "Project/addProject";
     }
     @PostMapping("projectAdded")
-    public String projectAdded(@ModelAttribute("project") Project project){
+    public String projectAdded(@ModelAttribute("project") Project project, @ModelAttribute("userId") int userId){
+        project.setUserId(userId);
+        System.out.println("userId: "+project.getUserId());
         database.addProject(project);
-        return "redirect:/showProject";
+        return "redirect:/showProject/"+userId;
     }
 
     @PostMapping("/deleteProject/{projectID}")

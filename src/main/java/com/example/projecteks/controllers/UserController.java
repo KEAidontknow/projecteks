@@ -31,9 +31,9 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping ("/userSite/{userId}")
-    private String userSite(@PathVariable String userName, Model model){
-        model.addAttribute("userId",userName);
+    @GetMapping ("/userSite")
+    private String userSite(Model model){
+        model.addAttribute("userId",2); //Todo "2" er hardcodet, og skal substitueres med den brugerID på den der rent faktisk er logget ind
         return "users/userSite";
     }
 }
