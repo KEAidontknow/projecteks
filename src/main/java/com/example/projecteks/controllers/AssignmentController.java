@@ -30,6 +30,7 @@ public class AssignmentController {
     }
     @GetMapping("/myAssignment/{userId}")
     public String getAssignmentByUserId(@PathVariable("userId") int userId, Model model){
+        model.addAttribute("userId",userId);
         model.addAttribute("list", database.getAssignedTasksByUserId(userId));
         return "Assignment/myAssignment";
     }
@@ -37,6 +38,11 @@ public class AssignmentController {
     public String getAssignmentByTaskId(@PathVariable int projectId,@PathVariable int userId){
         database.getAssignmentsByUserId(userId);
         return "redirect:/showTask/"+projectId;
+    }
+    @GetMapping("updateStateAssignment/{userId}/{taskId}/{state}")
+    private String updateTask(@PathVariable int userId, @PathVariable int taskId, @PathVariable int state) {
+        database.updateState(taskId, state);
+        return "redirect:/myAssignment/"+userId;
     }
 
 

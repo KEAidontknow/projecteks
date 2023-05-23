@@ -529,6 +529,7 @@ public ArrayList<Project> showUserProjects(int userId) throws RuntimeException {
             while (rs.next()) {
                 Task task = new Task();
                 task.setId(rs.getInt("taskId"));
+                task.setProjectId(rs.getInt("projectId"));
                 task.setState(rs.getInt("taskState"));
                 task.setName(rs.getString("taskName"));
                 task.setDeadline(LocalDate.parse(rs.getString("deadline")));

@@ -28,8 +28,8 @@
         <th>Start Date</th>
         <th>Deadline</th>
 
-        <!--<th>Status</th>
-        <th>Change<br/>Status</th>-->
+        <th>Status</th>
+        <th>Change<br/>Status</th>
 
 
     </tr>
@@ -43,16 +43,16 @@
 
 
 
-        <!--<td th:if="${task.state}==1"><a style="color: crimson;">TODO</a></td>
+        <td th:if="${task.state}==1"><a style="color: crimson;">TODO</a></td>
         <td th:if="${task.state}==2"><a style="color: gold;">In Progress</a></td>
         <td th:if="${task.state}==3"><a style="color: green;">Done</a></td>
         <td>
-            <a th:href="@{/updateState/{projectId}/{taskId}/{state}(projectId=${projectId},taskId=${task.id},state=${task.state})}">
+            <a th:href="@{/updateStateAssignment/{userId}/{taskId}/{state}(userId=${userId}, taskId=${task.id},state=${task.state})}">
                 <button class="status-button" th:if="${task.state==1}">In Progress</button>
                 <button class="status-button" th:if="${task.state==2}">Done</button>
                 <button class="status-button" th:if="${task.state==3}">Reset</button>
             </a>
-        </td>-->
+        </td>
 
     </tr>
     </tbody>
