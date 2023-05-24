@@ -524,7 +524,7 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
     public ArrayList<String> getUserNameByTaskId(int taskId){
         ArrayList<String> nameList = new ArrayList<>();
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select username from Projectmanagement.assign where taskId = ?)";
+        String SQLScript = "select username from Projectmanagement.assign where taskId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setInt(1,taskId);
@@ -563,6 +563,20 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
             throw new RuntimeException(e);
         }
         return taskList;
+    }
+
+    public void removeAllAssignmentsFromTask(int taskId){
+
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "delete from Projectmanagement.assign where taskId = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1, taskId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

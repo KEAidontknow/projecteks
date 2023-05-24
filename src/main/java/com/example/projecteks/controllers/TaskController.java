@@ -63,6 +63,7 @@ public class TaskController {
 
     @GetMapping("removeTask/{projectId}/{taskId}")
     private String removeTask(@PathVariable String projectId,@PathVariable int taskId) {
+        database.removeAllAssignmentsFromTask(taskId);
         database.removeTask(taskId);
         return "redirect:/showTask/"+ projectId;
     }

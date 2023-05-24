@@ -53,6 +53,8 @@ public interface DatabaseInterface {
     void updateStar(int taskId, int star);
     ArrayList<Task> getAssignedTasks();
 
+    void removeAllAssignmentsFromTask(int taskId);
+
 
 }
 
