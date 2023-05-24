@@ -1,30 +1,38 @@
 package com.example.projecteks.reposetory.utilities;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManager {
-    public static Connection con = null;
+    private static Connection connection = null;
+    private static String url, username, password;
 
-    public static Connection getConnection(){
+    @Value("${spring.datasource.url}")
+    public void setUrl(String url) {
+        ConnectionManager.url = url;
+    }
 
-        String url = "jdbc:mysql://eksamen.mysql.database.azure.com";
-        String username = "user";
-        String password = "!test1234";
+    @Value("${spring.datasource.username}")
+    public void setUsername(String username) {
+        ConnectionManager.username = username;
+    }
 
-       // String url = "jdbc:mysql://localhost:3306/Projectmanagement";
-       // String username = "testuser";
-        //String password = "Sivertsen13";
-
-        if(con == null) {
+    @Value("${spring.datasource.password}")
+    public void setPassword(String password) {
+        ConnectionManager.password = password;
+    }
+    public static Connection getConnection() {
+        if (connection == null) {
             try {
-                con = DriverManager.getConnection(url, username, password);
+                connection = DriverManager.getConnection(url, username, password);
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }
         }
-        return con;
+        return connection;
 
     }
 }
