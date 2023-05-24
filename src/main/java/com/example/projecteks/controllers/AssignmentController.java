@@ -38,10 +38,10 @@ public class AssignmentController {
         database.getAssignmentsByUserName();
         return "redirect:/showTask/"+projectId;
     }*/
-    @GetMapping("updateStateAssignment/{userId}/{taskId}/{state}")
-    private String updateTask(@PathVariable int userId, @PathVariable int taskId, @PathVariable int state) {
+    @GetMapping("updateStateAssignment/{taskId}/{state}")
+    private String updateTask(@PathVariable int taskId, @PathVariable int state) {
         database.updateState(taskId, state);
-        return "redirect:/myAssignment/"+userId;
+        return "redirect:/myAssignment";
     }
 
 
