@@ -18,8 +18,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static com.example.projecteks.reposetory.utilities.ConnectionManager.con;
-
 @Repository
 public class Database implements DatabaseInterface {
 
@@ -294,6 +292,7 @@ public class Database implements DatabaseInterface {
     }
 
     public void updateProjectName(int projectId, String projectName, String startDate, String deadline) {
+        Connection con = ConnectionManager.getConnection();
         try {
             String SQL = "UPDATE Projectmanagement.project SET projectName = ?, startDate = ?, deadline = ? WHERE projectId = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
