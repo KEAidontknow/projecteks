@@ -4,11 +4,14 @@ th, td {
     /*min-width: 50px;*/
 
 }
-th1{
 
-}
 table{
+    border-collapse: collapse;
+    box-shadow: 0 5px 10px lightgray;
+    background-color: white;
+    overflow: hidden;
     border:1px solid black;
+    border-radius: 10px;
     /*min-width: 500px;*/
     color: green;
 }
@@ -41,11 +44,16 @@ table{
 }
 
 .show-as-list-button {
+    vertical-align: middle;
+    text-align: center;
     background-color: black;
     color: white;
 }
 
 .white-button {
+    vertical-align: middle;
+    text-align: center;
+    padding: 10px;
     background-color: white;
     color: black;
 }
