@@ -5,10 +5,17 @@
   <title>SQL Exception</title>
   <link rel="stylesheet" type="text/css" href="../../static/Topnav.css" th:href="@{/Topnav.css}">
   <link rel="stylesheet" type="text/css" th:href="@{/TITLE.BACKGROUND.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/showtasks.css}">
 </head>
 <body>
 <div th:replace="fragment/topnav :: main-nav"></div>
 <h1>SQL Exception! </h1>
 <textarea th:text="${message}"/>
+
+<a th:href="@{{url}(url=${urlBack})}">
+  <button class="back-button">
+    <i class="fas fa-arrow-left"></i>
+  </button>
+</a>
 </body>
 </html>

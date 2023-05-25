@@ -4,6 +4,7 @@ import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ public class TaskController {
     DatabaseInterface database = new Database();
 
     @GetMapping("showTask/{projectId}")
-    private String showTasks(Model model,@PathVariable int projectId) {
+    private String showTasks(Model model,@PathVariable int projectId) throws RuntimeException{
         ArrayList<Task> taskList = database.getTasks(projectId);
         model.addAttribute("list", taskList);
         model.addAttribute("projectId",projectId);
@@ -44,7 +45,7 @@ public class TaskController {
     }
 
     @GetMapping("addTask/{projectId}")
-    private String addTask(Model model, @PathVariable Integer projectId) {
+    private String addTask(Model model, @PathVariable Integer projectId) throws RuntimeException{
         model.addAttribute("task", new Task());
         model.addAttribute("projectId", projectId);
         Project p = database.getCertainProject(projectId);
@@ -55,7 +56,7 @@ public class TaskController {
     }
 
     @PostMapping("taskAdded")
-    private String taskAdded(@ModelAttribute("task") Task task, @ModelAttribute("projectId") int projectId) {
+    private String taskAdded(@ModelAttribute("task") Task task, @ModelAttribute("projectId") int projectId) throws RuntimeException{
         task.setProjectId(projectId);
         database.addTask(task);
         //database.addAssignment(taskId,userId);
@@ -63,27 +64,27 @@ public class TaskController {
     }
 
     @GetMapping("removeTask/{projectId}/{taskId}")
-    private String removeTask(@PathVariable String projectId,@PathVariable int taskId) {
+    private String removeTask(@PathVariable String projectId,@PathVariable int taskId) throws RuntimeException{
         database.removeAllAssignmentsFromTask(taskId);
         database.removeTask(taskId);
         return "redirect:/showTask/"+ projectId;
     }
 
     @GetMapping("updateState/{projectId}/{taskId}/{state}")
-    private String updateTask(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int state) {
+    private String updateTask(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int state) throws RuntimeException {
         database.updateState(taskId, state);
         return "redirect:/showTask/"+ projectId;
     }
 
     @GetMapping("updateStar/{projectId}/{taskId}/{star}")
-    private String updateStar(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int star) {
+    private String updateStar(@PathVariable int projectId,@PathVariable int taskId, @PathVariable int star) throws RuntimeException {
         database.updateStar(taskId, star);
         return "redirect:/showTask/"+ projectId;
     }
 
 
     @GetMapping("editTask/{taskId}/{projectId}")
-    private String editTask(@PathVariable int taskId, Model model, @PathVariable String projectId) {
+    private String editTask(@PathVariable int taskId, Model model, @PathVariable String projectId) throws RuntimeException{
         model.addAttribute("task",database.getTaskById(taskId));
         model.addAttribute("newTask", new Task());
         model.addAttribute("projectId", projectId);
@@ -92,7 +93,7 @@ public class TaskController {
     }
 
     @PostMapping("editTask/")
-    private String editTask(@ModelAttribute("newTask") Task newTask,@ModelAttribute("projectId") int projectId,@ModelAttribute("id") int taskId) {
+    private String editTask(@ModelAttribute("newTask") Task newTask,@ModelAttribute("projectId") int projectId,@ModelAttribute("id") int taskId) throws RuntimeException {
         newTask.setId(taskId);
         database.editTask(newTask);
         System.out.println("tId "+ taskId+" pId "+ projectId);
@@ -105,6 +106,12 @@ public class TaskController {
         database.updateTask(task);
         return "redirect:/tasks";
     }*/
+    @ExceptionHandler(SQLException.class)
+    public String handleError(Model model, Exception exception, HttpServletRequest request) {
+        model.addAttribute("message",exception.getMessage());
+        model.addAttribute("urlBack",request.getHeader("Referer"));
+        return "exceptions/SQLExceptionPage";
+    }
 
 
 

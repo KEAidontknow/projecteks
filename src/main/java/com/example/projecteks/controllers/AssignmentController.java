@@ -3,6 +3,7 @@ package com.example.projecteks.controllers;
 import com.example.projecteks.models.Assign;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public class AssignmentController {
     DatabaseInterface database = new Database();
 
     @GetMapping("/addAssignment/{projectId}/{taskId}")
-    public String addAssignment(@PathVariable int projectId, @PathVariable int taskId, Model model){
+    public String addAssignment(@PathVariable int projectId, @PathVariable int taskId, Model model) throws RuntimeException{
         Assign assignment = new Assign();
         model.addAttribute("taskId",taskId);
         model.addAttribute("projectId",projectId);
@@ -31,7 +32,7 @@ public class AssignmentController {
         return "redirect:/showTask/"+projectId;
     }
     @GetMapping("/myAssignment")
-    public String getAssignmentByUserId(Model model){
+    public String getAssignmentByUserId(Model model) throws RuntimeException{
         model.addAttribute("list", database.getAssignedTasks());
         return "Assignment/myAssignment";
     }
@@ -41,14 +42,15 @@ public class AssignmentController {
         return "redirect:/showTask/"+projectId;
     }*/
     @GetMapping("updateStateAssignment/{taskId}/{state}")
-    private String updateTask(@PathVariable int taskId, @PathVariable int state) {
+    private String updateTask(@PathVariable int taskId, @PathVariable int state) throws RuntimeException {
         database.updateState(taskId, state);
         return "redirect:/myAssignment";
     }
 
     @ExceptionHandler(SQLException.class)
-    public String handleError(Model model, Exception exception) {
+    public String handleError(Model model, Exception exception, HttpServletRequest request) {
         model.addAttribute("message",exception.getMessage());
+        model.addAttribute("urlBack",request.getHeader("Referer"));
         return "exceptions/SQLExceptionPage";
     }
 
