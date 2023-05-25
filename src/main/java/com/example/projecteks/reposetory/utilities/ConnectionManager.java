@@ -7,8 +7,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManager {
+
     private static Connection connection = null;
-    private static String url, username, password;
+    public static String url = "jdbc:mysql://eksamen.mysql.database.azure.com/Projectmanagement";
+    public static String username = "user";
+    public static String password = "!test1234";
+
+/*
+TODO:injecting datasource into static variable result in null
 
     @Value("${spring.datasource.url}")
     public void setUrl(String url) {
@@ -24,15 +30,15 @@ public class ConnectionManager {
     public void setPassword(String password) {
         ConnectionManager.password = password;
     }
+*/
+
     public static Connection getConnection() {
-        if (connection == null) {
-            try {
-                connection = DriverManager.getConnection(url, username, password);
-            } catch (SQLException exception) {
-                exception.printStackTrace();
-            }
+        if (connection != null) return connection;
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
         }
         return connection;
-
     }
 }
