@@ -1,6 +1,5 @@
 package com.example.projecteks.controllers;
 
-import ch.qos.logback.core.model.Model;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

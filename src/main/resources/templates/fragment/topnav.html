@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" type="text/css" href="../../static/Topnav.css" th:href="@{/Topnav.css}">
+  <link rel="stylesheet" type="text/css" href="../../static/topNav.css" th:href="@{topNav.css}">
 </head>
 <div th:fragment ="main-nav">
   <nav class="navigationWrapper">
@@ -27,6 +27,8 @@
       <span class="logo"><sup>beta</sup></span>
     </div>
     <ul class="navigation">
+      <li class="parent"><a th:href="@{/userSite}"><button>Dashboard</button></a></li>
+      <li class="parent"><a th:href="@{/myAssignment}"><button>My Assignments</button></a></li>
       <li class="parent"><a th:href="@{/showProject}"><button>Project List</button></a></li>
       <li class="parent"><a th:href="@{/addProject}"><button>Create new Project</button></a></li>
       <li class="parent"><a th:href="@{/logout}" onclick="return confirm('Are you sure you want to log out?')"><button>Log out</button></a></li>
@@ -41,6 +43,8 @@
       <span class="logo"><sup>beta</sup></span>
     </div>
     <ul class="navigation">
+      <li class="parent"><a th:href="@{/userSite}"><button>Dashboard</button></a></li>
+      <li class="parent"><a th:href="@{/myAssignment}"><button>My Assignments</button></a></li>
       <li class="parent"><a th:href="@{/showProject}"><button>Project List</button></a></li>
       <li class="parent"><a th:href="@{/showTask/{projectId}(projectId=${projectId})}"><button>Task List</button></a></li>
       <li class="parent"><a th:href="@{/addTask/{projectId}(projectId=${projectId})}"><button>Add Task</button></a></li>
