@@ -13,6 +13,7 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DatabaseTest {
+    //TODO: find out how to make a embedded in-memory database for testing purposes
     DatabaseInterface database;
     Random random;
 
@@ -180,12 +181,6 @@ public class DatabaseTest {
         assertEquals(newStartDate, updatedProject.getStartDate());
         assertEquals(newDeadline, updatedProject.getDeadline());
     }
-
-
-
-
-
-
 }
 
 
