@@ -18,8 +18,6 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.springframework.security.config.Customizer.*;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
