@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+
 @Controller
 public class AssignmentController {
     DatabaseInterface database = new Database();
@@ -22,7 +24,7 @@ public class AssignmentController {
         return "Assignment/addAssignment";
     }
     @PostMapping ("/assignmentAdded")
-    public String addAssignment(@ModelAttribute("projectId") int projectId,@ModelAttribute("taskId") int taskId, @ModelAttribute("assignment") Assign assignment){
+    public String addAssignment(@ModelAttribute("projectId") int projectId,@ModelAttribute("taskId") int taskId, @ModelAttribute("assignment") Assign assignment) throws RuntimeException{
         System.out.println("PostMapping: TaskId: "+taskId+", UserName: "+assignment.getUserName());
         database.addAssignment(taskId,assignment.getUserName());
 
@@ -42,6 +44,12 @@ public class AssignmentController {
     private String updateTask(@PathVariable int taskId, @PathVariable int state) {
         database.updateState(taskId, state);
         return "redirect:/myAssignment";
+    }
+
+    @ExceptionHandler(SQLException.class)
+    public String handleError(Model model, Exception exception) {
+        model.addAttribute("message",exception.getMessage());
+        return "exceptions/SQLExceptionPage";
     }
 
 

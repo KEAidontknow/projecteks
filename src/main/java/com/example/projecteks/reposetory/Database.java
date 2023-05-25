@@ -507,7 +507,7 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
         return assignmentList;
     }
 
-    public void addAssignment(int taskId, String userName) {  //UNITEST
+    public void addAssignment(int taskId, String userName) throws RuntimeException {  //UNITEST
         Connection con = ConnectionManager.getConnection();
         String SQLScript = "insert into Projectmanagement.assign (taskId,username) values(?,?)";
 
