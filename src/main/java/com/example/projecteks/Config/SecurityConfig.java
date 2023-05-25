@@ -61,8 +61,8 @@ public class SecurityConfig {
                         .requestMatchers("users/createUser").permitAll()
                         .requestMatchers("/showUser").permitAll()
                         .requestMatchers("/images/2.png").permitAll()
-                        .requestMatchers("/Topnav.css").permitAll()
-                        .requestMatchers("/Stylesheet.css").permitAll()
+                        .requestMatchers("/topNav.css").permitAll()
+                        .requestMatchers("/styleSheet.css").permitAll()
                         .requestMatchers("/showProjects").permitAll()
                         .anyRequest().authenticated()// any request must be authenticated
                 )

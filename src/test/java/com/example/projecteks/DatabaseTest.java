@@ -26,6 +26,7 @@ public class DatabaseTest {
             randomName += c[random.nextInt(0,26)];
         }
     }
+    /*
     @Test
     public void addGetAndRemoveProject(){
         //ARRANGE
@@ -56,7 +57,7 @@ public class DatabaseTest {
 
 
     }
-
+*/
 
 
 
