@@ -17,12 +17,12 @@ public class ProjectController {
     DatabaseInterface database = new Database();
     @GetMapping("showProject")
     private String showProjects(Model model){
-        model.addAttribute("pList", database.showProjects());
+        model.addAttribute("pList", database.showUserProjects());
         return "Project/showProjects";
     }
 
     @GetMapping("addProject")
-    public String addProject(Model model){
+    public String addProject( Model model){
         model.addAttribute("project", new Project());
         return "Project/addProject";
     }

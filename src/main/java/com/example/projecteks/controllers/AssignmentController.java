@@ -3,7 +3,6 @@ package com.example.projecteks.controllers;
 import com.example.projecteks.models.Assign;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
-import org.springframework.data.relational.core.sql.Assignment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,24 +19,29 @@ public class AssignmentController {
         model.addAttribute("assignment",assignment);
         model.addAttribute("userList", database.getUser());
 
-        return "addAssignment";
+        return "Assignment/addAssignment";
     }
     @PostMapping ("/assignmentAdded")
     public String addAssignment(@ModelAttribute("projectId") int projectId,@ModelAttribute("taskId") int taskId, @ModelAttribute("assignment") Assign assignment){
-        System.out.println("PostMapping: TaskId: "+taskId+", UserId: "+assignment.getUserId());
-        database.addAssignment(taskId,assignment.getUserId());
+        System.out.println("PostMapping: TaskId: "+taskId+", UserName: "+assignment.getUserName());
+        database.addAssignment(taskId,assignment.getUserName());
 
         return "redirect:/showTask/"+projectId;
     }
-    @PostMapping("/getAssigmentByUserId")
-    public String getAssignmentByUserId(@RequestParam("userId") int userId){
-        database.getAssignmentsByUserId(userId);
-        return "redirect: /userPage";
+    @GetMapping("/myAssignment")
+    public String getAssignmentByUserId(Model model){
+        model.addAttribute("list", database.getAssignedTasks());
+        return "Assignment/myAssignment";
     }
-    @GetMapping("/getAssigmentByTaskId/{projectId}/{userId}")
-    public String getAssignmentByTaskId(@PathVariable int projectId,@PathVariable int userId){
-        database.getAssignmentsByUserId(userId);
-        return "redirect: /showTask/"+projectId;
+    /*@GetMapping("/getAssigmentByTaskId/{projectId}")
+    public String getAssignmentByTaskId(@PathVariable int projectId){
+        database.getAssignmentsByUserName();
+        return "redirect:/showTask/"+projectId;
+    }*/
+    @GetMapping("updateStateAssignment/{taskId}/{state}")
+    private String updateTask(@PathVariable int taskId, @PathVariable int state) {
+        database.updateState(taskId, state);
+        return "redirect:/myAssignment";
     }
 
 

@@ -6,6 +6,7 @@ import com.example.projecteks.models.Task;
 import com.example.projecteks.models.User;
 import com.example.projecteks.reposetory.utilities.ConnectionManager;
 import com.example.projecteks.utilities.TimeCalc;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -16,8 +17,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import static com.example.projecteks.reposetory.utilities.ConnectionManager.con;
 
 @Repository
 public class Database implements DatabaseInterface {
@@ -41,7 +40,7 @@ public class Database implements DatabaseInterface {
         ArrayList<Task> list = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.task where projectId = ? ORDER BY taskStar DESC";
+        String SQLScript = "select * from Projectmanagement.task where projectId = ?";// ORDER BY taskStar DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -293,6 +292,7 @@ public class Database implements DatabaseInterface {
     }
 
     public void updateProjectName(int projectId, String projectName, String startDate, String deadline) {
+        Connection con = ConnectionManager.getConnection();
         try {
             String SQL = "UPDATE Projectmanagement.project SET projectName = ?, startDate = ?, deadline = ? WHERE projectId = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
@@ -332,17 +332,44 @@ public class Database implements DatabaseInterface {
         }
         return pList;
     }
+public ArrayList<Project> showUserProjects() throws RuntimeException {
+        ArrayList<Project> pList = new ArrayList<>();
+
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.project where username = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setString(1, SecurityContextHolder.getContext().getAuthentication().getName());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Project project = new Project();
+                int projectId = rs.getInt("projectId");
+                project.setProjectId(projectId);
+                project.setProjectName(rs.getString("projectName"));
+                project.setStartDate(rs.getString("startDate"));
+                project.setDeadline(rs.getString("deadline"));
+                project.setHoursOfTasks(TimeCalc.hoursOfTaskInProject(getTasks(projectId))); //TODO Måske spørge directe med SQL om summen af timer
+                pList.add(project);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return pList;
+    }
 
     public void addProject(Project project) { //UNITEST
         Connection con = ConnectionManager.getConnection();
         // String SQLScript="insert into project_DB.project(name, id) valued=(?,?) ";
-        String SQL = "INSERT INTO Projectmanagement.project (projectName,startDate,deadline) VALUES (?,?,?)";
+        String SQL = "INSERT INTO Projectmanagement.project (projectName,startDate,deadline,username) VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(SQL);
 
             ps.setString(1, project.getProjectName());
             ps.setString(2, project.getStartDate());
             ps.setString(3, project.getDeadline());
+            ps.setString(4, SecurityContextHolder.getContext().getAuthentication().getName());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -380,7 +407,7 @@ public class Database implements DatabaseInterface {
             ResultSet rs = con.createStatement().executeQuery(SQLScript);
             while (rs.next()) {
                 User user = new User();
-                user.setUser_id(rs.getInt("user_id"));
+
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 userList.add(user);
@@ -390,6 +417,28 @@ public class Database implements DatabaseInterface {
         }
         return userList;
     }
+
+    public User getUserByUserName(String userName) {
+        User user = new User();
+
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.users where username = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setString(1,userName);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                user.setUsername(rs.getString("username"));
+                //user.setPassword(rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
+    }
+
+
 
     public void addUser(User user) {
         Connection con = ConnectionManager.getConnection();
@@ -425,7 +474,7 @@ public class Database implements DatabaseInterface {
                 Assign assignment = new Assign();
                 assignment.setAssignId(rs.getInt("assignId"));
                 assignment.setTaskId(rs.getInt("taskId"));
-                assignment.setUserId(rs.getInt("user_id"));
+                assignment.setUserName(rs.getString("username"));
                 assignmentList.add(assignment);
             }
         } catch (SQLException e) {
@@ -434,21 +483,21 @@ public class Database implements DatabaseInterface {
         return assignmentList;
     }
 
-    public ArrayList<Assign> getAssignmentsByUserId(int userId) throws RuntimeException {
+    public ArrayList<Assign> getAssignmentsByUserName(String userName) throws RuntimeException {
 
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.assign where user_id = ?";
+        String SQLScript = "select * from Projectmanagement.assign where username = ?";
         ArrayList<Assign> assignmentList = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
-            ps.setInt(1,userId);
+            ps.setString(1,userName);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Assign assignment = new Assign();
                 assignment.setAssignId(rs.getInt("assignId"));
                 assignment.setTaskId(rs.getInt("taskId"));
-                assignment.setUserId(rs.getInt("user_id"));
+                assignment.setUserName(rs.getString("username"));
                 assignmentList.add(assignment);
             }
         } catch (SQLException e) {
@@ -457,14 +506,14 @@ public class Database implements DatabaseInterface {
         return assignmentList;
     }
 
-    public void addAssignment(int taskId, int userId) {  //UNITEST
+    public void addAssignment(int taskId, String userName) {  //UNITEST
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.assign (taskId,user_id) values(?,?)";
+        String SQLScript = "insert into Projectmanagement.assign (taskId,username) values(?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setInt(1,taskId);
-            ps.setInt(2,userId);
+            ps.setString(2,userName);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -474,7 +523,7 @@ public class Database implements DatabaseInterface {
     public ArrayList<String> getUserNameByTaskId(int taskId){
         ArrayList<String> nameList = new ArrayList<>();
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select username from Projectmanagement.users where user_id in (select user_id from Projectmanagement.assign where taskId = ?)";
+        String SQLScript = "select username from Projectmanagement.assign where taskId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setInt(1,taskId);
@@ -487,10 +536,49 @@ public class Database implements DatabaseInterface {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
        return  nameList;
     }
+
+
+    public ArrayList<Task> getAssignedTasks() {
+        ArrayList<Task> taskList = new ArrayList<>();
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "select * from Projectmanagement.task where taskId in (select taskId from Projectmanagement.assign where username = ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setString(1, SecurityContextHolder.getContext().getAuthentication().getName());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Task task = new Task();
+                task.setId(rs.getInt("taskId"));
+                task.setProjectId(rs.getInt("projectId"));
+                task.setState(rs.getInt("taskState"));
+                task.setName(rs.getString("taskName"));
+                task.setDeadline(LocalDate.parse(rs.getString("deadline")));
+                task.setStartDate(LocalDate.parse(rs.getString("startDate")));
+                taskList.add(task);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return taskList;
+    }
+
+    public void removeAllAssignmentsFromTask(int taskId){
+
+        Connection con = ConnectionManager.getConnection();
+        String SQLScript = "delete from Projectmanagement.assign where taskId = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(SQLScript);
+            ps.setInt(1, taskId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 }

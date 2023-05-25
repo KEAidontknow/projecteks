@@ -6,14 +6,13 @@ public class Project {
     private String startDate;
     private String deadline;
     private  String subProjectName;
+    //private int userName;
     private  int hoursOfTasks;
 
-    public Project() {}
+    public Project() {
 
-    public Project(int projectId, String projectName){
-        this.projectId = projectId;
-        this.projectName = projectName;
     }
+
 
     public String getProjectName() {
         return projectName;
@@ -59,4 +58,6 @@ public class Project {
     public void setHoursOfTasks(int hoursOfTasks) {
         this.hoursOfTasks = hoursOfTasks;
     }
+
+
 }

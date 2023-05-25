@@ -18,8 +18,6 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.springframework.security.config.Customizer.*;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -63,15 +61,15 @@ public class SecurityConfig {
                         .requestMatchers("users/createUser").permitAll()
                         .requestMatchers("/showUser").permitAll()
                         .requestMatchers("/images/2.png").permitAll()
-                        .requestMatchers("/Topnav.css").permitAll()
-                        .requestMatchers("/Stylesheet.css").permitAll()
+                        .requestMatchers("/topNav.css").permitAll()
+                        .requestMatchers("/styleSheet.css").permitAll()
                         .requestMatchers("/showProjects").permitAll()
                         .anyRequest().authenticated()// any request must be authenticated
                 )
                 .headers(headers -> headers.frameOptions().sameOrigin())//allow newer browsers to prevent clickjacking attacks
                 .formLogin()
                 .loginPage("/login").permitAll()//overwrite of default spring security login form with custom login form
-                .defaultSuccessUrl("/showProject", true) //overwrite of default landing page which is / to custom landing page
+                .defaultSuccessUrl("/userSite", true) //overwrite of default landing page which is / to custom landing page
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //changed to allow Get logout instead of the default post logout only

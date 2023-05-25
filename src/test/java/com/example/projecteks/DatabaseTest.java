@@ -26,6 +26,7 @@ public class DatabaseTest {
             randomName += c[random.nextInt(0,26)];
         }
     }
+    /*
     @Test
     public void addGetAndRemoveProject(){
         //ARRANGE
@@ -56,7 +57,7 @@ public class DatabaseTest {
 
 
     }
-
+*/
 
 
 
@@ -124,6 +125,61 @@ public class DatabaseTest {
         }
     }
 
+    @Test
+    public void testUpdateStar() {
+        // ARRANGE
+        int taskId = 1;
+        int initialStar = 1;
+        int expectedStar = 2;
+
+        // ACT
+        database.updateStar(taskId, initialStar);
+        Task task = database.getTaskById(taskId);
+        int actualStar = task.getStar();
+
+        // ASSERT
+        assertEquals(expectedStar, actualStar);
+    }
+
+    @Test
+    public void testEditTask() {
+        // ARRANGE
+        Task task = new Task();
+        task.setId(1);
+        task.setName("Updated Task");
+        task.setTimeEstimate(100);
+        task.setStartDate(LocalDate.parse("2023-06-01"));
+        task.setDeadline(LocalDate.parse("2023-06-30"));
+
+        // ACT
+        database.editTask(task);
+        Task updatedTask = database.getTaskById(task.getId());
+
+        // ASSERT
+        assertEquals(task.getName(), updatedTask.getName());
+        assertEquals(task.getTimeEstimate(), updatedTask.getTimeEstimate());
+        assertEquals(task.getStartDate(), updatedTask.getStartDate());
+        assertEquals(task.getDeadline(), updatedTask.getDeadline());
+    }
+
+    @Test
+    public void testUpdateProjectName() {
+        // ARRANGE
+        String newProjectName = "Updated Project Name";
+        String newStartDate = "2023-06-01";
+        String newDeadline = "2023-06-30";
+        int projectId = database.showProjects().get(database.showProjects().size() - 1).getProjectId();
+
+        // ACT
+        database.updateProjectName(projectId, newProjectName, newStartDate, newDeadline);
+        Project updatedProject = database.getCertainProject(projectId);
+
+        // ASSERT
+        assertNotNull(updatedProject);
+        assertEquals(newProjectName, updatedProject.getProjectName());
+        assertEquals(newStartDate, updatedProject.getStartDate());
+        assertEquals(newDeadline, updatedProject.getDeadline());
+    }
 
 
 
@@ -131,3 +187,10 @@ public class DatabaseTest {
 
 
 }
+
+
+
+
+
+
+

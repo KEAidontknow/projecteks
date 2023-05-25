@@ -3,6 +3,7 @@ package com.example.projecteks.controllers;
 import com.example.projecteks.models.User;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,5 +29,13 @@ public class UserController {
 
         database.addUser(user);
         return "redirect:/login";
+    }
+
+    @GetMapping ("/userSite")
+    private String userSite(Model model){
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        model.addAttribute("userName",userName);
+        return "users/userSite";
     }
 }

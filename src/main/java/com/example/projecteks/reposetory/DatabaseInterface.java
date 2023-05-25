@@ -29,10 +29,12 @@ public interface DatabaseInterface {
     void updateProjectName(int projectId, String projectName, String startDate, String deadline);
     void addUser(User user);
     ArrayList<User> getUser();
+    User getUserByUserName(String userName);
 
    void updateTask(Task task);
 
    ArrayList<Project> showProjects();
+   ArrayList<Project> showUserProjects();
 
    void addProject(Project project);
 
@@ -42,12 +44,17 @@ public interface DatabaseInterface {
 
     //_________ASSIGNMENT:____________
     ArrayList<Assign> getAssignmentsByTaskId(int taskId);
-    ArrayList<Assign> getAssignmentsByUserId(int userId);
-    void addAssignment(int taskId, int userId);
+    ArrayList<Assign> getAssignmentsByUserName(String userName);
+    void addAssignment(int taskId, String userName);
 
 
     ArrayList<String> getUserNameByTaskId(int taskId);
 
     void updateStar(int taskId, int star);
+    ArrayList<Task> getAssignedTasks();
+
+    void removeAllAssignmentsFromTask(int taskId);
+
+
 }
 
