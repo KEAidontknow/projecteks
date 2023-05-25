@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/TITLE.BACKGROUND.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/showtasks.css}">
     <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 
     <style>
@@ -68,9 +68,9 @@
             <td th:if="${dto.date < o.startDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"  > </td>
 
             <span th:if="${dto.date >= o.startDate and dto.date <= o.deadline }">
-                <td th:if="${o.state==1}" th:style="'width: 30px; height: 30px'" ><div class="circle"  style="background-color: red"/></td>
-                <td th:if="${o.state==2}" th:style="'width: 30px; height: 30px'"  ><div class="circle" style="background-color: gold"/></td>
-                <td th:if="${o.state==3}" th:style="'width: 30px; height: 30px'"  ><div class="circle" style="background-color: green"/></td>
+                <td th:if="${o.state==1}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle"  style="background-color: red"/></td>
+                <td th:if="${o.state==2}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle" style="background-color: gold"/></td>
+                <td th:if="${o.state==3}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle" style="background-color: green"/></td>
             </span>
 
             <td th:if="${dto.date > o.deadline}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" > </td>
@@ -80,32 +80,38 @@
 
 
 </table>
-<br/>
 
-<a th:href="@{/showTask/{projectId}(projectId=${projectId})}">
-    <button class="button show-as-list-button">Show as List</button>
-</a>
 
-<br/>
+
 
 <table1>
     <tr>
         <td>
             <a th:href="@{/decrement/{projectId}(projectId=${projectId})}">
-                <button class="button transparent-button">&lt;&lt;</button>
+                <button class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
             </a>
         </td>
         <td>
             <a th:href="@{/now/{projectId}(projectId=${projectId})}">
-                <button class="button white-button">now</button>
+                <button class="black-button gantt-button" type="button">now</button>
             </a>
         </td>
         <td>
             <a th:href="@{/increment/{projectId}(projectId=${projectId})}">
-                <button class="button transparent-button">&gt;&gt;</button>
+                <button class="back-button">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </a>
         </td>
+
     </tr>
 </table1>
+<br/>
+
+<a th:href="@{/showTask/{projectId}(projectId=${projectId})}">
+    <button class="black-button gantt-button" type="button">Show as List</button>
+</a>
 </body>
 </html>
