@@ -5,13 +5,14 @@ import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
 import com.example.projecteks.utilities.DateGenerator;
+import com.example.projecteks.utilities.TimeCalc;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 
 
 @Controller
@@ -26,11 +27,13 @@ public class AssignmentController {
         model.addAttribute("projectId",projectId);
         model.addAttribute("assignment",assignment);
         model.addAttribute("userList", database.getUser());
-        Task t = database.getTaskById(taskId);
-        model.addAttribute("taskStart",t.getStartDate());
-        model.addAttribute("taskDeadline",t.getDeadline());
-        model.addAttribute("objectList", database.getAssignmentsByTaskId(taskId));
+        Task task = database.getTaskById(taskId);
+        model.addAttribute("taskStart",task.getStartDate());
+        model.addAttribute("taskDeadline",task.getDeadline());
+        ArrayList<Assign> assignmentsList = database.getAssignmentsByTaskId(taskId);
+        model.addAttribute("objectList", assignmentsList);
         model.addAttribute("dateDTOList", DateGenerator.getDateDTOList(daysFromNow));
+        model.addAttribute("deploymentRate",TimeCalc.deploymentRate(task,assignmentsList));
 
         return "Assignment/addAssignment";
     }

@@ -1,6 +1,9 @@
 package com.example.projecteks.utilities;
 
+import com.example.projecteks.models.Assign;
 import com.example.projecteks.models.Task;
+import com.example.projecteks.reposetory.Database;
+import com.example.projecteks.reposetory.DatabaseInterface;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -9,6 +12,7 @@ import java.util.*;
 public class TimeCalc {
 
     private static Map<DayOfWeek,Double> weeklyWorkHours;
+
 
     public static void setWeeklyWorkHours(){
         weeklyWorkHours = new HashMap<>();
@@ -90,5 +94,15 @@ public class TimeCalc {
          sum += t.getTimeEstimate();
         }
         return sum;
+    }
+
+    public static int deploymentRate(Task task, ArrayList<Assign> assignsList){
+        int deploymentRate;
+        int sum = 0;
+        for (Assign assignment : assignsList){
+            sum += getAvalableWorkHours(assignment.getStartDate(),assignment.getEndDate());
+        }
+        deploymentRate = sum * 100 /(int)(getAvalableWorkHours(task.getStartDate(),task.getDeadline()));
+        return deploymentRate;
     }
 }
