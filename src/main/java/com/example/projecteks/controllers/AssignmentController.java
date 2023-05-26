@@ -4,6 +4,7 @@ import com.example.projecteks.models.Assign;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
+import com.example.projecteks.utilities.DateGenerator;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 
+
+
 @Controller
 public class AssignmentController {
     DatabaseInterface database = new Database();
+    private  int daysFromNow =0;
 
     @GetMapping("/addAssignment/{projectId}/{taskId}")
     public String addAssignment(@PathVariable int projectId, @PathVariable int taskId, Model model) throws RuntimeException{
@@ -25,6 +29,8 @@ public class AssignmentController {
         Task t = database.getTaskById(taskId);
         model.addAttribute("taskStart",t.getStartDate());
         model.addAttribute("taskDeadline",t.getDeadline());
+        model.addAttribute("objectList", database.getAssignmentsByTaskId(taskId));
+        model.addAttribute("dateDTOList", DateGenerator.getDateDTOList(daysFromNow));
 
         return "Assignment/addAssignment";
     }
@@ -33,7 +39,7 @@ public class AssignmentController {
         System.out.println("PostMapping: TaskId: "+taskId+", UserName: "+assignment.getUserName());
         database.addAssignment(taskId,assignment.getUserName(),assignment.getStartDate(),assignment.getEndDate());
 
-        return "redirect:/showTask/"+projectId;
+        return "redirect:/addAssignment/"+projectId+"/"+taskId;
     }
     @GetMapping("/myAssignment")
     public String getAssignmentByUserId(Model model) throws RuntimeException{
@@ -50,6 +56,24 @@ public class AssignmentController {
         database.updateState(taskId, state);
         return "redirect:/myAssignment";
     }
+    @GetMapping("/assignDate/increment/{projectId}/{taskId}")
+    public String increment(@PathVariable int projectId, @PathVariable int taskId){
+        daysFromNow += 30;
+        return "redirect:/addAssignment/"+projectId+"/"+taskId;
+    }
+    @GetMapping("/assignDate/now/{projectId}/{taskId}")
+    public String now(@PathVariable int projectId, @PathVariable int taskId){
+        daysFromNow = 0;
+        return "redirect:/addAssignment/"+projectId+"/"+taskId;
+    }
+
+
+    @GetMapping("/assignDate/decrement/{projectId}/{taskId}")
+    public String decrement(@PathVariable int projectId, @PathVariable int taskId){
+        daysFromNow -= 30;
+        return "redirect:/addAssignment/"+projectId+"/"+taskId;
+    }
+
 
     @ExceptionHandler(SQLException.class)
     public String handleError(Model model, Exception exception, HttpServletRequest request) {

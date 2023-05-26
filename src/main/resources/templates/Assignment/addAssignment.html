@@ -3,8 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/showGant.css}" rel="stylesheet" >
     <link rel="stylesheet" type="text/css" href="../../static/topNav.css" th:href="@{/topNav.css}">
     <link rel="stylesheet" type="text/css" href="../../static/styleSheet.css" th:href="@{/styleSheet.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/topNav.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/TITLE.BACKGROUND.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/showtasks.css}">
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+    <style>
+        .even-col {
+            background-color: darkred;
+        }
+        .odd-col {
+            background-color: firebrick;
+        }
+        .dayOff-col{
+            background-color: orange;
+        }
+    </style>
+
+
 </head>
 <body>
 <div th:replace="~{fragment/topnav :: project-nav}"></div>
@@ -30,6 +51,84 @@
     <button type="submit" value="Assign Employee" class="center">Assign Employee</button>
 
 </form>
+<br/>
+<table>
+    <tr>
+        <th th:style="'width: 300px; border: none'"></th>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
+            <th th:if="${(i.count == 1)}" th:text="${dto.year}" th:style="'width: ' + ${dateDTOList.columnsOfFirstYear * 30} + 'px'" th:colspan="${dateDTOList.columnsOfFirstYear}" >|</th>
+            <th th:if="${(i.count > 1 and dto.date.dayOfYear == 1)}" th:text="${dto.year}" th:style="'width: ' + ${dateDTOList.columnsOfSecondYear * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondYear}">|</th>
+        </div>
+    </tr>
+
+    <tr>
+        <th th:style="'width: 300px; border: none'"></th>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
+            <th th:if="${(i.count == 1)}" th:text="${dto.monthName}" th:style="'width: ' + ${dateDTOList.columnsOfFirstMonth * 30} + 'px'" th:colspan="${dateDTOList.columnsOfFirstMonth}" >|</th>
+            <th th:if="${(i.count > 1 and dto.dayOfMonth == 1)}" th:text="${dto.monthName}" th:style="'width: ' + ${dateDTOList.columnsOfSecondMonth * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondMonth}">|</th>
+        </div>
+    </tr>
+
+    <tr>
+        <th th:style="'width: 300px; border: none'"></th>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}">
+            <th  th:text="${dto.dayOfMonth}" th:style="'width: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"  ></th>
+        </div>
+    </tr>
+
+    <tr>
+        <th th:style="'width: 300px; border: none'"></th>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}">
+            <th  th:text="${#strings.substring(dto.dayName, 0, 2)}" th:style="'width: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"></th>
+        </div>
+    </tr>
+
+    <tr th:each="o : ${objectList}">
+        <td th:text="${o.userName}" th:style="'width: 300px'"></td>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
+            <td th:if="${dto.date < o.startDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"  > </td>
+
+            <span th:if="${dto.date >= o.startDate and dto.date <= o.endDate }">
+                <td th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle"  style="background-color: green"/></td>
+
+            </span>
+
+            <td th:if="${dto.date > o.endDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" > </td>
+
+        </div>
+    </tr>
+
+
+</table>
+<table1>
+    <tr>
+        <td>
+            <a th:href="@{/assignDate/decrement/{projectId}/{taskId}(projectId=${projectId},taskId=${taskId})}">
+                <button class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </a>
+        </td>
+        <td>
+            <a th:href="@{/assignDate/now/{projectId}/{taskId}(projectId=${projectId},taskId=${taskId})}">
+                <button class="black-button gantt-button" type="button">now</button>
+            </a>
+        </td>
+        <td>
+            <a th:href="@{/assignDate/increment/{projectId}/{taskId}(projectId=${projectId},taskId=${taskId})}">
+                <button class="back-button">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </a>
+        </td>
+
+    </tr>
+</table1>
+<br/>
+
+<a th:href="@{/showTask/{projectId}(projectId=${projectId})}">
+    <button class="black-button gantt-button" type="button">Show as List</button>
+</a>
 
 </body>
 </html>

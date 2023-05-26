@@ -475,8 +475,8 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
                 assignment.setAssignId(rs.getInt("assignId"));
                 assignment.setTaskId(rs.getInt("taskId"));
                 assignment.setUserName(rs.getString("username"));
-                assignment.setStartDate(LocalDate.parse("startDate"));
-                assignment.setEndDate(LocalDate.parse("endDate"));
+                assignment.setStartDate(LocalDate.parse(rs.getString("startDate")));
+                assignment.setEndDate(LocalDate.parse(rs.getString("endDate")));
                 assignmentList.add(assignment);
             }
         } catch (SQLException e) {
@@ -500,8 +500,8 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
                 assignment.setAssignId(rs.getInt("assignId"));
                 assignment.setTaskId(rs.getInt("taskId"));
                 assignment.setUserName(rs.getString("username"));
-                assignment.setStartDate(LocalDate.parse("startDate"));
-                assignment.setEndDate(LocalDate.parse("endDate"));
+                assignment.setStartDate(LocalDate.parse(rs.getString("startDate")));
+                assignment.setEndDate(LocalDate.parse(rs.getString("endDate")));
                 assignmentList.add(assignment);
             }
         } catch (SQLException e) {
