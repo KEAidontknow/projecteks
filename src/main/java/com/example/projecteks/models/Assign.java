@@ -1,9 +1,14 @@
 package com.example.projecteks.models;
 
+import java.time.LocalDate;
+
 public class Assign {
     private int assignId;
     private String userName;
     private int taskId;
+    private LocalDate startDate;
+    private LocalDate endDate;
+
 
     public Assign() {
     }
@@ -30,5 +35,21 @@ public class Assign {
 
     public void setTaskId(int taskId) {
         this.taskId = taskId;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 }

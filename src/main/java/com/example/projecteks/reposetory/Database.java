@@ -475,6 +475,8 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
                 assignment.setAssignId(rs.getInt("assignId"));
                 assignment.setTaskId(rs.getInt("taskId"));
                 assignment.setUserName(rs.getString("username"));
+                assignment.setStartDate(LocalDate.parse("startDate"));
+                assignment.setEndDate(LocalDate.parse("endDate"));
                 assignmentList.add(assignment);
             }
         } catch (SQLException e) {
@@ -498,6 +500,8 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
                 assignment.setAssignId(rs.getInt("assignId"));
                 assignment.setTaskId(rs.getInt("taskId"));
                 assignment.setUserName(rs.getString("username"));
+                assignment.setStartDate(LocalDate.parse("startDate"));
+                assignment.setEndDate(LocalDate.parse("endDate"));
                 assignmentList.add(assignment);
             }
         } catch (SQLException e) {
@@ -506,14 +510,16 @@ public ArrayList<Project> showUserProjects() throws RuntimeException {
         return assignmentList;
     }
 
-    public void addAssignment(int taskId, String userName) throws RuntimeException {  //UNITEST
+    public void addAssignment(int taskId, String userName, LocalDate startDate, LocalDate endDate) throws RuntimeException {  //UNITEST
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.assign (taskId,username) values(?,?)";
+        String SQLScript = "insert into Projectmanagement.assign (taskId,username,startDate,endDate) values(?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setInt(1,taskId);
             ps.setString(2,userName);
+            ps.setString(3,startDate.toString());
+            ps.setString(4,endDate.toString());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

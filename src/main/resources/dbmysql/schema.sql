@@ -3,8 +3,7 @@ create database Projectmanagement;
 
 use Projectmanagement;
 CREATE TABLE `users` (
-
-                         `username` varchar(45) NOT NULL,
+                         `username` varchar(45) NOT NULL unique,
                          `password` varchar(64) NOT NULL,
                          `role` varchar(45) NOT NULL,
                          `enabled` tinyint(4) DEFAULT NULL,
@@ -42,8 +41,11 @@ create table assign
     assignId 	int auto_increment,
     taskId		int,
     username	varchar(45),
+    startDate 	varchar(10),
+    endDate 	varchar(10),
     primary key (assignId),
     foreign key (taskId) references task (taskId),
-    foreign key (username) references `users` (`username`)
+    foreign key (username) references `users` (`username`),
+    unique index (taskId, username)
 
 );

@@ -1,6 +1,7 @@
 package com.example.projecteks.controllers;
 
 import com.example.projecteks.models.Assign;
+import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,13 +22,16 @@ public class AssignmentController {
         model.addAttribute("projectId",projectId);
         model.addAttribute("assignment",assignment);
         model.addAttribute("userList", database.getUser());
+        Task t = database.getTaskById(taskId);
+        model.addAttribute("taskStart",t.getStartDate());
+        model.addAttribute("taskDeadline",t.getDeadline());
 
         return "Assignment/addAssignment";
     }
     @PostMapping ("/assignmentAdded")
     public String addAssignment(@ModelAttribute("projectId") int projectId,@ModelAttribute("taskId") int taskId, @ModelAttribute("assignment") Assign assignment) throws RuntimeException{
         System.out.println("PostMapping: TaskId: "+taskId+", UserName: "+assignment.getUserName());
-        database.addAssignment(taskId,assignment.getUserName());
+        database.addAssignment(taskId,assignment.getUserName(),assignment.getStartDate(),assignment.getEndDate());
 
         return "redirect:/showTask/"+projectId;
     }

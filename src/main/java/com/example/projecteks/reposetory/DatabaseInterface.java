@@ -5,6 +5,7 @@ import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.models.User;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface DatabaseInterface {
@@ -45,7 +46,7 @@ public interface DatabaseInterface {
     //_________ASSIGNMENT:____________
     ArrayList<Assign> getAssignmentsByTaskId(int taskId);
     ArrayList<Assign> getAssignmentsByUserName(String userName);
-    void addAssignment(int taskId, String userName);
+    void addAssignment(int taskId, String userName, LocalDate startDate, LocalDate endDate);
 
 
     ArrayList<String> getUserNameByTaskId(int taskId);

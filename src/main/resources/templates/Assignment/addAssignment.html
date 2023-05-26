@@ -13,6 +13,18 @@
     <select th:field="*{userName}">
         <option th:each="user : ${userList}" th:value="${user.username}" th:text="${user.username}"/>
     </select>
+
+
+        <label for="startDate">from:</label>
+        <input type="date" id="startDate" name="startDate" th:field="*{startDate}" th:attr="min=${taskStart}, max=${taskDeadline}" required/>
+
+
+        <label for="endDate">to:</label>
+        <input type="date" id="endDate" name="deadline" th:field="*{endDate}" th:attr="min=${taskStart}, max=${taskDeadline}" required/>
+
+
+
+
     <input type="hidden" id="taskId" name="taskId"  th:value="${taskId}" />
     <input type="hidden" id="projectId" name="projectId" th:value="${projectId}" />
     <button type="submit" value="Assign Employee" class="center">Assign Employee</button>
