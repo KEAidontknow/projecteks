@@ -6,8 +6,18 @@
     <link rel="stylesheet" type="text/css" th:href="@{/topNav.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/showTask.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/TITLE.BACKGROUND.css}">
-
-
+    <link th:href="@{/showGant.css}" rel="stylesheet" >
+    <style>
+        .even-col {
+            background-color: darkred;
+        }
+        .odd-col {
+            background-color: firebrick;
+        }
+        .dayOff-col{
+            background-color: orange;
+        }
+    </style>
 
 
 
@@ -55,7 +65,56 @@
     </tr>
     </tbody>
 </table>
+<br/>
+<table>
+    <tr>
+        <th th:style="'width: 300px; border: none'"></th>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
+            <th th:if="${(i.count == 1)}" th:text="${dto.year}" th:style="'width: ' + ${dateDTOList.columnsOfFirstYear * 30} + 'px'" th:colspan="${dateDTOList.columnsOfFirstYear}" >|</th>
+            <th th:if="${(i.count > 1 and dto.date.dayOfYear == 1)}" th:text="${dto.year}" th:style="'width: ' + ${dateDTOList.columnsOfSecondYear * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondYear}">|</th>
+        </div>
+    </tr>
 
+    <tr>
+        <th th:style="'width: 300px; border: none'"></th>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
+            <th th:if="${(i.count == 1)}" th:text="${dto.monthName}" th:style="'width: ' + ${dateDTOList.columnsOfFirstMonth * 30} + 'px'" th:colspan="${dateDTOList.columnsOfFirstMonth}" >|</th>
+            <th th:if="${(i.count > 1 and dto.dayOfMonth == 1)}" th:text="${dto.monthName}" th:style="'width: ' + ${dateDTOList.columnsOfSecondMonth * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondMonth}">|</th>
+        </div>
+    </tr>
+
+    <tr>
+        <th th:style="'width: 300px; border: none'"></th>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}">
+            <th  th:text="${dto.dayOfMonth}" th:style="'width: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"  ></th>
+        </div>
+    </tr>
+
+    <tr>
+        <th th:style="'width: 300px; border: none'"></th>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}">
+            <th  th:text="${#strings.substring(dto.dayName, 0, 2)}" th:style="'width: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"></th>
+        </div>
+    </tr>
+
+    <tr th:each="o,i : ${objectList}">
+        <td th:text="${list[i.count - 1].name}" th:style="'width: 300px'"></td>
+        <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
+            <td th:if="${dto.date < o.startDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"  > </td>
+
+            <span th:if="${dto.date >= o.startDate and dto.date <= o.endDate }">
+                <td th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle"  style="background-color: green"/></td>
+
+            </span>
+
+            <td th:if="${dto.date > o.endDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" > </td>
+
+        </div>
+    </tr>
+
+
+</table>
+<br/>
 
 <a th:href="@{/userSite}">
     <button class="back-button">
