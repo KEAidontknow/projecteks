@@ -8,7 +8,18 @@
     <link rel="stylesheet" type="text/css" href="../../static/topNav.css" th:href="@{/topNav.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/showTask.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/TITLE.BACKGROUND.css}">
+<style>
+    .deploy1-99{
+        background-color: gold;
+    }
+    .deploy0{
+        background-color: red;
+    }
+    .deploy100{
+        background-color: green;
+    }
 
+</style>
 
 
 
@@ -49,13 +60,13 @@
         <td th:text="${task.empNeeded}"></td>
         <td>
             <a th:href="@{/addAssignment/{projectId}/{taskId}(projectId=${projectId},taskId=${task.id})}">
-                <button class="status-button">Assign</button>
+                <button class="status-button" th:class="${nameDTO[i.count - 1].deploymentRate == 0}? 'deploy0' : (${nameDTO[i.count - 1].deploymentRate < 100}? 'deploy1-99' : 'deploy100')" >Assign</button>
             </a>
         </td>
         <td>
 
         <select>
-            <option th:each="name : ${nameDTO[i.count - 1]}" th:text="${name}"/>
+            <option th:each="name : ${nameDTO[i.count - 1].nameList}" th:text="${name}"/>
         </select>
         </td>
         <td th:if="${task.state}==1"><a style="color: crimson;">TODO</a></td>

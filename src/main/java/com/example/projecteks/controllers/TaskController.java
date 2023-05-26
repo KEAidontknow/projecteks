@@ -1,9 +1,11 @@
 package com.example.projecteks.controllers;
 
+import com.example.projecteks.dto.NameDeploymetRDTO;
 import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
+import com.example.projecteks.utilities.TimeCalc;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 @Controller
@@ -25,19 +26,23 @@ public class TaskController {
         model.addAttribute("list", taskList);
         model.addAttribute("projectId",projectId);
         System.out.println("test "+taskList);
-        ArrayList<ArrayList<String>> dto = new ArrayList<>(); //TODO gør til en metode
+        ArrayList<NameDeploymetRDTO> dtoList = new ArrayList<>(); //TODO gør til en metode
         for(Task t : taskList){
-            dto.add(database.getUserNameByTaskId(t.getId()));
+            NameDeploymetRDTO dto = new NameDeploymetRDTO();
+            dto.setDeploymentRate(TimeCalc.deploymentRate(t,database.getAssignmentsByTaskId(t.getId())));
+            dto.setNameList(database.getUserNameByTaskId(t.getId()));
+            dtoList.add(dto);
+
         }
         //Test start
-        for(ArrayList<String> l : dto){  //TODO GØR TIL EN LOG
+        for(NameDeploymetRDTO dto : dtoList){  //TODO GØR TIL EN LOG
             System.out.println("-------------");
-            for(String n : l){
+            for(String n : dto.getNameList()){
                 System.out.println("UserName: "+n);
             }
         }
         //Test end
-        model.addAttribute("nameDTO",dto);
+        model.addAttribute("nameDTO",dtoList);
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 
         model.addAttribute("userName",userName);
