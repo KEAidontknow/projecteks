@@ -89,8 +89,10 @@
             <td th:if="${dto.date < o.startDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"  > </td>
 
             <span th:if="${dto.date >= o.startDate and dto.date <= o.endDate }">
+                <span th:if="${!dto.isDayOff}">
                 <td th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle"  style="background-color: green"/></td>
-
+                </span>
+                <td th:if="${dto.isDayOff}" th:style="'width: 30px; height: 30px'" th:class="'dayOff-col'" ></td>
             </span>
 
             <td th:if="${dto.date > o.endDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" > </td>
