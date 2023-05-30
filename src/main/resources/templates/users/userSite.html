@@ -7,10 +7,12 @@
   <link rel="stylesheet" type="text/css" th:href="@{topNav.css}">
   <link rel="stylesheet" type="text/css" href="../../static/styleSheet.css" th:href="@{/styleSheet.css}">
 </head>
-<h2 th:text="'Hej '+${userName}"></h2>
+
 <body>
 <div th:replace="~{fragment/topnav :: project-nav}">
 </div>
+<h1>My Dashboard</h1>
+<h2 th:text="'Welcome '+${userName}"></h2>
 <table>
   <tr>
     <th></th>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>add Assignment</title>
     <link th:href="@{/showGant.css}" rel="stylesheet" >
     <link rel="stylesheet" type="text/css" href="../../static/topNav.css" th:href="@{/topNav.css}">
     <link rel="stylesheet" type="text/css" href="../../static/styleSheet.css" th:href="@{/styleSheet.css}">
@@ -27,7 +27,9 @@
 
 
 </head>
+
 <body>
+<h1>Add Assignment</h1>
 <div th:replace="~{fragment/topnav :: project-nav}"></div>
 
 <form th:action="@{/assignmentAdded}" method="post" th:object="${assignment}" >
@@ -90,7 +92,7 @@
 
             <span th:if="${dto.date >= o.startDate and dto.date <= o.endDate }">
                 <span th:if="${!dto.isDayOff}">
-                <td th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle"  style="background-color: green"/></td>
+                <td th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle"  style="background-color: blue"/></td>
                 </span>
                 <td th:if="${dto.isDayOff}" th:style="'width: 30px; height: 30px'" th:class="'dayOff-col'" ></td>
             </span>
