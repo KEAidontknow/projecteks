@@ -4,13 +4,17 @@ import com.example.projecteks.models.Project;
 import com.example.projecteks.models.Task;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.security.core.context.SecurityContext;
 
 import java.time.LocalDate;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 public class DatabaseTest {
     //TODO: find out how to make a embedded in-memory database for testing purposes
@@ -27,9 +31,10 @@ public class DatabaseTest {
             randomName += c[random.nextInt(0,26)];
         }
     }
-    /*
-    @Test
+// Har udkommenteret denne test, da det ikke lykkedes mig at lave en Mock user, som var nødvendig
+    /*@Test
     public void addGetAndRemoveProject(){
+
         //ARRANGE
         String name = randomName;
         String startDate = "21-08-2026";
@@ -38,27 +43,31 @@ public class DatabaseTest {
         accepted.setProjectName(name);
         accepted.setStartDate(startDate);
         accepted.setDeadline(deadline);
-        //ACT
-        database.addProject(accepted);
-        Project actual = database.getCertainProject(database.getProjectId(name));
-        //ASSERT
-        assertEquals(actual.getDeadline(),accepted.getDeadline());
-        assertEquals(actual.getProjectName(),accepted.getProjectName());
-        assertEquals(actual.getStartDate(),accepted.getStartDate());
 
         //ACT
-        int id = actual.getProjectId();
-        //ASSERT
-        assertEquals(actual.getProjectName(), database.showProjects().get(database.showProjects().size()-1).getProjectName());
-        //ACT
-        database.deleteById(id);
-        actual = database.showProjects().get(database.showProjects().size()-1);
-        //ASSERT
-        assertNotEquals(actual.getProjectName(),accepted.getProjectName());
 
 
-    }
-*/
+            database.addProject(accepted); // Har brugt denne metode, da det ikke lykkedes mig at lave en Mog user
+
+            Project actual = database.getCertainProject(database.getProjectId(name));
+            //ASSERT
+            assertEquals(actual.getDeadline(), accepted.getDeadline());
+            assertEquals(actual.getProjectName(), accepted.getProjectName());
+            assertEquals(actual.getStartDate(), accepted.getStartDate());
+
+            //ACT
+            int id = actual.getProjectId();
+            //ASSERT
+            assertEquals(actual.getProjectName(), database.showProjects().get(database.showProjects().size() - 1).getProjectName());
+            //ACT
+            database.deleteById(id);
+            actual = database.showProjects().get(database.showProjects().size() - 1);
+            //ASSERT
+            assertNotEquals(actual.getProjectName(), accepted.getProjectName());
+
+
+    }*/
+
 
 
 
@@ -97,10 +106,15 @@ public class DatabaseTest {
         //ACT
         int id = actual.getId();
         database.removeTask(id);
-        index = database.getTasks(projectId).size()-1;
-        actual = database.getTasks(projectId).get(index);
-        //ASSERT
-        assertFalse(actual.getName().equals(accepted.getName()));
+        if(database.getTasks(projectId).isEmpty()){
+            //ASSERT
+            assertTrue(true);
+        }else {
+            index = database.getTasks(projectId).size() - 1;
+            actual = database.getTasks(projectId).get(index);
+            //ASSERT
+            assertFalse(actual.getName().equals(accepted.getName()));
+        }
 
     }
     @Test
@@ -108,6 +122,14 @@ public class DatabaseTest {
         //ARRANGE
         int expected = 0;
         int projectId = database.showProjects().get(database.showProjects().size()-1).getProjectId();
+        Task t = new Task();
+        t.setName(randomName);
+        t.setStartDate(LocalDate.now());
+        t.setDeadline(LocalDate.now().plusDays(1));
+        t.setCreationDate("2023-05-30");
+        t.setProjectId(projectId);
+        t.setState(random.nextInt(1,4));
+        database.addTask(t);
         int index = database.getTasks(projectId).size()-1;
         int id = database.getTasks(projectId).get(index).getId();
 
@@ -123,7 +145,11 @@ public class DatabaseTest {
             int actual = database.getTasks(projectId).get(index).getState();
             //ASSERT
             assertEquals(actual, expected);
+
+
         }
+        //Cleanup
+        database.removeTask(id);
     }
 
     @Test
