@@ -134,7 +134,7 @@
 
             <span th:if="${dto.date >= o.startDate and dto.date <= o.endDate }">
                 <span th:if="${!dto.isDayOff}">
-                <td th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle" th:class="${list[i.count - 1].state==1}?'todo': (${list[i.count - 1].state==2}?'in-progress' : 'done')"/></td>
+                <td th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><a class="circle" th:class="${list[i.count - 1].state==1}?'todo': (${list[i.count - 1].state==2}?'in-progress' : 'done')"/></td>
                 </span>
                 <td th:if="${dto.isDayOff}" th:style="'width: 30px; height: 30px'" th:class="'dayOff-col'" ></td>
             </span>
