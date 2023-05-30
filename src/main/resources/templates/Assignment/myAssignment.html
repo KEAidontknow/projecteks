@@ -17,58 +17,36 @@
         .dayOff-col{
             background-color: orange;
         }
+        .todo{
+
+            background-color: green;
+        }
+        .in-progress{
+
+            background-color: gold;
+        }
+        .done{
+
+            background-color: red;
+        }
     </style>
 
-
+    <title>My Assignments</title>
 
 </head>
 <body>
 <div th:replace="~{fragment/topnav :: project-nav}"></div>
 
+<h1>My Assignments</h1>
 
 
 <table>
-    <tbody>
+
     <tr>
-        <th>Id</th>
-        <th>Name</th>
+        <th th:style="'width: 100px; border: none'"></th>
+        <th th:style="'width: 100px; border: none'"></th>
+        <th th:style="'width: 100px; border: none'"></th>
 
-        <th>Start Date</th>
-        <th>Deadline</th>
-
-        <th>Status</th>
-        <th>Change<br/>Status</th>
-
-
-    </tr>
-    <tr th:each="task,i : ${list}">
-        <td th:text="${task.id}"></td>
-        <td th:text="${task.name}" th:class="${task.star == 2} ? 'task-name-fav' : ''"></td>
-
-        <td th:text="${task.startDate}"></td>
-        <td th:text="${task.deadline}"></td>
-
-
-
-
-        <td th:if="${task.state}==1"><a style="color: crimson;">TODO</a></td>
-        <td th:if="${task.state}==2"><a style="color: gold;">In Progress</a></td>
-        <td th:if="${task.state}==3"><a style="color: green;">Done</a></td>
-        <td>
-            <a th:href="@{/updateStateAssignment/{taskId}/{state}(taskId=${task.id},state=${task.state})}">
-                <button class="status-button" th:if="${task.state==1}">In Progress</button>
-                <button class="status-button" th:if="${task.state==2}">Done</button>
-                <button class="status-button" th:if="${task.state==3}">Reset</button>
-            </a>
-        </td>
-
-    </tr>
-    </tbody>
-</table>
-<br/>
-<table>
-    <tr>
-        <th th:style="'width: 300px; border: none'"></th>
         <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
             <th th:if="${(i.count == 1)}" th:text="${dto.year}" th:style="'width: ' + ${dateDTOList.columnsOfFirstYear * 30} + 'px'" th:colspan="${dateDTOList.columnsOfFirstYear}" >|</th>
             <th th:if="${(i.count > 1 and dto.date.dayOfYear == 1)}" th:text="${dto.year}" th:style="'width: ' + ${dateDTOList.columnsOfSecondYear * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondYear}">|</th>
@@ -76,7 +54,10 @@
     </tr>
 
     <tr>
-        <th th:style="'width: 300px; border: none'"></th>
+        <th th:style="'width: 100px; border: none'"></th>
+        <th th:style="'width: 100px; border: none'">TASK</th>
+        <th th:style="'width: 100px; border: none'"></th>
+
         <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
             <th th:if="${(i.count == 1)}" th:text="${dto.monthName}" th:style="'width: ' + ${dateDTOList.columnsOfFirstMonth * 30} + 'px'" th:colspan="${dateDTOList.columnsOfFirstMonth}" >|</th>
             <th th:if="${(i.count > 1 and dto.dayOfMonth == 1)}" th:text="${dto.monthName}" th:style="'width: ' + ${dateDTOList.columnsOfSecondMonth * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondMonth}">|</th>
@@ -84,30 +65,49 @@
     </tr>
 
     <tr>
-        <th th:style="'width: 300px; border: none'"></th>
+        <th th:style="'width: 100px; border: none'"></th>
+        <th th:style="'width: 100px; border: none'"></th>
+        <th th:style="'width: 100px; border: none'"></th>
+
         <div th:each="dto,i : ${dateDTOList.dateDTOS}">
             <th  th:text="${dto.dayOfMonth}" th:style="'width: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"  ></th>
         </div>
     </tr>
 
     <tr>
-        <th th:style="'width: 300px; border: none'"></th>
+        <th th:style="'width: 100px; border: none'"></th>
+        <th th:style="'width: 100px; border: none'"></th>
+        <th th:style="'width: 100px; border: none'"></th>
         <div th:each="dto,i : ${dateDTOList.dateDTOS}">
             <th  th:text="${#strings.substring(dto.dayName, 0, 2)}" th:style="'width: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"></th>
         </div>
     </tr>
 
     <tr th:each="o,i : ${objectList}">
-        <td th:text="${list[i.count - 1].name}" th:style="'width: 300px'"></td>
-        <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
-            <td th:if="${dto.date < o.startDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"  > </td>
+        <td th:text="${list[i.count - 1].name}" th:style="'width: 100px'"></td>
+        <td th:if="${list[i.count - 1].state}==1"><a style="color: crimson;">TODO</a></td>
+        <td th:if="${list[i.count - 1].state}==2"><a style="color: gold;">In Progress</a></td>
+        <td th:if="${list[i.count - 1].state}==3"><a style="color: green;">Done</a></td>
+        <td>
+        <a th:href="@{/updateStateAssignment/{taskId}/{state}(taskId=${list[i.count - 1].id},state=${list[i.count - 1].state})}">
+            <button class="status-button" th:if="${list[i.count - 1].state==1}">In Progress</button>
+            <button class="status-button" th:if="${list[i.count - 1].state==2}">Done</button>
+            <button class="status-button" th:if="${list[i.count - 1].state==3}">Reset</button>
+        </a>
+        </td>
+        <div th:each="dto,j : ${dateDTOList.dateDTOS}" >
+            <td th:if="${dto.date < o.startDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${j.count % 2 != 0}? 'odd-col' : 'even-col')"  > </td>
 
             <span th:if="${dto.date >= o.startDate and dto.date <= o.endDate }">
-                <td th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle"  style="background-color: green"/></td>
-
+                <span th:if="${!dto.isDayOff}">
+                <td th:if="${list[i.count - 1].state==1}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${j.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle" style="background-color: red"/></td>
+                <td th:if="${list[i.count - 1].state==2}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${j.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle" style="background-color: gold"/></td>
+                <td th:if="${list[i.count - 1].state==3}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${j.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle" style="background-color: green"/></td>
+                </span>
+                <td th:if="${dto.isDayOff}" th:style="'width: 30px; height: 30px'" th:class="'dayOff-col'" ></td>
             </span>
 
-            <td th:if="${dto.date > o.endDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" > </td>
+            <td th:if="${dto.date > o.endDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${j.count % 2 != 0}? 'odd-col' : 'even-col')" > </td>
 
         </div>
     </tr>
