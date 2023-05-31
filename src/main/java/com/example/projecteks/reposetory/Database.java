@@ -26,7 +26,7 @@ public class Database implements DatabaseInterface {
         ArrayList<Task> list = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.task where projectId = ?";
+        String SQLScript = "select * from Projectmanagementv3.task where projectId = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -57,7 +57,7 @@ public class Database implements DatabaseInterface {
 
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.task where taskId = ?";
+        String SQLScript = "select * from Projectmanagementv3.task where taskId = ?";
         Task task = new Task();
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -83,7 +83,7 @@ public class Database implements DatabaseInterface {
 
     public void addTask(Task task) {  //UNITEST
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate,projectId) values(?,?,?,?,?,?,?)";
+        String SQLScript = "insert into Projectmanagementv3.task (taskName,taskState,creationDate,startdate,deadline,timeEstimate,projectId) values(?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -109,7 +109,7 @@ public class Database implements DatabaseInterface {
 
     public void removeTask(int taskId) {   //UNITEST
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "delete from Projectmanagement.task where taskId = ?";
+        String SQLScript = "delete from Projectmanagementv3.task where taskId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setInt(1, taskId);
@@ -121,7 +121,7 @@ public class Database implements DatabaseInterface {
     }
     public void deleteAllTasksInProject(int projectId) {
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "delete from Projectmanagement.task where projectId = ?";
+        String SQLScript = "delete from Projectmanagementv3.task where projectId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setInt(1, projectId);
@@ -134,7 +134,7 @@ public class Database implements DatabaseInterface {
 
     public void updateState(int taskId, int state) {  //
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "update Projectmanagement.task set taskState=? where taskId=?";
+        String SQLScript = "update Projectmanagementv3.task set taskState=? where taskId=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -154,7 +154,7 @@ public class Database implements DatabaseInterface {
     //Jeg har valgt at pille Status fra da den er til at ændre altid som vi snakkede om
     public void editTask(Task updatedTask) {
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "update Projectmanagement.task set taskName=?, timeEstimate=?, startDate=?, deadline=? where taskId=?";
+        String SQLScript = "update Projectmanagementv3.task set taskName=?, timeEstimate=?, startDate=?, deadline=? where taskId=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -171,7 +171,7 @@ public class Database implements DatabaseInterface {
 
     public void updateTask(Task task) {
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "update Projectmanagement.task set taskName=?, taskState=? where taskId=?";
+        String SQLScript = "update Projectmanagementv3.task set taskName=?, taskState=? where taskId=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -206,7 +206,7 @@ public class Database implements DatabaseInterface {
     public Project getCertainProject(int projectId) { //UNITEST
         try {
             Connection con = ConnectionManager.getConnection();
-            String SQL = "SELECT * FROM Projectmanagement.project WHERE projectId = ?";
+            String SQL = "SELECT * FROM Projectmanagementv3.project WHERE projectId = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, projectId);
             ResultSet rs = ps.executeQuery();
@@ -246,7 +246,7 @@ public class Database implements DatabaseInterface {
         Connection con = ConnectionManager.getConnection();
         try {
             Project project = new Project();
-            String SQL = "SELECT projectId FROM Projectmanagement.project WHERE projectName = ?";
+            String SQL = "SELECT projectId FROM Projectmanagementv3.project WHERE projectName = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, projectName);
             ResultSet rs = ps.executeQuery();
@@ -262,7 +262,7 @@ public class Database implements DatabaseInterface {
 
     public void updateProjectName(int projectId, String projectName, String startDate, String deadline) {
         try {
-            String SQL = "UPDATE Projectmanagement.project SET projectName = ?, startDate = ?, deadline = ? WHERE projectId = ?";
+            String SQL = "UPDATE Projectmanagementv3.project SET projectName = ?, startDate = ?, deadline = ? WHERE projectId = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, projectName);
             ps.setString(2, startDate);
@@ -280,7 +280,7 @@ public class Database implements DatabaseInterface {
         ArrayList<Project> pList = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.project";
+        String SQLScript = "select * from Projectmanagementv3.project";
 
         try {
             ResultSet rs = con.createStatement().executeQuery(SQLScript);
@@ -304,7 +304,7 @@ public class Database implements DatabaseInterface {
     public void addProject(Project project) { //UNITEST
         Connection con = ConnectionManager.getConnection();
         // String SQLScript="insert into project_DB.project(name, id) valued=(?,?) ";
-        String SQL = "INSERT INTO Projectmanagement.project (projectName,startDate,deadline) VALUES (?,?,?)";
+        String SQL = "INSERT INTO Projectmanagementv3.project (projectName,startDate,deadline) VALUES (?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(SQL);
 
@@ -321,7 +321,7 @@ public class Database implements DatabaseInterface {
 
     public void deleteById(int projectId) {
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "delete from Projectmanagement.project where projectId=?";
+        String SQLScript = "delete from Projectmanagementv3.project where projectId=?";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setInt(1, projectId);
@@ -342,7 +342,7 @@ public class Database implements DatabaseInterface {
         ArrayList<User> userList = new ArrayList<>();
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.users";
+        String SQLScript = "select * from Projectmanagementv3.users";
 
         try {
             ResultSet rs = con.createStatement().executeQuery(SQLScript);
@@ -362,7 +362,7 @@ public class Database implements DatabaseInterface {
     public void addUser(User user) {
         Connection con = ConnectionManager.getConnection();
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String SQLScript = "insert into Projectmanagement.users (userName, password, role, enabled) values(?,?,?,?)";
+        String SQLScript = "insert into Projectmanagementv3.users (userName, password, role, enabled) values(?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -383,7 +383,7 @@ public class Database implements DatabaseInterface {
 
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.assign where taskId = ?";
+        String SQLScript = "select * from Projectmanagementv3.assign where taskId = ?";
         ArrayList<Assign> assignmentList = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -406,7 +406,7 @@ public class Database implements DatabaseInterface {
 
 
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select * from Projectmanagement.assign where user_id = ?";
+        String SQLScript = "select * from Projectmanagementv3.assign where user_id = ?";
         ArrayList<Assign> assignmentList = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -427,7 +427,7 @@ public class Database implements DatabaseInterface {
 
     public void addAssignment(int taskId, int userId) {  //UNITEST
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "insert into Projectmanagement.assign (taskId,user_id) values(?,?)";
+        String SQLScript = "insert into Projectmanagementv3.assign (taskId,user_id) values(?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
@@ -442,7 +442,7 @@ public class Database implements DatabaseInterface {
     public ArrayList<String> getUserNameByTaskId(int taskId){
         ArrayList<String> nameList = new ArrayList<>();
         Connection con = ConnectionManager.getConnection();
-        String SQLScript = "select username from Projectmanagement.users where user_id in (select user_id from Projectmanagement.assign where taskId = ?)";
+        String SQLScript = "select username from Projectmanagementv3.users where user_id in (select user_id from Projectmanagement.assign where taskId = ?)";
         try {
             PreparedStatement ps = con.prepareStatement(SQLScript);
             ps.setInt(1,taskId);

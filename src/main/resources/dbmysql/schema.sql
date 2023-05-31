@@ -1,7 +1,7 @@
-drop database if exists Projectmanagement;
-create database Projectmanagement;
+drop database if exists Projectmanagementv3;
+create database Projectmanagementv3;
 
-use Projectmanagement;
+use Projectmanagementv3;
 CREATE TABLE `users` (
                          `user_id` int(11) NOT NULL AUTO_INCREMENT,
                          `username` varchar(45) NOT NULL,
