@@ -1,6 +1,7 @@
 package com.example.projecteks.controllers;
 
 
+import com.example.projecteks.dto.DaysFromNowDTO;
 import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
 
@@ -18,30 +19,43 @@ import java.sql.SQLException;
 @Controller
 public class GantControllers {
     DatabaseInterface database = new Database();
-    private int daysFromNow= 0;
+
     @GetMapping("/showGant/{projectId}")
     public String showGant(Model model, @PathVariable int projectId, HttpSession session) throws RuntimeException{
+        DaysFromNowDTO daysFromNow =  (DaysFromNowDTO) session.getAttribute("daysFromNow");
+        if(daysFromNow==null){
+            daysFromNow = new DaysFromNowDTO();
+            daysFromNow.setDaysFromNow(0);
+            session.setAttribute("daysFromNow", new DaysFromNowDTO());
+        }
         model.addAttribute("objectList", database.getTasks(projectId));
-        model.addAttribute("dateDTOList", DateGenerator.getDateDTOList(daysFromNow));
+        model.addAttribute("dateDTOList", DateGenerator.getDateDTOList(daysFromNow.getDaysFromNow()));
         model.addAttribute("projectId",projectId);
         return "Task/showGant";
     }
 
     @GetMapping("/increment/{projectId}")
-    public String increment(@PathVariable int projectId){
-        daysFromNow += 30;
+    public String increment(@PathVariable int projectId,HttpSession session){
+        DaysFromNowDTO daysFromNow =  (DaysFromNowDTO) session.getAttribute("daysFromNow");
+        daysFromNow.addDaysFromNow(30);
+        session.setAttribute("daysFromNow",daysFromNow);
+
         return "redirect:/showGant/"+ projectId;
     }
     @GetMapping("/now/{projectId}")
-    public String now(@PathVariable int projectId){
-        daysFromNow = 0;
+    public String now(@PathVariable int projectId,HttpSession session){
+        DaysFromNowDTO daysFromNow =  (DaysFromNowDTO) session.getAttribute("daysFromNow");
+        daysFromNow.addDaysFromNow(0);
+        session.setAttribute("daysFromNow",daysFromNow);
         return "redirect:/showGant/"+ projectId;
     }
 
 
     @GetMapping("/decrement/{projectId}")
-    public String decrement(@PathVariable int projectId){
-        daysFromNow -= 30;
+    public String decrement(@PathVariable int projectId,HttpSession session){
+        DaysFromNowDTO daysFromNow =  (DaysFromNowDTO) session.getAttribute("daysFromNow");
+        daysFromNow.addDaysFromNow(-30);
+        session.setAttribute("daysFromNow",daysFromNow);
         return "redirect:/showGant/"+ projectId;
     }
     @ExceptionHandler(SQLException.class)

@@ -31,27 +31,17 @@
 <body>
 <h1>Add Assignment</h1>
 <div th:replace="~{fragment/topnav :: project-nav}"></div>
-
 <form th:action="@{/assignmentAdded}" method="post" th:object="${assignment}" >
     <select th:field="*{userName}">
         <option th:each="user : ${userList}" th:value="${user.username}" th:text="${user.username}"/>
     </select>
-
-
         <label for="startDate">from:</label>
         <input type="date" id="startDate" name="startDate" th:field="*{startDate}" th:attr="min=${taskStart}, max=${taskDeadline}" required/>
-
-
         <label for="endDate">to:</label>
         <input type="date" id="endDate" name="deadline" th:field="*{endDate}" th:attr="min=${taskStart}, max=${taskDeadline}" required/>
-
-
-
-
     <input type="hidden" id="taskId" name="taskId"  th:value="${taskId}" />
     <input type="hidden" id="projectId" name="projectId" th:value="${projectId}" />
     <button type="submit" value="Assign Employee" class="center">Assign Employee</button>
-
 </form>
 <br/>
 <table>
@@ -62,7 +52,6 @@
             <th th:if="${(i.count > 1 and dto.date.dayOfYear == 1)}" th:text="${dto.year}" th:style="'width: ' + ${dateDTOList.columnsOfSecondYear * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondYear}">|</th>
         </div>
     </tr>
-
     <tr>
         <th th:style="'width: 300px; border: none'"></th>
         <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
@@ -70,39 +59,31 @@
             <th th:if="${(i.count > 1 and dto.dayOfMonth == 1)}" th:text="${dto.monthName}" th:style="'width: ' + ${dateDTOList.columnsOfSecondMonth * 30} + 'px'" th:colspan="${dateDTOList.columnsOfSecondMonth}">|</th>
         </div>
     </tr>
-
     <tr>
         <th th:style="'width: 300px; border: none'"></th>
         <div th:each="dto,i : ${dateDTOList.dateDTOS}">
             <th  th:text="${dto.dayOfMonth}" th:style="'width: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"  ></th>
         </div>
     </tr>
-
     <tr>
         <th th:style="'width: 300px; border: none'"></th>
         <div th:each="dto,i : ${dateDTOList.dateDTOS}">
             <th  th:text="${#strings.substring(dto.dayName, 0, 2)}" th:style="'width: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"></th>
         </div>
     </tr>
-
     <tr th:each="o : ${objectList}">
         <td th:text="${o.userName}" th:style="'width: 300px'"></td>
         <div th:each="dto,i : ${dateDTOList.dateDTOS}" >
             <td th:if="${dto.date < o.startDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')"  > </td>
-
             <span th:if="${dto.date >= o.startDate and dto.date <= o.endDate }">
                 <span th:if="${!dto.isDayOff}">
                 <td th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" ><div class="circle"  style="background-color: blue"/></td>
                 </span>
                 <td th:if="${dto.isDayOff}" th:style="'width: 30px; height: 30px'" th:class="'dayOff-col'" ></td>
             </span>
-
             <td th:if="${dto.date > o.endDate}" th:style="'width: 30px; height: 30px'" th:class="${dto.isDayOff}? 'dayOff-col' : (${i.count % 2 != 0}? 'odd-col' : 'even-col')" > </td>
-
         </div>
     </tr>
-
-
 </table>
 <p th:text="'Deployment Rate: '+${deploymentRate}+'%'" ></p>
 <table1>

@@ -1,5 +1,8 @@
 package com.example.projecteks.utilities;
 
+import com.example.projecteks.dto.DateDTO;
+import com.example.projecteks.dto.DateDTOList;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
