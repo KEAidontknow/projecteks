@@ -1,7 +1,9 @@
 # ProjectEks
 Projecteks is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/).
 
-you can try it [HERE](https://projecteks.azurewebsites.net)
+you can try the latest version [HERE](https://projecteks.azurewebsites.net)
+
+or the previous version 3 [HERE](https://projecteksv3.azurewebsites.net)
 
 Developed by "KEAidontkow" - Andreas, Stinus, Wenmin & Yuying
 
