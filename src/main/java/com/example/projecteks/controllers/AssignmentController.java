@@ -9,9 +9,11 @@ import com.example.projecteks.utilities.DateGenerator;
 import com.example.projecteks.utilities.TimeCalc;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.session.StandardSession;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -55,11 +57,24 @@ public class AssignmentController {
         return "redirect:/addAssignment/"+projectId+"/"+taskId;
     }
     @GetMapping("/myAssignment")
-    public String getAssignmentByUserId(Model model) throws RuntimeException{
+    public String getAssignmentByUserId(Model model, HttpSession session) throws RuntimeException{
+        DaysFromNowDTO daysFromNow =  (DaysFromNowDTO)session.getAttribute("daysFromNow");
+        if(daysFromNow==null){
+            daysFromNow = new DaysFromNowDTO();
+            daysFromNow.setDaysFromNow(0);
+            session.setAttribute("daysFromNow",daysFromNow);
+        }
         model.addAttribute("list", database.getAssignedTasks());
         model.addAttribute("objectList", database.getAssignmentsByUserName(SecurityContextHolder.getContext().getAuthentication().getName()));
-        model.addAttribute("dateDTOList", DateGenerator.getDateDTOList(0));
+        model.addAttribute("dateDTOList", DateGenerator.getDateDTOList(daysFromNow.getDaysFromNow()));
         return "Assignment/myAssignment";
+    }
+    @PostMapping("/myAssignment")
+    public String myAssignment(HttpSession session, @RequestParam("days") int days){
+        DaysFromNowDTO daysFromNow = (DaysFromNowDTO)session.getAttribute("daysFromNow");
+        daysFromNow.addDaysFromNow(days);
+        session.setAttribute("daysFromNow", daysFromNow);
+      return "redirect:/myAssignment";
     }
 
     @GetMapping("updateStateAssignment/{taskId}/{state}")

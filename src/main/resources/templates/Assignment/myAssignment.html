@@ -2,11 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/topNav.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/showTask.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/TITLE.BACKGROUND.css}">
     <link th:href="@{/showGant.css}" rel="stylesheet" >
+    <link rel="stylesheet" type="text/css" th:href="@{/topNav.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/TITLE.BACKGROUND.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/showtasks.css}">
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <style>
         .even-col {
             background-color: darkred;
@@ -29,6 +31,11 @@
 
             background-color: red;
         }
+        .button-container {
+            display: flex;
+            gap: 10px; /* Adjust the gap as needed */
+        }
+
     </style>
 
     <title>My Assignments</title>
@@ -114,11 +121,37 @@
 
 
 </table>
+<div class="button-container">
+
+
+
+            <form th:action="@{/myAssignment}" method="post" >
+                <input type="hidden" name="days" value="-30">
+                <button type="submit" >
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </form>
+
+            <form th:action="@{/myAssignment}" method="post"  >
+                <input type="hidden" name="days" value="0">
+                <button  type="submit" class="black-button gantt-button" >
+                    now
+                </button>
+            </form>
+
+            <form th:action="@{/myAssignment}" method="post">
+                <input type="hidden" name="days" value="30">
+                <button type="submit" >
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+</div>
 <br/>
 
 <a th:href="@{/userSite}">
     <button class="back-button">
-        <i class="fas fa-arrow-left"></i>
+        <i class="fas fa-arrow-left">  Back to Dashboard</i>
     </button>
 </a>
 
