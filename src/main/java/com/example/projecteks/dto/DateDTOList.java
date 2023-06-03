@@ -1,4 +1,4 @@
-package com.example.projecteks.utilities;
+package com.example.projecteks.dto;
 
 import java.util.ArrayList;
 

@@ -7,6 +7,7 @@ import com.example.projecteks.reposetory.Database;
 import com.example.projecteks.reposetory.DatabaseInterface;
 import com.example.projecteks.utilities.TimeCalc;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,10 @@ public class TaskController {
     DatabaseInterface database = new Database();
 
     @GetMapping("showTask/{projectId}")
-    private String showTasks(Model model,@PathVariable int projectId) throws RuntimeException{
+    private String showTasks(Model model, @PathVariable int projectId, HttpSession session) throws RuntimeException{
+        if(session.getAttribute("daysFromNow")!= null){
+            session.removeAttribute("daysFromNow");
+        }
         ArrayList<Task> taskList = database.getTasks(projectId);
         model.addAttribute("list", taskList);
         model.addAttribute("projectId",projectId);
